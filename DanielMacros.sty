@@ -1,0 +1,244 @@
+% MacrosEtc.sty - Custom macros and theorem environments
+
+% Ensure the file is loaded only once
+\ProvidesPackage{DanielMacros}
+
+
+%% Load required packages
+
+\RequirePackage{acronym}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amstext}
+\RequirePackage{amsthm}
+\RequirePackage{aligned-overset}
+\RequirePackage{algorithm}
+\RequirePackage{algpseudocode}
+\RequirePackage{booktabs}
+\RequirePackage[\Lec@language]{babel}
+\RequirePackage{calc}
+\RequirePackage{cancel}
+% \RequirePackage{color}
+\RequirePackage{dsfont}
+\RequirePackage{enumerate}
+\RequirePackage[shortlabels]{enumitem}
+\RequirePackage{environ}
+\RequirePackage{etoolbox}
+\RequirePackage{float}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{geometry}
+\RequirePackage{graphicx}
+\RequirePackage{imakeidx}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{listings}
+\RequirePackage{lmodern}
+\RequirePackage{mathrsfs}
+\RequirePackage{mathtools}
+\RequirePackage{nicefrac}
+\RequirePackage{pifont}
+\RequirePackage{pgf,tikz}
+\RequirePackage{tikz-cd}
+\RequirePackage{pgfplots}
+\RequirePackage{qrcode}
+\RequirePackage{scrextend}
+\RequirePackage[headsepline]{scrlayer-scrpage}
+\RequirePackage{selinput}
+\RequirePackage{setspace}
+\RequirePackage{soul}
+\RequirePackage{stmaryrd}
+\RequirePackage{tabularx}
+\RequirePackage[most]{tcolorbox}
+    \tcbuselibrary{theorems}
+\RequirePackage{tocloft}
+
+\RequirePackage[
+  colorinlistoftodos
+  ,prependcaption
+  ,textsize=tiny
+  ,disable
+  ]{todonotes}
+
+\usepackage{xargs}
+% \usepackage[pdftex,dvipsnames]{xcolor}
+\RequirePackage[normalem]{ulem}
+\usetikzlibrary{calc}
+\RequirePackage{tkz-euclide}
+\RequirePackage[
+  %colorlinks=true, 
+  urlcolor=black, linkcolor=black]{hyperref}
+\RequirePackage{cleveref}
+\geometry{a4paper, top=20mm, left=25mm, right=25mm, bottom=20mm, headsep=5mm, footskip=12mm}
+% \usetkzobj{all}
+\setlist{listparindent=\parindent}
+
+\RequirePackage{footnote}
+\BeforeBeginEnvironment{tcolorbox}{\savenotes}
+\AfterEndEnvironment{tcolorbox}{\spewnotes}
+
+
+
+%% Paired delimiters
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\rounds}{(}{)}
+\DeclarePairedDelimiter{\roundedgy}{(}{]}
+\DeclarePairedDelimiter{\edgyround}{[}{)}
+\DeclarePairedDelimiter{\edgys}{[}{]}
+\DeclarePairedDelimiter{\set}{\{}{\}}
+\DeclarePairedDelimiter{\inner}{\langle}{\rangle}
+\DeclarePairedDelimiter{\abs}{|}{|}
+\DeclarePairedDelimiter{\norm}{\|}{\|}
+
+%% Math operators
+\DeclareMathOperator{\ggT}{ggT}
+\DeclareMathOperator{\kgV}{kgV}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\rd}{rd}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Abb}{Abb}
+\DeclareMathOperator{\Bij}{Bij}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\Rea}{Re}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Gl}{Gl}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\EV}{EV}
+\DeclareMathOperator{\EW}{EW}
+\DeclareMathOperator{\idx}{index}
+\DeclareMathOperator{\NST}{NST}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Unif}{Unif}
+\DeclareMathOperator{\Lin}{Lin}
+\DeclareMathOperator{\Bin}{Bin}
+\DeclareMathOperator{\Pf}{Pf}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\Sl}{Sl}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Coker}{Coker}
+\DeclareMathOperator{\Coim}{Coim}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Lip}{Lip}
+% \DeclareMathOperator{\d}{d}
+\DeclareMathOperator{\e}{e}
+\DeclareMathOperator{\loc}{loc}
+\DeclareMathOperator{\per}{per}
+\DeclareMathOperator{\pt}{pt}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\const}{const}
+\DeclareMathOperator{\incl}{incl}
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\Set}{\mathbf{Set}}
+\DeclareMathOperator{\Top}{\mathbf{Top}}
+\DeclareMathOperator{\HoTop}{\mathbf{HoTop}}
+\DeclareMathOperator{\Grp}{\mathbf{Grp}}
+% \DeclareMathOperator{\div}{div}
+\DeclareMathOperator{\rot}{rot}
+
+
+%% Further macros
+\newcommand{\IN}{\mathbb{N}}
+\newcommand{\IZ}{\mathbb{Z}}
+\newcommand{\IQ}{\mathbb{Q}}
+\newcommand{\IR}{\mathbb{R}}
+\newcommand{\IC}{\mathbb{C}}
+\newcommand{\ID}{\mathbb{D}}
+\newcommand{\IP}{\mathbb{P}}
+\newcommand{\IK}{\mathbb{K}}
+\newcommand{\IL}{\mathbb{L}}
+\newcommand{\IF}{\mathbb{F}}
+\newcommand{\IV}{\mathbb{V}}
+\newcommand{\IS}{\mathbb{S}}
+\newcommand{\IE}{\mathbb{E}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\cmark}{\text{\ding{51}}}
+\newcommand{\xmark}{\text{\ding{55}}}
+\newcommand{\charac}{\mathrm{char}}
+\newcommand{\Scalar}{\inner{\cdot,\cdot}}
+\newcommand{\BLF}{\mathrm{BLF}}
+\newcommand{\entspr}{\widehat{=}}
+\newcommand{\eps}{\mathrm{eps}}
+\newcommand{\enquote}[1]{\glqq{}#1\grqq{}}
+\newcommand{\bij}{\overset{\sim}{\to}}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\iso}{\cong}
+\newcommand{\hmtp}{\simeq}
+\newcommand{\transp}[1]{\begin{pmatrix}\begin{smallmatrix}#1\end{smallmatrix}\end{pmatrix}}
+\newcommand{\1}{\mathds{1}}
+\newcommand{\dd}{~\mathrm{d}}
+\newcommand{\grad}{\nabla}
+% \renewcommand{\mid}{~\middle|~}
+
+
+\newcommand{\Div}{~|~}
+
+\newcommand{\subgroup}[2]{\reflectbox{\nicefrac[\reflectbox]{$#2$}{$#1$}}}
+
+
+%%Commands from Jan
+\newcommand{\konj}[1]{\overline{#1}}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\Lra}{\Leftrightarrow}
+
+\newcommand{\newLecture}[1]{%
+    \renewcommand{\lastLectureDate}{\currentLectureDate}
+    \ifnum\thelecture=0
+    \else
+    \hfill [\lastLectureDate, \Lec@Lecture{} \thelecture{}]
+    \fi
+    \addtocounter{lecture}{1}
+    \hrule
+    \renewcommand{\currentLectureDate}{#1}
+    \vspace{-5pt}
+    \hfill [\currentLectureDate, \Lec@Lecture{} \thelecture{}]
+}
+
+
+\newcommand{\breakline}[1]{%
+    \begingroup%
+        \par\centering\bfseries%
+        \rule[0.6ex]{1.5cm}{1pt} #1 \rule[0.6ex]{1.5cm}{1pt}\par%
+    \endgroup%
+}
+
+
+
+
+
+
+
+
+
+% End of package
+\endinput
