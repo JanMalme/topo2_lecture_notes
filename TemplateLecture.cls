@@ -161,7 +161,7 @@
     \providecaptionname{english}{\Lec@ListOfStatements}{List of statements}%
     \providecaptionname{english}{\Lec@Lecture}{Lecture}%
     \providecaptionname{english}{\Lec@Appendix}{Appendix}
-    \providecaptionname{english}{\Lec@Corrections}{If you have corrections or improvements, contact me via (\href{mailto:daniel.emse@uni-bonn.de}{\texttt{daniel.emse@uni-bonn.de}}).}
+    \providecaptionname{english}{\Lec@Corrections}{If you have corrections or improvements, contact me via (\href{mailto:s94jmalm@uni-bonn.de}{\texttt{s94jmalm@uni-bonn.de}}).}
     \providecaptionname{english}{\Lec@CorrectionsSec}{Corrections and improvements}
 }
 
