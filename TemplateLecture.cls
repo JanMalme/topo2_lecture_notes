@@ -432,14 +432,14 @@
 \newtheorem{aufgabe}{Aufgabe}
 \newtheorem{behauptung}[lemma]{Behauptung}
 \newtheorem*{bemerkung}{Bemerkung}
-\newtheorem{construction}[lemma]{construction}
+\newtheorem{construction}[lemma]{Construction}
 \newtheorem{bem}[lemma]{Bemerkung}
 \newtheorem{axiom}[lemma]{Axiom}
-\newtheorem{example}[lemma]{example}
+\newtheorem{example}[lemma]{Example}
 \newtheorem{problem}{Aufgabe}
 % \theoremstyle{solution} 
-\newtheorem{solution}{Lösung}
-\newtheorem{remark}[lemma]{remark}
+\newtheorem{Solution}{Lösung}
+\newtheorem{remark}[lemma]{Remark}
 
 
 

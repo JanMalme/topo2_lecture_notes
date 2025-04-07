@@ -23,14 +23,14 @@ In last term, we discussed
     \item cellular homology
 \end{itemize}
 
-In the very end, cohomology was started.
+In the very end, cohomology was started. Remeber
 \[\begin{tikzcd}
     & & & \mathrm{Ab} \\
-    \mathrm{TOP} \ar[rrru, "H_n(X;A)"] \ar[rrrd, "H^n(X;A)"] \ar[r, "\cS"] & (\mathrm{simpl. Sets}) \ar[r, "{C(\_, \IZ)}"] & (\mathrm{Chains}) \ar[ru, "H_n(\_ \otimes A)"] \ar[rd, "{H^n(\Hom(\_, A))}"] & \\
+    \mathrm{TOP} \ar[rrru, bend left, "H_n(X;A)"] \ar[rrrd, bend right, "H^n(X;A)"] \ar[r, "\cS"] & (\mathrm{simpl. Sets}) \ar[r, "{C(\_, \IZ)}"] & (\mathrm{Chains}) \ar[ru, "H_n(\_ \otimes A)"] \ar[rd, "{H^n(\Hom(\_, A))}"] & \\
     & & & \mathrm{Ab}^{op} \\
 \end{tikzcd}\]
 
-\section{Cup product on cohomology}
+\section{Cup-product}
 
 
 Let \(X\) be a simplicial set, and \(R\)\footnote{A ring is not necessarily commutative, but has a unit} a ring\index{ring}.
@@ -43,7 +43,7 @@ with \(f\colon X_n \to R, y \in X_{n+1}\)
 
 
 \begin{construction}[Cup product/Alexander Withney map]
-    \index{cup product}\index{Alexander Withney map}
+    \index{cup-product}\index{Alexander Withney map}
     The cup prodcut/Alexander Withney map
     \[\cup\colon C^n(X,R) \times C^m(X,R) \to C^{m+n}(X,R)\]
     with \(n,m \geq 0\) is defined by
@@ -58,15 +58,16 @@ with \(f\colon X_n \to R, y \in X_{n+1}\)
     \begin{enumerate}
         \item The AW-map is biadditive and satisfies a boundary formula:
         \[d(f\cup g) = (df) \cup g + (-1)^n f \cup (dg) \in C^{m+n+1}(X,R)\]
-        \item For \(h \in C^k(X, R)\), \((f \cup g) \cup h = f \cup (g\cup h) \in C^{n+m+k}(X,R)\).
-         let \(1 \in C^0(X,R)\) be the constant function \(1\colon X_0 \to R\) with value 1. Then \(1 \cup f = f\cup 1 = f\).
-        \item Naturality: let \(\alpha \colon Y \to X\) be a morphism of symplicial sets. Then
+        \item Associativity: For \(h \in C^k(X, R)\), \((f \cup g) \cup h = f \cup (g\cup h) \in C^{n+m+k}(X,R)\).
+        
+        Let \(1 \in C^0(X,R)\) be the constant function \(1\colon X_0 \to R\) with value 1. Then \(1 \cup f = f\cup 1 = f\).
+        \item Naturality: Let \(\alpha \colon Y \to X\) be a morphism of symplicial sets. Then
         \[\alpha^*(f \cup g) = \alpha^*(f) \cup \alpha^*(g), \quad \alpha^*(1) = 1.\]
         where \(\alpha^*\colon C^n(X,R) \to C^n(Y,R), \quad f \mapsto f\circ \alpha_n\).
     \end{enumerate}
 \end{thm}
 
-\begin{proof}
+\begin{proof}\leavevmode
     \begin{itemize}
         \item Let \(d_{front}\colon [n] \to [n+m]\), \(d_{back}\colon [m] \to [n+m]\) be as in the definition of \(\cup\). Then
         \[d_i \circ d_{front} = \begin{cases}
@@ -81,20 +82,39 @@ with \(f\colon X_n \to R, y \in X_{n+1}\)
         Note, that for \(n+1\) and \(n\) respectively the cases are the same.
 
         now
-        \[d(f\cup g)(x) = \sum_{i = 0}^{n+m+1}(-1)^{i} (f\cup g)(d_i^*(x)) = \sum_{i = 0}^{n+m+1} (-1)^{i} \cdot f(d_{front}^*(x)) \cdot g(d_{back}^*(d_i^*(x))) = \sum_{i = 0}^{n} (-1)^{i} \cdot f(d_{front}^*(d_i^*(x))) \cdot g(d_{back}^*(d_i^*(x))) + \sum_{j = 1}^{m+1} (-1)^{n+j} \cdot f(d_{front}^*(d_{j+n}^*(x))) \cdot g(d_{back}^*(d_{j+n}^*(x))) = \sum_{i = 0}^{n+1}(-1)^{i} \cdot f(d_i^*(d_{front}^*(x))) \cdot g(d_{back}^*(x)) + \sum_{j = 0}^{m+1}(-1)^{n+j} f(d_{front}^*(x)) \cdot g(d_j^*(d_{back}^*(x))) = d(f)(d_{front}^*(x)) \cdot g(d_{back}^*(x)) + (-1)^n \cdot f(d_{front}^*(x)) \cdot d(g)(d_{back}^*(x)) = ((df) \cup g)(x) + (-1)^n \cdot (f\cup dg)(x) = ((df) \cup g + (-1)^n \cdot f\cup (dg))(x)\]
+        \[\begin{split}
+            d(f\cup g)(x) &= \sum_{i = 0}^{n+m+1}(-1)^{i} (f\cup g)(d_i^*(x)) \\
+            &= \sum_{i = 0}^{n+m+1} (-1)^{i} \cdot f(d_{front}^*(x)) \cdot g(d_{back}^*(d_i^*(x))) \\
+            = \sum_{i = 0}^{n} (-1)^{i} &\cdot f(d_{front}^*(d_i^*(x))) \cdot g(d_{back}^*(d_i^*(x))) + \sum_{j = 1}^{m+1} (-1)^{n+j} \cdot f(d_{front}^*(d_{j+n}^*(x))) \cdot g(d_{back}^*(d_{j+n}^*(x))) \\
+            &= \sum_{i = 0}^{n+1}(-1)^{i} \cdot f(d_i^*(d_{front}^*(x))) \cdot g(d_{back}^*(x)) + \sum_{j = 0}^{m+1}(-1)^{n+j} f(d_{front}^*(x)) \cdot g(d_j^*(d_{back}^*(x))) \\
+            &= d(f)(d_{front}^*(x)) \cdot g(d_{back}^*(x)) + (-1)^n \cdot f(d_{front}^*(x)) \cdot d(g)(d_{back}^*(x)) \\
+            &= ((df) \cup g)(x) + (-1)^n \cdot (f\cup dg)(x)\\
+            & = ((df) \cup g + (-1)^n \cdot f\cup (dg))(x)
+        \end{split}\]
 
         \item For \(x \in X_{n+m+k}\) we see
-        \[((f\cup g) \cup h)(x) = (f\cup g) (d_{front}^*(x)) \cdot h(d_{back}^*(x)) = f(d_{front}^*(d_{front}^*(x))) \cdot g(d_{back}^*(d_{front}^*(x))) \cdot h(d_{back}^*(x)) = f(d_{front}^*(x)) \cdot g(d_{middle}^*(x)) \cdot h(d_{back}^*(x)) = \]
+        \[\begin{split}
+            ((f\cup g) \cup h)(x) &= (f\cup g) (d_{front}^*(x)) \cdot h(d_{back}^*(x)) \\
+            &= f(d_{front}^*(d_{front}^*(x))) \cdot g(d_{back}^*(d_{front}^*(x))) \cdot h(d_{back}^*(x))\\
+            & = f(d_{front}^*(x)) \cdot g(d_{middle}^*(x)) \cdot h(d_{back}^*(x))
+        \end{split}\]
         Note that we abuse that \(d_{front}\) suppresses the indices for which the map is the front map.
         We have in the last line
-        \[d_{front}\colon[n] \to [n+m+k], d_{middle}\]%hlep
+        \[d_{front}\colon[n] \to [n+m+k], d_{middle}\colon [m] \to [n+m+k], d_{back}\colon [k] \to [n+m+k]\]
+        defined by
+        \[d_{front}(i) = i, d_{middle}(i) = n+i, d_{back}(i) = n+m+i\]
         this is obviously associative in the inputs\footnote{for Schwede at least.}
         \item Naturality for \(\alpha\colon Y \to X\) we see
-        \[(\alpha^*(f\cup g))(y) = (f\cup g)(\alpha_{n+m}(y)) = f(d_{front}^*(\alpha_{n+m}(y))) \cdot g(d_{back}^*(\alpha_{n+m}(y))) = f(\alpha_n(d_{front}^*(y))) \cdot g(\alpha_m(d_{back}^*(y))) = \alpha^*(f)(d_{front}^*(y)) \cdot \alpha^*(g)(d_{back}^*(y)) = (\alpha^*(f) \cup \alpha^*(g))(y).\]
+        \[\begin{split}
+            (\alpha^*(f\cup g))(y) &= (f\cup g)(\alpha_{n+m}(y)) \\
+            &= f(d_{front}^*(\alpha_{n+m}(y))) \cdot g(d_{back}^*(\alpha_{n+m}(y))) = f(\alpha_n(d_{front}^*(y))) \cdot g(\alpha_m(d_{back}^*(y))) \\
+            &= \alpha^*(f)(d_{front}^*(y)) \cdot \alpha^*(g)(d_{back}^*(y)) \\
+            &= (\alpha^*(f) \cup \alpha^*(g))(y).
+        \end{split}\]
     \end{itemize}
 \end{proof}
 
-\begin{defi}{}{}
+\begin{defi}{Differential graded ring}{}
     A differential graded ring (dg-ring)\index{differential graded ring}\index{graded ring} is a cochain-complex \(A = \set{A^n, d^n}_{n \in \IZ}\) equipped with biadditive maps
     \[\cdot\colon A^n \times A^m \to A^{n+m}, \quad n,m \in \IZ \]
     and a unit \(1 \in A^0\), such that;
@@ -107,9 +127,12 @@ with \(f\colon X_n \to R, y \in X_{n+1}\)
 \end{defi}
 
 \begin{example}
-    \(C^\cdot(X,R)\) for a simplicial set \(X\) and a ring \(R\).
+    Some Differential graded rings are:
+    \begin{itemize}
+        \item \(C^\cdot(X,R)\) for a simplicial set \(X\) and a ring \(R\).
+        \item De Rham complex of a smooth manifold.
+    \end{itemize}
 
-    De Rham complex of a ssmooth manifold.
 \end{example}
 
 \begin{construction}[Cup-Product on cohomology]\index{cup-product}
@@ -129,7 +152,7 @@ with \(f\colon X_n \to R, y \in X_{n+1}\)
     The cup product on the \(R\)-cohomology of a simplicial set \(X\) is the product induced by the cup product on \(C^*(X,R)\) in \(H^*(C(X,R)) = H^*(X,R)\).
 \end{construction}
 
-\begin{thm}
+\begin{thm}{Properties of the cup-product on homology}{}
     Let \(X\) be a simplicial set and \(R\) a ring. Then
     \begin{itemize}
         \item The cup product on \(H^*(X,R)\) is associative and unital, with unit the cohomology class of the constant function \(1\colon X_0 \to R\).
@@ -140,7 +163,7 @@ with \(f\colon X_n \to R, y \in X_{n+1}\)
 \end{thm}
 
 \begin{remark}
-    The cup product generalizes to relative cohomology: \(A, B\) simplicial subsets of \(X\). We have
+    The cup product generalizes to relative cohomology: For \(A, B\) simplicial subsets of \(X\). We have
     \[C^n(X,A;R) = \set{f\colon X_n\to R \mid f(A_n) = \set{0}}\]
     The relative cup product is the restriciton of \(\cup\) on \(C^*(X,R)\) to
     \[C^n(X,A;R) \times C^m(X,B;R) \xrightarrow{u} C^{n+m}(X,A\cup B;R).\]
@@ -160,7 +183,7 @@ with \(f\colon X_n \to R, y \in X_{n+1}\)
 
 \begin{thm}{Commutativity of the cup-product}{}
     Let \(X\) be a simplicial set and \(R\) a commutative ring. Then for all \([x] \in H^n(X,R); [y] \in H^m(X,R)\) the realtion
-    \[[x] \cup [y] = (-1)^{n\times m} \cdot [y] \cup [x]\]
+    \[[x] \cup [y] = (-1)^{n\cdot m} \cdot [y] \cup [x]\]
     holds.
 \end{thm}
 
@@ -177,7 +200,7 @@ Schwede points out, that the easy way doesn't work.
     where \(d_i^{out}\colon [n] \to [n+m-1], d_i^{inner}\colon [m] \to [n+m-1]\) are the unique monotone injective maps with images \(\img(d_i^{out}) = \set{0, \dots, i} \cup \set{i+m, \dots, n+m-1}\) and \(\img(d_i^{inn}) = \set{i, \dots, i+m}\).
 \end{construction}
 
-\begin{thm}{}{}
+\begin{thm}{\(\cup_1\)-Product}{}
     The \(\cup_1\)-product satisfies the following formula
     \[d(f\cup_1 g) = (df) \cup_1 g + (-1)^n \cdot f \cup_1 (dg) - (-1)^{n+m}(f\cup g) - (-1)^{n+1}{m+1}(g\cup f)\]
     for \(f \in C^n(X,R)\) and \(g \in C^m(X,R)\).
