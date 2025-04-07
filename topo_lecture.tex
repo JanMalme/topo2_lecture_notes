@@ -7,5 +7,213 @@
 
 \begin{document}
 
+\setcounter{chapter}{0}
+\chapter{Cohomology}
+
+\newLecture{07.04.2025}
+
+\section{Last Term}
+
+In last term, we discussed
+\begin{itemize}
+    \item CW-complexes
+    \item higher homotopy groups
+    \item Whitehead theorem 
+    \item Singular homology
+    \item cellular homology
+\end{itemize}
+
+In the very end, cohomology was started.
+\[\begin{tikzcd}
+    & & & \mathrm{Ab} \\
+    \mathrm{TOP} \ar[rrru, "H_n(X;A)"] \ar[rrrd, "H^n(X;A)"] \ar[r, "\cS"] & (\mathrm{simpl. Sets}) \ar[r, "{C(\_, \IZ)}"] & (\mathrm{Chains}) \ar[ru, "H_n(\_ \otimes A)"] \ar[rd, "{H^n(\Hom(\_, A))}"] & \\
+    & & & \mathrm{Ab}^{op} \\
+\end{tikzcd}\]
+
+\section{Cup product on cohomology}
+
+
+Let \(X\) be a simplicial set, and \(R\)\footnote{A ring is not necessarily commutative, but has a unit} a ring\index{ring}.
+\[C^n(X, R) = \mathrm{maps}(X_n, R)\]
+is an abelian group under pointwise addition. There is a differential
+\[d^n\colon C^n(X,R) \to C^{n+1}(X,R)\]
+given by
+\[d^n(f)(y) = \sum_{i = 0}^{n+1}(-1)^{i} f(d_i^*(y))\]
+with \(f\colon X_n \to R, y \in X_{n+1}\)
+
+
+\begin{construction}[Cup product/Alexander Withney map]
+    \index{cup product}\index{Alexander Withney map}
+    The cup prodcut/Alexander Withney map
+    \[\cup\colon C^n(X,R) \times C^m(X,R) \to C^{m+n}(X,R)\]
+    with \(n,m \geq 0\) is defined by
+    \[(f\cup g)(x)\coloneq f(d_{front}^*(x)) \cdot g(d_{back}^*(x))\]
+    with \(f\colon X_n \to R, g\colon X_m \to R\), \(x \in X_{n+m}\).
+
+    Where we use \([n+m] = \set{0,1,\dots, n+m}\) and \(d_{front} \colon [n] \to [n+m], d_{back}\colon [m]\to [n+m]\) are given by \(d_{front}(i) = i\), \(d_{back}(i) = n+i\). Note, that \(d_{front}\) and \(d_{back}\) respectively suppress in their noation \(n\) and \(m\).
+\end{construction}
+
+\begin{thm}{fundamental properties of cup product}{fpcp}
+    The cup-product satisfies the following properties.
+    \begin{enumerate}
+        \item The AW-map is biadditive and satisfies a boundary formula:
+        \[d(f\cup g) = (df) \cup g + (-1)^n f \cup (dg) \in C^{m+n+1}(X,R)\]
+        \item For \(h \in C^k(X, R)\), \((f \cup g) \cup h = f \cup (g\cup h) \in C^{n+m+k}(X,R)\).
+         let \(1 \in C^0(X,R)\) be the constant function \(1\colon X_0 \to R\) with value 1. Then \(1 \cup f = f\cup 1 = f\).
+        \item Naturality: let \(\alpha \colon Y \to X\) be a morphism of symplicial sets. Then
+        \[\alpha^*(f \cup g) = \alpha^*(f) \cup \alpha^*(g), \quad \alpha^*(1) = 1.\]
+        where \(\alpha^*\colon C^n(X,R) \to C^n(Y,R), \quad f \mapsto f\circ \alpha_n\).
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}
+    \begin{itemize}
+        \item Let \(d_{front}\colon [n] \to [n+m]\), \(d_{back}\colon [m] \to [n+m]\) be as in the definition of \(\cup\). Then
+        \[d_i \circ d_{front} = \begin{cases}
+            d_{front} \circ d_i & 0 \leq i \leq n+1 \\
+            d_{front} & n+1 \leq i \leq n+m+1 \\
+        \end{cases}\]
+        and
+        \[d_i \circ d_{back} = \begin{cases}
+            d_{back} \circ d_i & 0 \leq i \leq n \\
+            d_{back} \circ d_{i-n} & n \leq i \leq n+m+1 \\
+        \end{cases}\]
+        Note, that for \(n+1\) and \(n\) respectively the cases are the same.
+
+        now
+        \[d(f\cup g)(x) = \sum_{i = 0}^{n+m+1}(-1)^{i} (f\cup g)(d_i^*(x)) = \sum_{i = 0}^{n+m+1} (-1)^{i} \cdot f(d_{front}^*(x)) \cdot g(d_{back}^*(d_i^*(x))) = \sum_{i = 0}^{n} (-1)^{i} \cdot f(d_{front}^*(d_i^*(x))) \cdot g(d_{back}^*(d_i^*(x))) + \sum_{j = 1}^{m+1} (-1)^{n+j} \cdot f(d_{front}^*(d_{j+n}^*(x))) \cdot g(d_{back}^*(d_{j+n}^*(x))) = \sum_{i = 0}^{n+1}(-1)^{i} \cdot f(d_i^*(d_{front}^*(x))) \cdot g(d_{back}^*(x)) + \sum_{j = 0}^{m+1}(-1)^{n+j} f(d_{front}^*(x)) \cdot g(d_j^*(d_{back}^*(x))) = d(f)(d_{front}^*(x)) \cdot g(d_{back}^*(x)) + (-1)^n \cdot f(d_{front}^*(x)) \cdot d(g)(d_{back}^*(x)) = ((df) \cup g)(x) + (-1)^n \cdot (f\cup dg)(x) = ((df) \cup g + (-1)^n \cdot f\cup (dg))(x)\]
+
+        \item For \(x \in X_{n+m+k}\) we see
+        \[((f\cup g) \cup h)(x) = (f\cup g) (d_{front}^*(x)) \cdot h(d_{back}^*(x)) = f(d_{front}^*(d_{front}^*(x))) \cdot g(d_{back}^*(d_{front}^*(x))) \cdot h(d_{back}^*(x)) = f(d_{front}^*(x)) \cdot g(d_{middle}^*(x)) \cdot h(d_{back}^*(x)) = \]
+        Note that we abuse that \(d_{front}\) suppresses the indices for which the map is the front map.
+        We have in the last line
+        \[d_{front}\colon[n] \to [n+m+k], d_{middle}\]%hlep
+        this is obviously associative in the inputs\footnote{for Schwede at least.}
+        \item Naturality for \(\alpha\colon Y \to X\) we see
+        \[(\alpha^*(f\cup g))(y) = (f\cup g)(\alpha_{n+m}(y)) = f(d_{front}^*(\alpha_{n+m}(y))) \cdot g(d_{back}^*(\alpha_{n+m}(y))) = f(\alpha_n(d_{front}^*(y))) \cdot g(\alpha_m(d_{back}^*(y))) = \alpha^*(f)(d_{front}^*(y)) \cdot \alpha^*(g)(d_{back}^*(y)) = (\alpha^*(f) \cup \alpha^*(g))(y).\]
+    \end{itemize}
+\end{proof}
+
+\begin{defi}{}{}
+    A differential graded ring (dg-ring)\index{differential graded ring}\index{graded ring} is a cochain-complex \(A = \set{A^n, d^n}_{n \in \IZ}\) equipped with biadditive maps
+    \[\cdot\colon A^n \times A^m \to A^{n+m}, \quad n,m \in \IZ \]
+    and a unit \(1 \in A^0\), such that;
+    \begin{itemize}
+        \item \(\cdot\) is associative and has \(1\) as a unit element.
+        \item the Leibniz rule holds:
+        \[d(a\cdot b) = (da) \cdot b + (-1)^n \cdot a \cdot (db)\]
+        with \(a \in A^n, b \in A^m\).\footnote{The sign is somehow connected to a sign-rule I couldn't follow. The d moved past the a or something.}
+    \end{itemize}
+\end{defi}
+
+\begin{example}
+    \(C^\cdot(X,R)\) for a simplicial set \(X\) and a ring \(R\).
+
+    De Rham complex of a ssmooth manifold.
+\end{example}
+
+\begin{construction}[Cup-Product on cohomology]\index{cup-product}
+    Let \(A = (A^n, d, \cdot)\) be a dg-ring. We define a map
+    \[\cdot \colon H^n(A) \times H^m(A) \to H^{n+m}(A), \quad [a] \cdot [b] = [a \cdot b]\]
+
+    This is well defined:
+    \[d(a\cdot b) = \underset{= 0}{(da)} \cdot b + (-1)^n @. a \cdot \underset{= 0}{(db)} = 0\]
+    so \(a\cdot b\) is a cycle and we can take its homology class. Let \(x \in A^{n-1}\).
+    \[(a+ dx) \cdot b = a\cdot b + (dx) \cdot b = a \cdot b + d(x\cdot b) = [(a+dx)\cdot b] = [a \cdot b]\]
+    so it only depends on the cohomology class of \(a\), analogous for \(b\).
+
+    The product on cohomology inherits associativity and unity with \(1 = [1] \in H^0(A)\). We need to see \(1\) is a cocycle:
+    \[d(1) = d(1\cdot 1) = (d1) \cdot 1 + (-1)^0 1 \cdot (d1) = 2 \cdot d(1)\]
+    and so \(d(1) = 0\).
+
+    The cup product on the \(R\)-cohomology of a simplicial set \(X\) is the product induced by the cup product on \(C^*(X,R)\) in \(H^*(C(X,R)) = H^*(X,R)\).
+\end{construction}
+
+\begin{thm}
+    Let \(X\) be a simplicial set and \(R\) a ring. Then
+    \begin{itemize}
+        \item The cup product on \(H^*(X,R)\) is associative and unital, with unit the cohomology class of the constant function \(1\colon X_0 \to R\).
+        \item For a morphism of simplicial sets \(\alpha\colon Y \to X\), the relation
+        \[\alpha^*([x] \cup [y]) = \alpha^*[X] \cup \alpha^*[y]\]
+        holds for all \([x] \in H^n(X,R), [y] \in H^m(X,R)\).
+    \end{itemize}
+\end{thm}
+
+\begin{remark}
+    The cup product generalizes to relative cohomology: \(A, B\) simplicial subsets of \(X\). We have
+    \[C^n(X,A;R) = \set{f\colon X_n\to R \mid f(A_n) = \set{0}}\]
+    The relative cup product is the restriciton of \(\cup\) on \(C^*(X,R)\) to
+    \[C^n(X,A;R) \times C^m(X,B;R) \xrightarrow{u} C^{n+m}(X,A\cup B;R).\]
+    Let \(x \in (A \cup B)_{n+m}\), then
+    \[(f\cup g)(x) = f(d_{front}^*(x)) \cdot g(d_{back}^*(x))\]
+    if \(x \in A_{n+m}\) then \(f(d_{front}^*(x)) = 0\) and analogous with \(B_{n+m}\), anyways the product is 0.
+
+    This gives us biadditive well defined maps
+    \[\cup \colon H^n(X,A;R) \times H^n(X,B;R) \to H^{n+m}(X,A\cup B; R)\]
+
+    In particular for \(A = B\) we get
+    \[\cup\colon H^n(X,A;R) \times H^n(X,A;R) \to H^{n+m}(X,A;R)\]
+    which is well defined and associative, but not unital anymore.
+\end{remark}
+
+\section{Commutativity of the cup-product}
+
+\begin{thm}{Commutativity of the cup-product}{}
+    Let \(X\) be a simplicial set and \(R\) a commutative ring. Then for all \([x] \in H^n(X,R); [y] \in H^m(X,R)\) the realtion
+    \[[x] \cup [y] = (-1)^{n\times m} \cdot [y] \cup [x]\]
+    holds.
+\end{thm}
+
+Schwede points out, that the easy way doesn't work.
+\textbf{Warning.} For \(f \in C^n(X,R), g \in C^m(Y,R)\), then in general \(f\cup g \neq (-1)^{n+m} (g\cup f)\) in \(C^{n+m}(X,R)\). The commutativity is a property we only get on homology.
+
+
+\begin{construction}
+    The \(\cup_1\)-product (spoken Cup-one)
+    \[\cup_1\colon C^n(X,R) \times C^m(X,R) \to C^{n+m-1}(X,R)\]
+    is defined by
+    \[(f\cup_1 g)(x) = \sum_{i =0}^{n-1} (-1)^{(n-1)\cdot (m+1)} f((d_i^{out})^*(x)) \cdot g((d_i^{inner})^*(x))\]
+    for \(f\in C^n\), \(g \in C^m\) and \(x \in X_{n+m-1}\).\footnote{There are also \(\cup_i\) for \(i \in \IN\). However, they are quite messy and combinatorical.}
+    where \(d_i^{out}\colon [n] \to [n+m-1], d_i^{inner}\colon [m] \to [n+m-1]\) are the unique monotone injective maps with images \(\img(d_i^{out}) = \set{0, \dots, i} \cup \set{i+m, \dots, n+m-1}\) and \(\img(d_i^{inn}) = \set{i, \dots, i+m}\).
+\end{construction}
+
+\begin{thm}{}{}
+    The \(\cup_1\)-product satisfies the following formula
+    \[d(f\cup_1 g) = (df) \cup_1 g + (-1)^n \cdot f \cup_1 (dg) - (-1)^{n+m}(f\cup g) - (-1)^{n+1}{m+1}(g\cup f)\]
+    for \(f \in C^n(X,R)\) and \(g \in C^m(X,R)\).
+\end{thm}
+
+\begin{remark}
+    What we want to see, is that \(f\cup g\) and \(g\cup f\) are not the same but rather homotopic, and \(\cup_1\) wittnesses that homotopy.
+\end{remark}
+
+\begin{proof}
+    This theorem will not be prooven, because it is quite messy. You should find a lecture-video for that.
+\end{proof}
+
+Now suppose that \(f\) and \(g\) are cocycles, i.e. \(df = 0\), \(dg = 0\). Then
+\[d(f\cup_1 g) = -(-1)^{n+m}(f\cup g) - (-1)^{(n+1)(m+1)}(g\cup f) \]
+and we get
+\[(-1)^{n+m+1}\cdot d(f\cup_1 g) = f\cup g - (-1)^{n \cdot m} (g\cup f)\] and as such
+\[0 = [(-1)^{n+m-1}] = [f] \cup [g] - (-1)^{n\cdot m} [g] \cup [f]\]
+
+\begin{remark}
+    Last term we discussed the tensor product of two chain complexes (in an exercise):
+    \[(C\otimes D)_n = \bigoplus_{p+q = n} C_p \otimes D_q\]
+    and differential
+    \[d(x\otimes y) = (dx) \otimes y + (-1)^{\abs{x}} \cdot x \otimes (dy)\]
+\end{remark}
+
+\begin{remark}
+    Reinterpretation of \(d(f \cup_1 g)\).
+    The cup product yields a morphism of cochain complexes
+    \[C^*(X,R) \otimes C^*(X,R) \to C^*(X,R)\]
+    and we get a diagram
+    \[\begin{tikzcd}
+        x \otimes y \ar[d] & C^*(X,R) \otimes C^*(X,R) \ar[r, "\cup"] \ar[d] & C^*(X,R) \\
+        y \otimes x & C^*(X,R) \otimes C^*(X,R) \ar[ru, "\cup"] & \\
+    \end{tikzcd}\]
+    that does not commute, however it does so up to cochain homotopy and \(\cup_1\) is exactly a cochain homotopy between the two maps.
+\end{remark}
 
 \end{document}
