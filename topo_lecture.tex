@@ -42,8 +42,8 @@ given by
 with \(f\colon X_n \to R, y \in X_{n+1}\)
 
 
-\begin{construction}[Cup product/Alexander Withney map]
-    \index{cup-product}\index{Alexander Withney map}
+\begin{construction}[Cup product/Alexander Whitney map]
+    \index{cup-product}\index{Alexander Whitney map}
     The cup prodcut/Alexander Withney map
     \[\cup\colon C^n(X,R) \times C^m(X,R) \to C^{m+n}(X,R)\]
     with \(n,m \geq 0\) is defined by
@@ -238,5 +238,209 @@ and we get
     \end{tikzcd}\]
     that does not commute, however it does so up to cochain homotopy and \(\cup_1\) is exactly a cochain homotopy between the two maps.
 \end{remark}
+
+
+\newLecture{09.04.2025}
+
+
+Only with the definition of the cup-product we cannot calculate a lot yet. Some methods to compute cup-products are:
+\begin{itemize}
+    \item directly from the definition
+    \item cellular approximation of the diagonal (whatever that means, he gives a little intuition I failed to record.) (this might be used later)
+    \item Group homology (one exapmle later today, something for AT I)
+    \item Poincaré duality (later this term)
+    \item Analysis on smooth manifolds together with De Rahm Cohomology 
+\end{itemize}
+The first two methods are not very practical.
+
+\begin{example}
+    Let \(X\) be a discrete space, Then \(cS(X)\) is a constant simplicial set. The chain complex has the form
+    \[\begin{tikzcd}
+        \ar[r, "0"] & \IZ[X] \ar[r, "="] & \IZ[X] \ar[r, "0"] & \IZ[X]\\
+    \end{tikzcd}\]
+    And so \(H^n(X,R) = 0\) for \(n \geq 0\).
+    And only for \(n = m = 0\) something nontrivial happens. for \(f\colon X_0 \to R, g\colon X_0 \to R\), we have \((f\cup g)(x) = f(d_{front}^*(x)) \cdot g(d_{back}^*(x)) = f(x) \cdot g(x)\)
+    and so the cup product is just pointwise multiplication in dimension \(0\).
+
+    More generally: \(H^0(X,R) = \mathrm{maps}(\pi_0(X),R)\) with \(\cup\)-prodcut pointwise multiplication
+\end{example}
+
+\begin{example}
+    Let \(G\) be a group: Define a category \(\underline{G}\)\footnote{via geometric realization, these define interesting spaces, namely some (missed word)-Maclane spaces \(M(G,1)\), didn't catch it all} wit one object \(*\) and \(\Hom_{\underline{G}}(*,*) = G\). We then define
+    \[BG = N(\underline{G})\]
+    Where \(N\) is the Nerve-Functor \(\mathbf{CAT} \to \mathbf{Sset}\).
+    Then
+    \[(BG)_n = G^n, \quad d_i^*\colon G^n \to G^{n-1} (g_1, \dots, g_n) \mapsto \begin{cases}
+        (g_2, \dots, g_n) & i = 0 \\
+        (g_1, \dots, g_i \circ g_{i+1}, \dots, g_n) & 1 \leq i \leq n-1 \\
+        (g_1, \dots , g_{n-1}) & i = n \\
+    \end{cases}\]
+    And \(s_i(g_1, \dots, g_n) = (g_1, \dots, g_i, 1, g_{i+1}, \dots, g_n)\).
+
+    The general case of this is too hard to calculate. We take \(G = (\IF_2, +)\) and \(R = \IF_2\) and we calculate \(H^*(B\IF_2, \IF_2)\).
+    We see
+    \[\begin{tikzcd}
+        {C^0(BG,A)} \ar[r, "d"] \ar[d, phantom, sloped, "= "] & C^1(BG,A) \ar[r, "d"] \ar[d, phantom, sloped, "="] & C^2(BG,A) \ar[r] \ar[d, phantom, sloped, "="] & \dots \\
+        \mathrm{maps}(\{1\},A) \ar[r, "0"] \ar[d, sloped, phantom, "\cong"] & \mathrm{maps}(G,A) \ar[r] & \mathrm{maps}(G^2,A) & \\
+        A &(f\colon G \to A) \ar[r]&(df)(g,h) & \\
+    \end{tikzcd}\]
+    And the map is defined by
+    \[f(d_0^*(g,h)) - f(d_1^*(g,h)) + f(d_2^*(g,h)) = f(h) - f(g\cdot h) + f(g)\]
+    and 
+    \[df = 0 \Lra f(g,h) = f(g) + f(h)\]
+    \(\implies\) 1-cocycles are the group homomorphisms from \(G\) to \(A\)
+    \[H^1(BG,A) \cong \Hom(G,A)\]
+    and  for \(G = (\IF_2, +)\), \(A = \IF_2\) we have \(0 \neq x \coloneq [\Id_{\IF_2}] \in H^1(B\IF_2, \IF_2)\).
+
+    We will show that \(x^n = x \cup \dots \cup x\) (\(n\)-times) \(\in H^n(B\IF_2, \IF_2)\) is nonzero.
+    \begin{Proposition}
+        \(x^n \in H^n(B\IF_2, \IF_2)\) is represented by \(f_n \colon (\IF_2)^n \to \IF_2, f_n(\lambda_1, \dots, \lambda_n) = \lambda_1 \cdot \dots \cdot \lambda_n = \begin{cases}
+            1 & \text{if } \lambda_1 = \lambda_2 = \dots = \lambda_n = 1 \\
+            0 & \text{else}
+        \end{cases}\)
+    \end{Proposition}
+    \begin{proof}
+        By induction on \(n\). We checked for \(n = 1\).
+        For \(n \geq 2\) we have
+        \[\begin{split}
+            x^n &= x^{n-1} \cup x = [f_{n-1}] \cup [\Id_{\IF_2}] \\
+            &= [f_{n-1} \cup \Id] \\
+        \end{split}\]
+        Then
+        \[\begin{split}
+            (f_{n-1} \cup \Id)(\lambda_1 , \dots, \lambda_n) &= f_{n-1}(d_{front}^*(\lambda_1, \dots, \lambda_n)) \cdot \Id_(d_{back}^*(\lambda_1, \dots, \lambda_n)) \\
+            &= f_{n-1}(\lambda_1, \dots, \lambda{n-1}) \cdot \Id(\lambda_n) \\
+            &= (\lambda_1 \cdot \dots \cdot \lambda_{n-1}) \cdot \lambda_n \\
+        \end{split}\]
+    \end{proof}
+
+    Claim: \(x^n \neq 0\). In the UCT for cohomology we uset the evaluation pair
+    \[\Psi\colon H^n(X,A) \to \Hom(H_n(X;\IZ);A), \quad [f_n\colon X_n \to A] \mapsto \set{[\sum b_ix_i] \mapsto \sum b_i f(x_i)}\]
+    for \(b_i \in \IZ, x_i \in X_n\).
+    We can sligtly variate that for ring coefficients:
+    \[\Psi\colon H^n(X,R) \to \Hom(H_n(X,R), R)\]
+    and \([f\colon X_n \to R] \mapsto \set{[\sum r_i \cdot x_i] \mapsto \sum r_i \cdot f(x_i)}\) with \(r_i \in R, x_i \in X_n\).
+
+    With \(X = B\IF_2, R = \IF_2\), we consider
+    \[y\coloneq \sum_{(\lambda_1 \dots, \lambda_n) \in (\IF_2)^n} 1 (\lambda_1, \dots, \lambda_n) \in \IF_2[(\IF_2)^n] = \IF_2[(B\IF_2)_n]\]
+    Claim: \(y\) is an \(n\)-cycle in \(C_*(B\IF_2, \IF_2)\).
+    \[\begin{split}
+        dy &= \sum_{i = 0, \dots n} (-1)^{i} \cdot d_i^*(\sum_1\cdot (\lambda_1, \dots, \lambda_n)) \\
+        &= \sum_{i = 0,\dots, n} \underbrace{\sum_{(\lambda_1, \dots, \lambda_n) \in \IF_2^n} (-1)^{i} \cdot d_i^*(\lambda_1, \dots, \lambda_n)}_{\text{cancel in pairs}} \\
+        &= 0
+    \end{split}\]
+    Now
+    \[d_0^*(0,\lambda_2, \dots, \lambda_n) = (\lambda_2, \dots \lambda_n) = d_0^*(1, \lambda_2, \dots, \lambda_n)\]
+    So
+    \[\Psi(x^n) \colon H_n(B\IF_2, \IF_2) \to \IF_2\]
+    \[\Psi(x^n)[y] = \Psi[f_n][\sum_{(\lambda_1, \dots, \lambda_n) \in \IF_2^n}(\lambda_1, \dots, \lambda_n)] = \sum_{(\lambda_1, \dots, \lambda_n)} f_n(\lambda_1, \dots, \lambda_n) = \sum_{(\lambda_1, \dots, \lambda_n)} \lambda_1,\cdot \dots \cdot \lambda_n = 1 \neq 0\]
+    and \([y] \neq 0\) in \(H_n(B\IF_2, \IF_2)\).
+
+
+    An outlook: \(H^*(B\IF_2;\IF_2) = \IF_2[X]\).
+
+    \begin{Remark}
+        Let \(p\) be an odd prime. \(H^*(B\IF_p, \IF_p) = ?\).
+        \[0 \neq x = [\Id_{\IF_p} \in H^1(B\IF_p; \IF_p)]\]
+        still makes sense, but now there are more scalars and
+        \[x^n = 0\]
+        for \(n \geq 2\). The graded commutativity says:
+        \[x\cup x = (-1)^{1\cdot 1} x \cup x = - x\cup x\]
+        so if \(R\) is commutative, \(x \in H^n(X,R)\) and \(n\) is odd, then \(2\cdot(x\cup x) = 0\) in \(H^{2n}(X,R)\).
+        And then \(2\cdot x^2 = 0 \Ra x^2 = 0\).
+
+        Define \(h \colon \IF_p \times \IF_p \to \IF_p\) by 
+        \[h(i,j) = \begin{cases}
+            0 & \text{if } i + j < p \\
+            1 & \text{if } i+ j \geq p \\
+        \end{cases}\]
+        where we write \(\IF_p = \set{0, \dots, p-1}\). Now \(h \in C^2(B\IF_p, \IF_p)\). Fact: \(dh = 0\) and \(0 \neq y \coloneq [h] \in H^2(B\IF_p, \IF_p)\).
+
+        We then get (but do not proove)
+        \[H^*(B\IF_p, \IF_p) = \Lambda(x) \otimes \IF_p[y]\] and
+        \[H^{2n}(B\IF_p, \IF_p) = \IF_p \set{y^n}, \quad H^{2n+1}(B\IF_p, \IF_p) = \IF_p \set{xy^n}\]
+    \end{Remark}
+\end{example}
+
+\section{Künneth theorem}
+\index{Künneth theorem}
+The Künneth theorem is an algebraic relationship between \(H^*_*(X,R), H^*_*(Y,R)\) and \(H^*_*(X\times Y, R)\)\footnote{\(H_*^*\) denotes, that Schwede was too lazy to write the statement for homology and cohomology separately}.
+
+Here is a simplest version in homology with field coefficients:
+\begin{thm}{Künneth, simple version}{}
+    Let \(X\) and \(Y\) be spac3es and \(k\) a field. Then
+    \[H_n(X\times Y, k)\]
+    is natural isomorphic to
+    \[\bigoplus_{p+q = n} H_p(X,k) \otimes_k H_q(Y,k)\]
+\end{thm}
+
+\subsection{The Eilenberg Zilber Map theorem}
+
+Let \(A,B\) be simplicial abelian groups. Then we get two natural chain homotopy equivalences
+\[C_*(A) \otimes C_*(B) C_*(A\otimes B)\]
+up Eilenberg Zilber map, bottom Alexander Whitney map %%help
+
+\begin{defi}{Simplicial abelian group}{}
+    A \emph{simplicial abelian group} \index{simplicial abelian group} is a functor \(A\colon \Delta^{Op} \to \mathbf{Ab.Groups}\).
+
+    Equivalently a colleciton of abelian groups \(A_n\), and homomorphisma \(\alpha^*\colon A_m \to A_n\) for all \(\alpha\colon [n] \to [m]\) in \(\Delta\), s.t. \((\alpha\circ \beta)^* = \beta^* \circ \alpha^*\).
+
+    Equivalently a simplical set endorsed with abelian group stuctur on the sets of \(n\)-simplices, such that all \(\alpha^*\) are homomorphisms.
+\end{defi}
+
+\begin{example}
+    Let \(X\) be a simplicial set and \(A\) an abelian group. Then the composite
+    \[\begin{tikzcd}
+        \Delta^{op} \ar[rr, bend left, "A[X]"]\ar[r, "X"] & (\mathbf{Sets}) \ar[r, "{A[_]}"] & (\mathbf{ab.grps}) \\
+    \end{tikzcd}\]
+    is a simplicial abelian group.
+\end{example}
+
+\begin{construction}
+    Let \(A\colon \Delta^{op} \to (\mathbf{ab.grps})\) be a simplicial abelian groups. Its \emph{chain complex} \(C_*(A)\) is the chain complex with \(C_n(A) = A_n\) with differential
+    \[d\colon C_n(A) = A_n \to A_{n-1} = C_{n-1}(A), \quad d(a) = \sum_{i = 0, \dots, n} (-1)^{i} d_i^*(a)\]
+    And one can easily check \(d\circ d = 0\).
+\end{construction}
+
+\textbf{Note.} The following commutes
+\[\begin{tikzcd}
+    (\mathbf{Ssets}) \ar[rr, "X \mapsto {C_*(X,A)}"] \ar[rd, "A[_]"] & & (\mathbf{Chains}) \\
+    & (\mathbf{s.ab.grps}) \ar[ru, "C_*"] \\
+\end{tikzcd}\]
+
+\begin{remark}
+    The tensor product of chain complexes \(c_* , d*\) of chain complexes is
+    \[(C\otimes D)_n \coloneq \bigoplus_{p+q = n} C_p \otimes D_q\]
+    with differential
+    \[d(x\otimes y) = (dx \otimes y) + (-1)^p x \otimes (dy)\]
+    for \(x \in C_p, y \in D_q\).
+
+    We can also form the tensor product of simplical abelian groups: \(A,B \colon \Delta^{op} \to (\mathbf{ab.grps})\) by
+    \[(A\otimes B)_n = A_n \otimes B_n, \quad \alpha^*\colon (A\otimes B)_n \to (A\otimes B)_m\]
+    for \(\alpha\colon [m] \to [n]\) isis defined as \(\alpha^*(a\otimes b) = \alpha^*(a) \otimes \alpha^*(b)\) and we write \(\alpha^*_{A\otimes B} \coloneq \alpha^*_A \otimes \alpha^*_B\).
+    Or this can be equally described as
+    \[\Delta^{op}\xrightarrow{(A,B)} (\mathbf{ab.grps})^2 \xrightarrow{\otimes} (\mathbf{ab.grps})\]
+
+    For \(A,B \in (\mathbf{SAB}) = \) simplicial abelian groups
+    \[C_*(A\otimes B) \neq C_*(A) \otimes C_*(B)\]
+    Also he did this in dimension \(n\), but I lacked time to copy.
+
+    The Eilenberg-Ziller theorem is a natural pair of chain homotopy equivalences between these two.
+\end{remark}
+
+\begin{construction}
+    Let \(A,B\) be simplicial chain groups. The \emph{Alexander-Whitney map} is the cain map
+    \[AW\colon C_*(A\otimes B) \to C_*(A) \otimes C_*(B)\]
+    defined by
+    \[\begin{tikzcd}
+        C_n(A\otimes B) \ar[d, phantom, sloped, "="]\ar[r] & \bigoplus_{p+q = n, p,q \geq 0} A_p \otimes B_q \ar[d, phantom, sloped, "="] \\
+        A_n \otimes B_n & C_*(A) \otimes C_*(B)
+    \end{tikzcd}\]
+    \[AW_n(a\otimes b) = \sum_{p+q = n} d_{front}^*(a) \otimes d_{back}^*(b)\]
+    Where \([p] \xrightarrow{d_{front}} [p+q] = [n] \xleftarrow{d_{back}} [q]\).
+
+    You may check for yourself, that this is a chain map, however Schwede didn't do that.
+\end{construction}
+
 
 \end{document}

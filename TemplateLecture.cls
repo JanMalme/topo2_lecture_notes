@@ -437,9 +437,12 @@
 \newtheorem{axiom}[lemma]{Axiom}
 \newtheorem{example}[lemma]{Example}
 \newtheorem{problem}{Aufgabe}
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem*{Proposition}{Proposition}
 % \theoremstyle{solution} 
 \newtheorem{Solution}{Lösung}
 \newtheorem{remark}[lemma]{Remark}
+\newtheorem*{Remark}{Remark}
 
 
 
