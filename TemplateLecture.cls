@@ -443,6 +443,7 @@
 \newtheorem{Solution}{Lösung}
 \newtheorem{remark}[lemma]{Remark}
 \newtheorem*{Remark}{Remark}
+\newtheorem{notation}[lemma]{Notation}
 
 
 

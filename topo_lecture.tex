@@ -68,8 +68,8 @@ with \(f\colon X_n \to R, y \in X_{n+1}\)
 \end{thm}
 
 \begin{proof}\leavevmode
-    \begin{itemize}
-        \item Let \(d_{front}\colon [n] \to [n+m]\), \(d_{back}\colon [m] \to [n+m]\) be as in the definition of \(\cup\). Then
+    \begin{enumerate}
+        \item We check some properties: Let \(d_{front}\colon [n] \to [n+m]\), \(d_{back}\colon [m] \to [n+m]\) be as in the definition of \(\cup\). Then
         \[d_i \circ d_{front} = \begin{cases}
             d_{front} \circ d_i & 0 \leq i \leq n+1 \\
             d_{front} & n+1 \leq i \leq n+m+1 \\
@@ -81,7 +81,7 @@ with \(f\colon X_n \to R, y \in X_{n+1}\)
         \end{cases}\]
         Note, that for \(n+1\) and \(n\) respectively the cases are the same.
 
-        now
+        Now we calculate
         \[\begin{split}
             d(f\cup g)(x) &= \sum_{i = 0}^{n+m+1}(-1)^{i} (f\cup g)(d_i^*(x)) \\
             &= \sum_{i = 0}^{n+m+1} (-1)^{i} \cdot f(d_{front}^*(x)) \cdot g(d_{back}^*(d_i^*(x))) \\
@@ -111,7 +111,7 @@ with \(f\colon X_n \to R, y \in X_{n+1}\)
             &= \alpha^*(f)(d_{front}^*(y)) \cdot \alpha^*(g)(d_{back}^*(y)) \\
             &= (\alpha^*(f) \cup \alpha^*(g))(y).
         \end{split}\]
-    \end{itemize}
+    \end{enumerate}
 \end{proof}
 
 \begin{defi}{Differential graded ring}{}
@@ -409,7 +409,7 @@ up Eilenberg Zilber map, bottom Alexander Whitney map %%help
 
 \textbf{Note.} The following commutes
 \[\begin{tikzcd}
-    (\mathbf{Ssets}) \ar[rr, "X \mapsto {C_*(X,A)}"] \ar[rd, "{A[_]}"] & & (\mathbf{Chains}) \\
+    (\mathbf{Ssets}) \ar[rr, "X \mapsto {C_*(X,A)}"] \ar[rd, "{A[\_]}"] & & (\mathbf{Chains}) \\
     & (\mathbf{s.ab.grps}) \ar[ru, "C_*"] \\
 \end{tikzcd}\]
 
@@ -419,19 +419,23 @@ up Eilenberg Zilber map, bottom Alexander Whitney map %%help
     with differential
     \[d(x\otimes y) = (dx \otimes y) + (-1)^p x \otimes (dy)\]
     for \(x \in C_p, y \in D_q\).
-
-    We can also form the tensor product of simplical abelian groups: \(A,B \colon \Delta^{op} \to (\mathbf{ab.grps})\) by
-    \[(A\otimes B)_n = A_n \otimes B_n, \quad \alpha^*\colon (A\otimes B)_n \to (A\otimes B)_m\]
-    for \(\alpha\colon [m] \to [n]\) isis defined as \(\alpha^*(a\otimes b) = \alpha^*(a) \otimes \alpha^*(b)\) and we write \(\alpha^*_{A\otimes B} \coloneq \alpha^*_A \otimes \alpha^*_B\).
-    Or this can be equally described as
-    \[\Delta^{op}\xrightarrow{(A,B)} (\mathbf{ab.grps})^2 \xrightarrow{\otimes} (\mathbf{ab.grps})\]
-
-    \textbf{Warning.} For \(A,B \in (\mathbf{SAB}) = \) simplicial abelian groups
-    \[C_*(A\otimes B) \neq C_*(A) \otimes C_*(B)\]
-    Also he did this in dimension \(n\), but I lacked time to copy.
-
-    The Eilenberg-Zilber theorem is a natural pair of chain homotopy equivalences between these two.
 \end{remark}
+
+    We can also form the tensor product of simplical abelian groups\index{Tensor product of simplicial abelian groups}:
+\begin{defi}{Tensor product of simplicial abelian groups}{}
+    \(A,B \colon \Delta^{op} \to (\mathbf{ab.grps})\) by
+    \[(A\otimes B)_n = A_n \otimes B_n, \quad \alpha^*\colon (A\otimes B)_n \to (A\otimes B)_m\]
+    for \(\alpha\colon [m] \to [n]\) is defined as \(\alpha^*(a\otimes b) = \alpha^*(a) \otimes \alpha^*(b)\) and we write \(\alpha^*_{A\otimes B} \coloneq \alpha^*_A \otimes \alpha^*_B\).
+
+    This can be equally described as the composite
+    \[\Delta^{op}\xrightarrow{(A,B)} (\mathbf{ab.grps})\times (\mathbf{ab.grps}) \xrightarrow{\otimes} (\mathbf{ab.grps})\]
+\end{defi}    
+
+\textbf{Warning.} For \(A,B \in (\mathbf{SAB}) = \) simplicial abelian groups
+\[C_*(A\otimes B) \neq C_*(A) \otimes C_*(B)\]
+Also he did this in dimension \(n\), but I lacked time to copy.
+
+The Eilenberg-Zilber theorem is a natural pair of chain homotopy equivalences between these two.
 
 \begin{construction}
     Let \(A,B\) be simplicial chain groups. The \emph{Alexander-Whitney map} is the chain map
@@ -446,6 +450,187 @@ up Eilenberg Zilber map, bottom Alexander Whitney map %%help
 
     You may check for yourself, that this is a chain map, however Schwede didn't do that.
 \end{construction}
+
+
+\newLecture{14.04.2025}
+
+\begin{Remark}
+    An example for a simplicial abelian group, that is not of the form
+    \[\Delta^{op} \xrightarrow{X} \mathbf{sets} \xrightarrow{A[\_]} (\mathbf{ab. grps.})\]
+    is for any abelian group \(G\) the simplicial set \(BG\), that also admits structure of a simplicial abelian group.
+\end{Remark}
+
+\begin{remark}[Relation between AW-map and cup-product]
+    For a simplicial set \(X\) and ring \(R\),
+    \[C^*(X,R) = \Hom(C_*(X,\IZ), R) = \Hom (C_*(\IZ[X])R)\]
+    and \(C^n(X,R) = \Hom(C_n(X,R), R)\).
+    If \(\psi \in C^n(X,R)\) is a cocycle, i.e. \(d(\psi) = 0\), then it extends to a chain map
+    \[\tilde{\psi}\colon C_*(\IZ[X]) \to R[n]\]
+    where \(R[n]\) is the complex with \(R\) in dimension \(n\) and \(0\) otherwise.
+    and \(\tilde{\psi}\) is \(\psi\) in dimension \(n\) and \(0\) otherwise.
+
+    For \(f \in C^n(X,R), g\in C^m(X,R)\) cocycles, we have \(f\cup g \in C^{n+m}(X,R)\). Then \(\tilde{f\cup g}\) is the following composite
+    \[\begin{tikzcd}
+        {C_*(\IZ[X])} \ar[r, "{C_*(\IZ[\text{diagonal}])}"] & {C_*(\IZ[X \times X])} \ar[r, "\cong", phantom] & {C_*(\IZ([X]) \otimes \IZ[X])} \ar[r, "\text{AW}"] & {C_*(\IZ[X]) \otimes C_*(\IZ[X])} \ar[r, "\tilde{f} \otimes \tilde{g}"] & {R[n] \otimes R[m]} \ar[r, "\text{mult}"] & {R[n+m]} \\
+    \end{tikzcd}\]
+\end{remark}
+
+\begin{defi}{(p,q)-shuffle}{}
+    A \((p,q)\)-shuffle\index{(p,q)-shuffle} for \(p,q \geq 0\) is a permutation \(\sigma\) of \(\set{0,1,\dots, p+q-1}\), such that the restriction of \(\sigma\) to \(\set{0,1,\dots, p-1}\) is monotone, and the restriction of \(\sigma\) to \(\set{p, \dots, p+q-1}\) is monotone.
+\end{defi}
+
+\begin{Remark}
+    \enquote{Shuffles leave the first \(p\) elements in order and the last \(q\) elements in order.}
+\end{Remark}
+
+\begin{example}
+    The only \((p,0)\)-shuffle or \((0,q)\)-shuffles are the identity.
+
+    There are precisely two \((1,1)\)-shuffles, namely both permutations of \(\set{0,1}\).
+
+    \(\sigma \in S_3\) given by \(\sigma(0) = 0 \sigma(1) = 2, \sigma(2) = 1\) is not a \((2,1)\)-shuffle, but it is a \((1,2)\)-shuffle.
+\end{example}
+
+\begin{remark}
+    \((p,q)\)-shuffles biject with \(p\)-element subsets of \(\set{0,1,\dots, p+q-1}\) by \(\sigma\mapsto \set{\sigma(0), \dots, \sigma(p)}\) and also wit \(q\)-element subsets of \(\set{0,1, \dots, p+q-1}\) by \(\sigma\mapsto \set{\sigma(p),\dots, \sigma(p+q-1)}\).
+
+    This means \(\abs{(p,q)\text{-shuffles}} = \binom{p+q}{p} = \binom{p+q}{q}\).
+\end{remark}
+
+\begin{notation}
+    Let \(\sigma\) be a \((p,q)\)-shuffle. We write \(\mu_i\Coloneq \sigma(i-1)\) for \(1 \leq 1 \leq p\) and \(\nu_i \coloneq \sigma(p+i-1)\) for \(1 \leq i \leq q\).
+
+    This means
+    \(0 \leq \mu_1 \leq \dots \leq \mu_p\) and \(0 \leq \nu_1 \leq \dots \leq \nu_q \leq p+q-1\).
+\end{notation}
+
+\begin{defi}{Eilenberg-Zilber map}{}
+    Let \(A,B\) be simplicial abelian groups. The Eilenberg-Zilber map \index{Eilenberg-Zilber map}/shuffle map \index{shuffle map} is
+    \[EZ\colon C_*(A) \otimes C_*(B) \to C_*(A\otimes B)\]
+    is the direct sum of the homomorphisms
+    \[\nabla_{p,q} \colon A_p\otimes B_q \to A_{p+q} \otimes B_{p+q}\]
+    given by
+    \[a\otimes b \mapsto a \nabla b \coloneq \sum_{\sigma\colon (p,q)\text{-shuffle}} \sgn(\sigma) \cdot (s_{\nu_i} \circ \dots \circ s_{\nu_q})^*(a) \otimes (s_{\mu_1}\circ \dots \circ s_{\mu_p})^*(b)\]
+\end{defi}
+
+\begin{example}
+    There is only one \((p,0)\)-shuffle, the identity of \(\set{0, \dots, p-1}\). Then \(\mu_i = i-1\).
+    \[\nabla_{p,0}\colon A_p \otimes B_0 \to A_p \otimes B_p\]
+    is defined by
+    \[a\otimes b \mapsto a\nabla b = a \otimes (s_0 \circ \dots \circ s_{p-1})^*(b).\]
+
+    For \(p = q = 1\) i didn't have the time to copy.
+\end{example}
+
+Schwede claims, that the Eilenberg-Zilber map is a chain map and he can't believe he actually did those calculations 4 years ago. He will not torture us, but you may watch the videos.
+
+\begin{thm}{Shuffle maps form a chain map}{}
+    The shuffle maps \(\nabla_{p,q}\) for varying \(p,q \geq 0\) assemble into a chain map. Furthermore, for \(a \in A_p, b \in B_q\)
+    \[d(a\nabla b) = (da) \nabla b + (-1)^p a \nabla (db)\]
+\end{thm}
+
+He specifies, that the calculation takes up 8 pages of his notes.
+
+
+\begin{thm}{Eilenberg-Zilber}{}
+    Let \(A,B\) be simplicial abelian groups. Then the morphisms
+    \[\begin{tikzcd}
+        C_*(A) \otimes C_*(B) \ar[rr, bend left, "\text{Eilenberg-Zilber}"] && C_*(A\otimes B) \ar[ll, bend left, "AW"]
+    \end{tikzcd}\]
+
+    are mutually inverse natural chain homotopy equivalences.
+\end{thm}
+
+\begin{proof}
+    A first method of proof would be explicit formulas for the chain homotopies \(\text{AW} \circ EZ \sim \Id\) and \(EZ \circ AW \sim \Id\). That is however infinitely annoying and we will not do this.
+
+    For the special case, where \(A = \IZ[X], B= \IZ[Y]\) for simplicial sets \(X,Y\) via acyclic models.
+
+    \begin{proposition}[Yoneda lemma]
+        Let \(\cC\) be a category and \(c\) an object of \(\cC\). Let \(F\colon \cC \to (\mathbf{sets})\) be a functor: Then the evaluation map
+        \[\Nat_{\cC \to \mathbf{sets}}(\cC(c,\_), F) \to F(c)\]
+        given by
+        \[(\tau\colon \cC(c,\_) \to F) \mapsto (\tau_c\colon \cC(c,c)\to F(c))(\id_c)\]
+        is bijective.
+
+        Equally: for every \(x \in F(c)\), there is a unique natural transformation \(\tau\colon (\cC(c, \_) \to F)\), such that \(\tau_c(\id_c) = x\).
+    \end{proposition}
+
+    \begin{Remark}
+        A special case of this is
+        \[\Hom_{\mathbf{sset}}(\Delta^n, X) \cong X_n, \quad (f\colon \Delta
+        ^n\to X) \mapsto f_n(\id_[n]).\]
+        where \(\Delta^n = \Delta(\_, [n])\).
+    \end{Remark}
+
+    \begin{proof}
+        We show injectivity and surjectivity.
+        \begin{description}
+            \item[Injectivity] Let \(\tau\colon \cC(c,\_) \to F\) be any natural transformation. Let \(d\) be another object of \(\cC\), \(f\colon c\to d\) any morphism. Then we have
+            \[\tau_d\colon \cC(c,d) \to F(d)\]
+            and
+            \[\tau_d(f\colon c \to d) = \tau_d(\cC(c,f)(\id_c)) = F(f) (\tau_c(\id_c))\]
+            where we use naturality of \(\tau\):
+            \[\begin{tikzcd}
+                {\cC(c,d)} \ar[r, "\tau_d"] \ar[d, "{\cC(c,g)}"] & F(d) \ar[d, "F(g)"] \\
+                {\cC(c,e)} \ar[r, "\tau_e"] & F(e) \\
+            \end{tikzcd}\]
+            which implies the value of \(\tau\) at \(d,f\colon c\to d\) is determined by its value of \((c, \id_c)\) and the functorality of \(F\).
+            \item[Surjectivity] Let \(y \in F(c)\) be given. For an object \(d\) of \(\cC\) and morphism \(f\colon c \to d\), we define
+            \[\tau_d\colon \cC(c,d) \to F(d) \quad \tau_d(f) \coloneq F(f)(y).\]
+            We check \(\tau_c(\id_c) = F(\id_c)(y) = y\).
+            We need to check for naturality. Let \(g\colon d \to e \) be another morphism. Then
+            \[\begin{split}
+                F(g)(\tau_d(f)) &= F(g)(F(f)(y)) = F(g\circ f)(y) \\
+                &= \tau_e(g\circ f) = \tau_e(\cC(c,g)(f)) \\
+            \end{split}\]
+         \end{description}
+    \end{proof}
+
+    Let \(\cC\) be a category, \(c\) an object of \(\cC\). We define the functor \(\IZ[\cC(c,\_)]\colon \cC \to (\mathbf{ab.grps.})\) as the composite
+    \[\cC \xrightarrow{\cC(c,\_)} (\mathbf{sets}) \xrightarrow{\IZ[\_]} (\mathbf{ab.grps.}).\]
+    In particular, \(\IZ[\cC(c, \_)] (d) = \IZ[\cC(c,d)]\).
+    \begin{Proposition}[Additive Yoneda lemma]
+        Let \(c \in ob(\cC), F\colon \cC \to (\mathbf{ab.grps.})\) any functor. Then the evaluation map
+        \[\Nat_{\cC \to (\mathbf{ab.grps.})}(\IZ[\cC(c,\_)], F) \to F(c)\]
+        is bijective. \((\tau\colon \IZ[\cC(c, \_)] \to F) \mapsto \tau_c(1\cdot \id_c)\).
+    \end{Proposition}
+    \begin{proof}
+        For varying objects \(d\) of \(\cC\), the bijections
+        \[\Hom_{AB}(\IZ[\cC(c,d)], F(d)) \cong \Hom_{\mathbf{sets}}(\cC(c,d), F(d))\]
+        assemble into a bijection\footnote{not very clear, you might want to think, why those are bijections.}
+        \[\Nat_{\cC \to \mathbf{Ab}}(\IZ[\cC(c, \_)], F) \cong \Nat_{\cC \to \mathbf{sets}}(\cC(c, \_), F) \overset{\text{Yoneda}}{\cong} F(c)\]
+    \end{proof}
+    \begin{defi}{Representable functor}{}
+        A functor \(F\colon \cC \to \mathbf{Ab}\) is representable\index{representable functor} if there is an object \(c \in \cC\) and a natural isomorphism \(F\cong \IZ[\cC(c,\_)]\)
+    \end{defi}
+    \textbf{Note.} Any isomorphism \(F \cong \IZ[\cC(c,\_)]\) is determined by the \enquote{universal element} in \(F(c)\).
+
+    \begin{example}
+        Let \(\cC = (\mathbf{ssets}) \times (\mathbf{ssets})\) be the product of two copies of the category of simplicial sets. Define \(f\colon (\mathbf{ssets})\times (\mathbf{ssets}) \to \mathbf{Ab}\) given by \(F(X,Y) = \IZ[X_p \times Y_q]\) for some \(p,q \geq 0\).
+        \textbf{Claim.} This functor is representable by \((\Delta^p, \Delta^q)\) with natural isomorphisms.
+        \[(\mathbf{ssets}\times \mathbf{ssets})((\Delta^p, \Delta^q), (X,Y)) = \mathbf{sets}(\Delta^p, X) \times \mathbf{sets}(\Delta^q,Y) \cong X_p \times Y_q\]
+        Apply free abelian groups to get
+        \[\IZ[(\mathbf{ssets} \times \mathbf{ssets})((\Delta^p,\Delta^q)(X,Y))] \cong \IZ[X_P \times Y_q]\]
+    \end{example}
+
+    \begin{thm}{Acyclic models}{}
+        Let \(\cC\) be a category, \(F,G\colon \cC \to \mathbf{Chains}_+ = \text{non-negative grade chain complexes}\). Let \(\psi \colon F \to G\) be a natural transformation of functors. Suppose;
+        \begin{enumerate}
+            \item The transformation \(\psi_0 \colon F_0 \to G_0 \colon \cC \to \mathbf{Ab}\) is the zero natural transformation
+            \item For \(n \geq 1\), the functor \(F_n \colon \cC \to \mathbf{Ab}\) is isomorphic to a direct sum of representable functors, \(\IZ[\cC(c,\_)]\) for some family \(\set{c_i}_{i \in I}\) of \(\cC\)-objects such that \(H_n(G(c)) = 0\).
+        \end{enumerate}
+        Then \(\psi\) is naturally chain nullhomotopic.
+    \end{thm}
+\end{proof}
+
+
+
+
+
+
+
+
 
 
 \end{document}
