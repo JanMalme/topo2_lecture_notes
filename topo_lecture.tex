@@ -166,7 +166,7 @@ with \(f\colon X_n \to R, y \in X_{n+1}\)
     The cup product generalizes to relative cohomology: For \(A, B\) simplicial subsets of \(X\). We have
     \[C^n(X,A;R) = \set{f\colon X_n\to R \mid f(A_n) = \set{0}}\]
     The relative cup product is the restriciton of \(\cup\) on \(C^*(X,R)\) to
-    \[C^n(X,A;R) \times C^m(X,B;R) \xrightarrow{u} C^{n+m}(X,A\cup B;R).\]
+    \[C^n(X,A;R) \times C^m(X,B;R) \xrightarrow{\cup} C^{n+m}(X,A\cup B;R).\]
     Let \(x \in (A \cup B)_{n+m}\), then
     \[(f\cup g)(x) = f(d_{front}^*(x)) \cdot g(d_{back}^*(x))\]
     if \(x \in A_{n+m}\) then \(f(d_{front}^*(x)) = 0\) and analogous with \(B_{n+m}\), anyways the product is 0.
@@ -379,8 +379,9 @@ Here is a simplest version in homology with field coefficients:
 \subsection{The Eilenberg-Zilber-theorem}
 
 Let \(A,B\) be simplicial abelian groups. Then we get two natural chain homotopy equivalences
-\[C_*(A) \otimes C_*(B) C_*(A\otimes B)\]
-up Eilenberg Zilber map, bottom Alexander Whitney map %%help
+\[\begin{tikzcd}
+    C_*(A) \otimes C_*(B) \ar[rr, bend left, "\text{Eilenberg-Zilber-Map}"] && C_*(A\otimes B) \ar[ll, bend left, "\text{Alexander Whitney map}"]
+\end{tikzcd}\]
 
 \begin{defi}{Simplicial abelian group}{}
     A \emph{simplicial abelian group} \index{simplicial abelian group} is a functor \(A\colon \Delta^{Op} \to \mathbf{Ab.Groups}\).
@@ -471,7 +472,8 @@ The Eilenberg-Zilber theorem is a natural pair of chain homotopy equivalences be
 
     For \(f \in C^n(X,R), g\in C^m(X,R)\) cocycles, we have \(f\cup g \in C^{n+m}(X,R)\). Then \(\tilde{f\cup g}\) is the following composite
     \[\begin{tikzcd}
-        {C_*(\IZ[X])} \ar[r, "{C_*(\IZ[\text{diagonal}])}"] & {C_*(\IZ[X \times X])} \ar[r, "\cong", phantom] & {C_*(\IZ([X]) \otimes \IZ[X])} \ar[r, "\text{AW}"] & {C_*(\IZ[X]) \otimes C_*(\IZ[X])} \ar[r, "\tilde{f} \otimes \tilde{g}"] & {R[n] \otimes R[m]} \ar[r, "\text{mult}"] & {R[n+m]} \\
+        {C_*(\IZ[X])} \ar[rr, "{C_*(\IZ[\text{diagonal}])}"] && {C_*(\IZ[X \times X])} \ar[r, "\cong", phantom] & {C_*(\IZ([X]) \otimes \IZ[X])} \ar[dlll, "\text{AW}"] \\
+        {C_*(\IZ[X]) \otimes C_*(\IZ[X])} \ar[r, "\tilde{f} \otimes \tilde{g}"] & {R[n] \otimes R[m]} \ar[r, "\text{mult}"] & {R[n+m]} \\
     \end{tikzcd}\]
 \end{remark}
 
@@ -532,7 +534,7 @@ Schwede claims, that the Eilenberg-Zilber map is a chain map and he can't believ
 He specifies, that the calculation takes up 8 pages of his notes.
 
 
-\begin{thm}{Eilenberg-Zilber}{}
+\begin{thm}{Eilenberg-Zilber}{ElbZlb}
     Let \(A,B\) be simplicial abelian groups. Then the morphisms
     \[\begin{tikzcd}
         C_*(A) \otimes C_*(B) \ar[rr, bend left, "\text{Eilenberg-Zilber}"] && C_*(A\otimes B) \ar[ll, bend left, "AW"]
@@ -544,7 +546,7 @@ He specifies, that the calculation takes up 8 pages of his notes.
 \begin{proof}
     A first method of proof would be explicit formulas for the chain homotopies \(\text{AW} \circ EZ \sim \Id\) and \(EZ \circ AW \sim \Id\). That is however infinitely annoying and we will not do this.
 
-    For the special case, where \(A = \IZ[X], B= \IZ[Y]\) for simplicial sets \(X,Y\) via acyclic models.
+    For the special case, where \(A = \IZ[X], B= \IZ[Y]\) for simplicial sets \(X,Y\) we proove this via acyclic models. For that we need some category-theory:
 
     \begin{proposition}[Yoneda lemma]
         Let \(\cC\) be a category and \(c\) an object of \(\cC\). Let \(F\colon \cC \to (\mathbf{sets})\) be a functor: Then the evaluation map
@@ -559,7 +561,7 @@ He specifies, that the calculation takes up 8 pages of his notes.
     \begin{Remark}
         A special case of this is
         \[\Hom_{\mathbf{sset}}(\Delta^n, X) \cong X_n, \quad (f\colon \Delta
-        ^n\to X) \mapsto f_n(\id_[n]).\]
+        ^n\to X) \mapsto f_n(\id_{[n]}).\]
         where \(\Delta^n = \Delta(\_, [n])\).
     \end{Remark}
 
@@ -595,12 +597,14 @@ He specifies, that the calculation takes up 8 pages of his notes.
         \[\Nat_{\cC \to (\mathbf{ab.grps.})}(\IZ[\cC(c,\_)], F) \to F(c)\]
         is bijective. \((\tau\colon \IZ[\cC(c, \_)] \to F) \mapsto \tau_c(1\cdot \id_c)\).
     \end{Proposition}
+
     \begin{proof}
         For varying objects \(d\) of \(\cC\), the bijections
         \[\Hom_{AB}(\IZ[\cC(c,d)], F(d)) \cong \Hom_{\mathbf{sets}}(\cC(c,d), F(d))\]
-        assemble into a bijection\footnote{not very clear, you might want to think, why those are bijections.}
+        assemble into a bijection\footnote{I don't know why though.}
         \[\Nat_{\cC \to \mathbf{Ab}}(\IZ[\cC(c, \_)], F) \cong \Nat_{\cC \to \mathbf{sets}}(\cC(c, \_), F) \overset{\text{Yoneda}}{\cong} F(c)\]
     \end{proof}
+
     \begin{defi}{Representable functor}{}
         A functor \(F\colon \cC \to \mathbf{Ab}\) is representable\index{representable functor} if there is an object \(c \in \cC\) and a natural isomorphism \(F\cong \IZ[\cC(c,\_)]\)
     \end{defi}
@@ -614,20 +618,175 @@ He specifies, that the calculation takes up 8 pages of his notes.
         \[\IZ[(\mathbf{ssets} \times \mathbf{ssets})((\Delta^p,\Delta^q)(X,Y))] \cong \IZ[X_P \times Y_q]\]
     \end{example}
 
+    \begin{notation}
+        For \(F\colon \cC \to \mathbf{Chains}\) we write \(F_n = (\_)_n \circ F\colon \cC \to \mathbf{Ab}\) as the composite.
+        \[\cC \xrightarrow{F} \mathbf{Chains} \xrightarrow{(\_)_n} \mathbf{Ab}\]
+        and the second map sends \(C = C(n, d_n)_{n \in \IZ} \mapsto C_n\).
+    \end{notation}
+
     \begin{thm}{Acyclic models}{}
         Let \(\cC\) be a category, \(F,G\colon \cC \to \mathbf{Chains}_+ = \text{non-negative grade chain complexes}\). Let \(\psi \colon F \to G\) be a natural transformation of functors. Suppose;
         \begin{enumerate}
             \item The transformation \(\psi_0 \colon F_0 \to G_0 \colon \cC \to \mathbf{Ab}\) is the zero natural transformation
-            \item For \(n \geq 1\), the functor \(F_n \colon \cC \to \mathbf{Ab}\) is isomorphic to a direct sum of representable functors, \(\IZ[\cC(c,\_)]\) for some family \(\set{c_i}_{i \in I}\) of \(\cC\)-objects such that \(H_n(G(c)) = 0\).
+            \item For every \(n \geq 1\), the functor \(F_n \colon \cC \to \mathbf{Ab}\) is isomorphic to a direct sum of representable functors, \(\bigoplus_{i \in I} IZ[\cC(c_i,\_)]\) for some family \(\set{c_i}_{i \in I}\) of \(\cC\)-objects such that \(H_n(G(c_i)) = 0\).
         \end{enumerate}
         Then \(\psi\) is naturally chain nullhomotopic.
     \end{thm}
+
+
+\newLecture{16.04.2025}
+
+    \begin{proof}
+        For \(n \geq 0\), we will construct natural transformations
+        \[s_n\colon F_n \to G_{n+1}\]
+        of functors \(\cC \to \mathbf{Ab}\), such that
+        \begin{equation}\tag{*}
+            d_{n+1} \circ s_n + s_{n-1} \circ d_n = \psi_n
+        \end{equation}
+        as natural transformations (i.e. they have the chain homotopy property).
+
+        The construction is by induction on \(n.\) We begin with \(s_0 = 0\) and \(s_{-1} = 0\). Suppose \(n \geq 1\) and that \(s_0, \dots, s_{n-1}\) have been constructed satisfying (*). Then
+        \[d_n^G \circ (\psi_n - s_{n-1} \circ d_n^F) = d_n^G \circ \psi_n - d_n^G \circ s_{n-1} \circ d_n^F\]
+        as \(\psi\) is a chain map,
+        \[= \psi_{n-1} \circ d_n^F - d_n^G \circ s_{n-1} \circ d_n^F = (\psi_{n-1} - d_n^G \circ s_{n-1}) \circ d_n^F \overset{(*)}{=} s_{n-2} \circ d_{n-1}^F \circ d_n^F = 0.\]
+        So \(\psi_n - s_{n-1} \circ d_n^F\colon F_n \to G_n\) takes values in cycles.
+        By 2.,
+        \[f_n = \bigoplus_{i \in I} \IZ[\cC(c, \_)]\]
+        for some set \(\set{c_i}_{i \in I}\) of \(\cC\)-objects, such that \(H_n(G(c_i)) = 0\). Let \(j \in I\), write
+        \[x_j \in F(c_j) = \bigoplus_{i \in I} \IZ[\cC(c_i,c_j)]\]
+        be the element \(1 \cdot \id_j\) in the \(j\)-th summand. Then
+        \[\psi_n^{c_j}(x_j) - s_{n-1}^{{c_j}}(d_n^{F, c_i}(x_j)) \in G_n(c_j)\]
+        is a cycle. Since \(H_n(G(c_j)) = 0\), the class is a boundary in the complex \(G(c_j)\).
+
+        Let \(y_j \in G(c_j)_{n+1}\) be a element such that
+        \[d_{n+1}^{c_j}(y_j) = \psi_n^{c_j}(x_j) - s_{n-1}^{c_j}(d_n^{F, c_j}(x_j))\]
+        The additive Yoneda lemma provides a unique natural transformation
+        \[s_{n,j} \colon \IZ[\cC(c_j, \_)] \to G_{n+1}\]
+        such that \(s_{n,j}(x_j) = s_{n,j}^{c_j}(1\cdot \id_{c_j}) = y_j \in G_{n+1}(c_j)\).
+
+        We define the natural transformation
+        \[s_n\colon F_n = \bigoplus_{i \in I} \IZ[\cC(c_i, \_)] \to G_{n+1}\]
+        as \(s_n = \bigoplus_{j \in I} s_{n,j}\).
+
+        It suffices now to show, that (*) holds on each summand \(\IZ[\cC(c_j, \_)]\). By the additive Yoneda lemma, there it suffices to check the relation on \(1\cdot \id_{c_j}\), which holds by definition.
+    \end{proof}
+
+    \begin{Remark}
+        We only prooved \enquote{half} of the acyclic models theorem. The other half states:
+
+        Let \(\cC\) and \(F,G\colon \cC \to \mathbf{Chains}_+\) be as before, satisfying 2.. Then any natural transformation \(\psi_0\colon F_0 \to G_0\) can be extended to a natural transformation \(\psi\colon F \to G\).
+    \end{Remark}
+
+    Now to actually proove the Eilenberg-Zilber-Theorem \ref{thm:elbzlb} (at least in a special case.) Let \(A,B\) be simplicial abelian groups. We assume \(A = C_*(\IZ[X])\), \(B= C_*(\IZ[Y])\) for some simplicial sets \(X,Y\). We write \(C_*(X), C_*(Y)\). For sets \(S,T\),
+    \[\begin{tikzcd}
+        \IZ[S] \otimes \IZ[T] \ar[rr, bend left] && \IZ[S \times T] \ar[ll, bend left] \\
+        s\otimes t \ar[rr] && (s,t)
+    \end{tikzcd}\]
+    is naturally isomorphic. Dimensionwise this gives \(\IZ[X] \otimes \IZ[Y] \cong \IZ[X \times Y]\).
+
+    We want to move this further to \(C_*(X) \otimes C_*(Y) \cong C_*(X\times Y)\).
+
+    \begin{proposition}\leavevmode
+        \begin{enumerate}
+            \item For all \(p\geq 0\), the simplicial set \(\Delta^q\) is simplicially contractible.
+            \item For all \(p \geq 0\), the complex \(C_*(\Delta^p)\) is chain homotopy equivalent to the complex \(\IZ[0]\), the complex consisting of \(\IZ\) in dimension \(0\).
+            \item For \(p,q \geq 0\), the chain complex \(C_*(\Delta^p) \otimes C_*(\Delta^q)\) is chain homotopy equivalent to \(\IZ[0]\). In particular,
+            \[H_n(C_*(\Delta^p) \otimes C_*(\Delta^q)) = 0\]
+            for \(n > 0\).
+        \end{enumerate}
+    \end{proposition}
+    \begin{proof}\leavevmode
+        \begin{enumerate}
+            \item We define a morphism of simplicial sets \(H\colon \Delta^p \times \Delta^1 \to \Delta^p\) that contracts \(\Delta^p\) to the last vertex.\footnote{remember, that Homotopy is not symmetric in Simplicial sets. This is such an example.}
+            In dimension \(n\),
+            \[H_n\colon \Delta([n], [p]) \times \Delta([n],[1]) \to \Delta([n], [p])\]
+            is given by
+            \[H_n(\alpha, \beta)(i) = \begin{cases}
+                \alpha(i) & \text{if } \beta(i) = 0 \\
+                p & \text{if } \beta(i) = 1 \\
+            \end{cases}\]
+            for \(0 \leq i \leq n\). Let \(\gamma\colon [m] \to [n]\) be any morphism in \(\Delta\). Then
+            \[H_m(\gamma^*(\alpha,\beta))(j) = H_m(\alpha\circ \gamma, \beta\circ \gamma)(j) = \begin{cases}
+                \alpha(\gamma(j)) & \text{if } \beta(\gamma(j)) = 0 \\
+                p & \text{if } \beta(\gamma(j)) = 1 \\
+            \end{cases} = H_n(\alpha,\beta)(\gamma(j)) = \gamma^*(H_n(\alpha,\beta)(j))\]
+            This means \(H\) is a homotopy from \(\Id_{\Delta^p}\) to the composite
+            \[\Delta^p \to \Delta^0 \xrightarrow{p\text{-th vertex}} \Delta^p\]
+            \item \(C_*\colon \mathbf{ssets} \to \mathbf{chains}\) takes simplicial homotopies to chain homotopies. So we know \(C_*(\Delta^p)\) is chain homotopy equivalent to
+            \[C_*(\Delta^0) = (\dots \IZ \xrightarrow{\Id} \IZ \xrightarrow{0} \IZ)\]
+            which is chain homotopy equivalent to
+            \[(\dots 0 \to 0 \to 0 \to 0 \to \IZ) = \IZ[0]\]
+
+            \item The tensor product of chain complexes preserves chain homotopy equivalences in each variable separatedly. So
+            \[C_*(\Delta^p) \otimes C_*(\Delta^q) \sim \IZ[0] \otimes C_*(\Delta^1) \sim \IZ[0] \otimes \IZ[0] \cong \IZ[0].\]
+        \end{enumerate}
+    \end{proof}
+
+    We now must produce natural chain homotopies from
+    \[\mathrm{AW} \circ \mathrm{EZ} \colon C_*(X) \otimes C_*(Y) \to C_*(X) \otimes C_*(Y)\]
+    and
+    \[\mathrm{EZ} \circ \mathrm{AW}: C_*(X\times Y) \to C_*(X \times Y)\]
+    to the respective identities.
+
+    \textbf{Claim.} \(\mathbf{AW}\circ \mathbf{EZ} - \Id_{C_*(X) \otimes C_*(Y)}\colon C_*(X) \otimes C_*(Y) \to C_*(X) \otimes C_*(Y)\) satisfies the hypothesis of acyclic models.
+
+    \begin{proof}
+        \[\begin{tikzcd}
+            C_0(X) \otimes C_0(Y) \ar[d, phantom, "=", sloped]\ar[r,"\cong", phantom] & \IZ[X_0] \otimes \IZ[Y_0] \ar[r, bend left, "\cong"] & \IZ[X_0 \times Y_0] \ar[l, bend left, "\cong"] \ar[d, "=", phantom, sloped]\\
+            (C_*(X) \otimes C_*(Y))_0 && C_0(X\times Y)\\
+        \end{tikzcd}\]
+        Which means \((\mathbf{AW} \circ \mathbf{EZ})_0 = \Id\) and \((\mathbf{EZ} \circ \mathbf{AW})_0 = \Id\). which means \(\psi_0 = \) zero natural transformation.
+
+        \[(C_*(X) \otimes C_*(Y))_n = \bigoplus_{p+q = n} C_p(X) \otimes C_q(Y) = \bigoplus_{p+q = n} \IZ[X_p] \otimes \IZ[Y_q] \cong \bigoplus_{p+q = n} \IZ[X_p \times Y_q]\]
+        which is represented by \((\Delta^p, \Delta^q)\). Then
+        \(H_n(C_*(\Delta^p \otimes \Delta^q)) = 0\) (I think, he erased before I could copy.)
+
+        We consider \(\phi \colon \mathbf{EZ} \circ \mathbf{AW} - \Id_{C_*(X\times Y)} \colon C_*(X\times Y) \to C_*(X\times Y)\). We know, \(\phi_0 = 0\). We need to show, that \(\phi\) satisfies the hypothesis of acyclic models.
+        \[C_n(X\times Y) = \IZ[X_n \times Y_n]\]
+        is representable by \((\Delta^n, \Delta^n)\).
+        \[H_n(C_*(\Delta^n\times \Delta^n)) \cong H_n(\Delta^0 \times \Delta^0) = H_n(\Delta^0) = 0\]
+        for \(n > 0\), where we used \(\Delta^n \sim \Delta^0\) and so \(\Delta^n \times \Delta^n \sim \Delta^0 \times \Delta^0\). So acyclic models produces a natural chain nullhomotopy of \(\phi\).
+    \end{proof}
+
+    This concludes the proof of the Künneth theorem.
 \end{proof}
 
+\subsection{Commutativity of the cup-product revisited}
 
+The symmetry isomorphism of chain complexes \(C,D\) is the morphism.
+\[\tau_{C,D} \colon C\otimes D \xrightarrow{\cong} D\otimes C\]
+is given by
+\[\begin{tikzcd}
+    {\tau_{C,D}}_n & \colon (C\otimes D)_n & (D\otimes C)_n \\
+    & \bigoplus_{p+q = n} C_p \otimes D_q & \bigoplus_{q+p= n} D_q \otimes C_p \\
+    & c\otimes d & (-1)^{pq} \cdot d\otimes c
+\end{tikzcd}\]
 
+\textbf{Fact.}
+\[\begin{tikzcd}
+    C_*(X) \otimes C_*(Y) \ar[d, "\tau"] \ar[r, "\mathbf{EZ}"] & C_*(X,Y) \ar[d, "C_*(flip)"] \\
+    C_*(Y) \otimes C_*(X) \ar[r, "\mathbf{EZ}"] & C_*(Y\otimes X) \\
+\end{tikzcd}\]
+commutes. where \(flip \colon X \times Y \to Y \times X, \; (x,y) \mapsto (y,x)\).
+Hence, \enquote{The Eilenberg-Zilber map is symmetric}.
 
+But however for AW the same diagram does NOT commute.
 
+%%Diagram
+
+Howeveer it does so up to natural chain homotopy by applying the acyclic models to the differenc of the two composites. He explains, why we can apply acyclic models.
+
+Let \(X\) be a simplicial set. The diagonal \(\Delta\colon X \to X \times X\) is flip-invariant, i.e.
+\[\begin{tikzcd}
+    X \ar[r, "\Delta"]\ar[rd, "\Delta"] & X\times X \ar[d, "flip"] \\
+    & X \times X
+\end{tikzcd}\]
+We draw a diagram:
+\[\begin{tikzcd}
+    C_*(X) \ar[r, "C_*(\Delta)"] \ar[rd, "C_*(\Delta)"] & C_*(X\times X) \ar[d, "C_*(flip)"]\ar[r, "\mathbf{AW}"] &C_*(X) \otimes C_*(X) \ar[d, "\tau"]\\
+    & C_*(X\times X) \ar[r, "\mathbf{AW}"]& C_*(X) \otimes C_*(X) \\
+\end{tikzcd}\]
+that commutes up to homotopy. We apply the functor \(\Hom(\_, R)\) to get a new diagram and my speed at copying was not capable of keeping up. You may want to have a look at the videos for this.
 
 
 

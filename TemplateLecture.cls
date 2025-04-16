@@ -463,7 +463,7 @@
 {lemstyle}{lem}
 \newtcbtheorem[use counter*=lemma,crefname={definition}{definitions}, list inside={def}]{defi}{Definition}%
 {defstyle}{def}
-\newtcbtheorem[use counter*=lemma,crefname={theorem}{theorems}, list inside={thm}]{thm}{Satz}%
+\newtcbtheorem[use counter*=lemma,crefname={theorem}{theorems}, list inside={thm}]{thm}{Theorem}%
 {theostyle}{thm}
 
 
