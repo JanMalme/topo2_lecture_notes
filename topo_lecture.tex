@@ -789,6 +789,216 @@ We draw a diagram:
 that commutes up to homotopy. We apply the functor \(\Hom(\_, R)\) to get a new diagram and my speed at copying was not capable of keeping up. You may want to have a look at the videos for this.
 
 
+\newLecture{23.04.2025}
+
+
+The Plan for today is to show the Künneth theorem for homology. The rough approximation is, that product of spaces goes to Tensorproducts of abelian groups.
+
+If \(X,Y\) are simplicial sets, then by EZ we have \(H_*(X\times Y; R) = H_*(C_*(X\times Y; R)) \cong H_*((C_*(X,R)) \otimes_R C_*(Y; R))\) and we want to see how that relates to \(H_*(X,R) \otimes_R H_*(Y; R)\).
+
+In the following \(R\) is a commutative ring (have integers and fields in mind).
+
+\begin{defi}{Tensor Product of \(R\)-chains}{}
+Let \(C,D\) be chain complexes of \(R\)-modules. We define a new complex of \(R\)-modules \(C \otimes_R D\):
+\[(C\otimes_R D)_n = \bigoplus_{p+q = n} C_p \otimes_R D_q\]
+with differential
+\[d(x\otimes y) = dx \otimes y + (-1)^{pq} x\otimes dy.\]
+\end{defi}
+
+Note that \(R \otimes \IZ[S] \cong R[S]\) for \(S\) a simplicial set. And \(R[S] \otimes_R R [T] \cong R[S\times T]\) for \(S,T\) simplicial sets.
+
+For \(X,Y\) simplicial sets, we have
+\[R\otimes C_*(X,\IZ) \otimes C_*(Y,\IZ) \xrightarrow{R\otimes \mathbf{EZ}} R\otimes C_*(X\times Y; \IZ) \cong C_*(X\otimes Y; R)\]
+and for \(R\otimes C_*(X; \IZ) \otimes C_*(Y; \IZ) \cong (R\otimes C_*(X;Z)) \otimes_R (R \otimes C_*(Y; \IZ)) = C_*(X,R) \otimes_R C_*(Y,R)\), so we get a Eilenberg-Zilber map
+\[C_*(X,R)\otimes_R C_*(Y,R) \xrightarrow{\mathbf{EZ}} C_*(X\times Y; R)\]
+
+\textbf{Aim.} relate \(H_*(C\otimes_R D)\) to \(H_*(C), H_*(D)\). Our bope is to have a map
+\[\bigoplus_{p+q = n} H_p(C) \otimes_R H_q(D) \xrightarrow{???} H_n(C\otimes_R D)\]
+
+For example taking \(R = \IZ\) and \(C = D = (\dots ,\ra 0\ra \IZ \xrightarrow{\cdot 2}\IZ \ra 0)\). Then
+\[H_n(C) = H_n(D) = \begin{cases}
+    \IZ/2 & n = 0 \\
+    0 & n \neq 0 \\
+\end{cases}\]
+but \(C \otimes D = (0\ra 0 \ra \IZ \ra \IZ^2 \ra \IZ \ra 0)\). And 
+\[H_1(C\otimes D) = \set{(x,-x) \in \IZ}/\set{(2y, -2y) \mid y\in \IZ} \cong \IZ/2 \neq 0\]
+
+\begin{defi}{Projective \(R\)-modules}{}
+    An \(R\)-module \(P\) is \emph{projective}\index{Projective Module} if for every epimorphism \(\varepsilon \colon M\to N\) of \(R\)-modules, the map
+    \[\Hom(P, \varepsilon) \colon \Hom(P, M) \to \Hom(P, N)\]
+    is surjective.
+    \[\begin{tikzcd}
+        & M \ar[d, "\varepsilon", two heads] \\
+        P \ar[ru, dotted] \ar[r, "f"] & N \\
+    \end{tikzcd}\]
+\end{defi}
+
+\textbf{Fact.} \(P\) is projective iff \(P\) is a direct summand of a free modulo iff there exists a \(R\)-module \(Q\) and a set \(S\), such that
+\[P \oplus Q \cong R[S].\]
+
+\begin{proof}
+    Free modulse are projective:
+    \[\begin{tikzcd}
+        & M \ar[d, "\varepsilon", two heads] \\
+        R[S] \ar[r, "f"] \ar[ru, dotted, "g"] & N \\
+    \end{tikzcd}\]
+    for every \(s \in S\) choose \(m_s \in M\) \(\varepsilon(m_s) = f(s)\). Then there is a unique homomorphism \(g\colon R[S] \to M\) such that \(g(s) = m_s\).
+    
+    Let \(P\) be projective and \(Q\) a summand of \(P\). For reasons I couldn't copy, then \(Q\) is also projective.
+
+Let \(P\) be a projective \(R\)-modulo. Consider the epimorphism
+\[\begin{split}
+    R[P ] &\to P \\
+    p &\mapsto p
+\end{split}\]
+
+Then we have
+\[\begin{tikzcd}
+    & R[P] \ar[d, two heads] \\
+    p \ar[ru, dotted, "g"] \ar[r, "\id"] & P \\
+\end{tikzcd}\]
+So \(P\) is a direct summand of \(R[P]\).
+
+\end{proof}
+
+\begin{itemize}
+    \item If \(R\) is a field, then all modules are free, hence projective.
+    \item \(R = \IZ/6\), \(P = \IZ/2, Q = \IZ/3\). Then \(\IZ/6 \cong \IZ/2\oplus \IZ/3\), so, as \(\IZ/6\) is free, \(\IZ/2\) and \( \IZ/3\) are projective, but not free.
+\end{itemize}
+
+\begin{proposition}
+    Let \(R\) be a commutative ring, and
+    \[0 \ra I \xrightarrow{\alpha} M \xrightarrow{\beta} N \to 0\]
+    be a short exact sequence of \(R\)-modules.
+
+    Then for every \(R\)-module \(P\), the sequence
+    \[P\otimes_R I \xrightarrow{P\otimes_R \alpha} P \otimes_R M \xrightarrow{p\otimes_R \beta} P\otimes_R N \to 0\]
+    is exact. (\enquote{\(P \otimes_R \_\) is right exact}). If moreover \(P\) is projective, then it is also exact with a \(0\) on the left, i.e. \(P\otimes_R \alpha\) is injective. (\enquote{projective modules are flat}).
+\end{proposition}
+
+\begin{proof}
+    \[p\otimes_R \beta) \circ (p\otimes_R) \alpha = P\otimes_r (\beta\circ \alpha) = P\otimes_R 0 = 0\]
+    so \(\Img(P\otimes_R \alpha) \subseteq \ker(P\otimes_R \beta)\) so we get an induced homomorphism
+    \[\gamma \frac{P\otimes_R M}{\Img(P\otimes_R \alpha)} \to P\otimes_R N\]
+    exactness is equivalent to \(\delta\) being an isomorphism.
+    We define a homomorphism \(\delta\colon P\otimes_R N \to \frac{P\otimes_R M}{\Img(P\otimes_R \alpha)}\)given by \((p,n) \in P\otimes N\) choose \(\tilde n \in M\), such that \(\beta(\tilde n) = n\).
+
+    \textbf{Claim.} \(\delta(p\otimes n) = p\otimes \tilde n + \Img(P\otimes_R \alpha)\) is independent of choice of \(\tilde n\)
+    \begin{proof}
+        Let \(\tilde\tilde n \in M\) also satisfy \(\beta(\tilde{\tilde n}) = n\). Then \(\beta(\tilde{\tilde n} - \tilde n) = 0\), so there is \(i \in I\) s.t. \(\alpha(i) = \tilde{\tilde n} - \tilde n\). \(p \otimes \tilde{\tilde n} - p\otimes \tilde n = p\otimes (\tilde{\tilde n} - \tilde n) = p\otimes \alpha(i) \in \Img(P\otimes_R \alpha)\).
+    \end{proof}
+
+    \textbf{Claim.} The assignment of \(\delta\) is biadditive and sends \((rp,n)\) and \((p, rn)\) to the same element.
+
+    Then this extends to a well defined \(R\)-linear map
+    \[P\otimes_R N \to \frac{P\otimes_R M}{\img(P\otimes_R \alpha)}\]
+    which is isomorphic.
+
+    Now let \(P\) be projective. We show that then \(P \otimes_R \alpha\) is injective.
+
+    \begin{description}
+        \item[Case 1] \(P = R[S]\) free, \(S\) some set. Then
+        \[P \otimes_R M = R[S] \otimes_R M \cong \bigoplus{s \in S} M\]
+        we have a natural isomorphism of \(R\)-modules in \(M\).
+
+        From this we get a commutative square of \(R\)-modules:
+        \[\begin{tikzcd}
+            P\otimes_R I \ar[d, "\cong", sloped, phantom] \ar[r, "P\otimes_R \alpha"] & P\otimes_R M \ar[d, "\cong", phantom, sloped] \\
+            \bigoplus_{s\in S} I \ar[r, "\bigoplus_{s \in S} \alpha"] & \bigoplus_{s \in S} M \\
+        \end{tikzcd}\]
+        where the bottom map is injective.
+        \item[General case] \(P\) projective is a summand of a free module \(F\), i.e. there are homomorphisms
+        \[P \xrightarrow{\lambda} F \xrightarrow{\mu} P\]
+        s.t. \(\mu\circ \lambda = \Id_P\). We consider thee commutative square
+        \[\begin{tikzcd}
+            P\otimes_R I \ar[d, "\lambda\otimes_R I"]\ar[r, "P\otimes_R \alpha"] & P\otimes_R N \ar[d, "\lambda\otimes_R N"]\\
+            F \otimes_R I \ar["F \otimes_R \alpha", r] & F\otimes_R N \\
+        \end{tikzcd}\]
+        where the bottom map is injective by Case 1 and \(\lambda \otimes_R I\) is injective, as it admits a retraction.
+    \end{description}
+\end{proof}
+
+\begin{defi}{Global dimension of rings}{}
+    A commutative ring \(R\)\index{Global dimension} has global dimension \(\leq 1\) if every submodule of a projective module is projective.
+\end{defi}
+
+\begin{example}
+    \begin{itemize}
+        \item fields have global dimension of \(\leq 1\).
+        \item the ring of integers \(\IZ\) (subgroups of free abelian groups are free).
+        \item every PID\footnote{no zero divisors and every ideal is generated by a single element.} is of this form. See for example \(k[x]\) for \(k\) a field or \(\IZ[i]\) the gaussian integers
+        \item \(\IZ_p\) the \(p\)-adic integers.
+    \end{itemize}
+\end{example}
+
+\begin{defi}{Tor of nice rings}{}
+    Let \(R\) be a commutative ring of global dimension \(\leq 1\). Let \(M,N\) be \(R\)-modules. Choose an epimorphism \(p\colon P \to N\) of \(R\)-modules with \(P\) projective. Define
+    \[\Tor^R(M,N) = \Ker(M\otimes_R N \xrightarrow{M\otimes_R incl} M\otimes_R P)\]
+\end{defi}
+
+\textbf{Facts.} This is independent up to preferred isomorphism of the choice of \(p\colon P \to N\).
+
+It is symmetric, i.e. we can resolve \(M\) instead of \(N\).
+
+If \(P\) is projective, then \(\Tor^R(P,N) = 0 = \Tor^R(M,P)\).
+
+\begin{construction}
+    For \(R\) a commutative ring, \(C,D\) complexes of \(R\)-modules. We define a natural homomorphism
+    \[\Phi \colon H_p(C) \otimes_R H_q(D) \to H_{p+q}(C\otimes R D)\]
+    via \([x] \otimes [y] \mapsto [x\otimes y]\)
+\end{construction}
+
+We can check this is well defined.
+
+\begin{thm}{Algebraic Künneth theorem}{}
+    Let \(R\) be a commutative ring of global dimension \(\leq 1\). Let \(C, D\) be complexes of projective \(R\)-modules. Then the following map is \(R\)-linearly split injective
+    \[\bigoplus \Phi \colon \bigoplus_{p+q = n} H_p(C) \otimes_R H_q(D) \to H_n(C \otimes_R D)\]
+    Moreover the cokernel is naturally isomorphic to
+    \[\bigoplus_{p+q = n-1} \Tor^R(H_p(C), H_q(D)).\]
+
+    Equivalently, there is a natural and split short exact sequence
+    \[0 \to \bigoplus_{p+q = n} H_p(C) \otimes_R H_q(D) \xrightarrow{\Phi} H_n(C\otimes D) \to \bigoplus_{p+q = n-1} \Tor^R(H_p(C), H_q(D)) \to 0\]
+\end{thm}
+
+\begin{proof}
+    We let \(Z = \set{Z_q}_{q\in \IZ}\) be the comples of \(R\) modules with \(d = 0\) where \(Z_q = \Ker(d\colon D_q \to D_{q-1})\), let \(B = \set{B_q}\) be the complex with \(d = 0\) where \(B_q = \Img(D\colon D_{q+1} \to D_q)\). We have a short exact sequence of complexes of \(R\)-modules
+    \[0 \to Z \xrightarrow{incl} D \xrightarrow{d} B[1] \to 0\]
+    where \(B[1]\) is the complex \(B\) shilfted up by 1.
+
+    We have \(B_q \subseteq Z_q \subseteq D_q\) projective by hypothesis. Since \(R\) has global dimension \(\leq 1\), \(B_q\) and \(Z_q\) are also projective.
+    \[0 \to Z_q \to D_q \xrightarrow{d} B_{q-1} \to 0\]
+    is hort exact, \(B_{q-1}\) is projective, so the sequence splits.
+
+    For every \(R\)-module \(N\), the sequence
+    \[0 \to N\otimes_R Z_p \to N\otimes_R D_q \to N\otimes_R B_{q-1} \to 0\]
+    is exact.
+
+    This means we get a short exact sequence of complexes
+    \[0 \to C\otimes_R Z \to C\otimes_R D \to C\otimes_R B[1] \to 0\]
+
+    This means we get a long exact homology sequence
+    \[\to H_n(C\otimes_R Z) \xrightarrow{H_n(C\otimes_R incl)} H_n(C\otimes D) \xrightarrow{H_n(C\otimes d)} H_{n-1}(C\otimes_R B) \xrightarrow{\partial} H_{n-1}(C\otimes_R Z) \to \dots\]
+    Since \(Z\) has trivial differential:
+    \[H_n(C\otimes_R Z) = H_n(\bigoplus_{q \in \IZ} C[q] \otimes Z_q) \cong \bigoplus_{q \in \IZ} H_n(C[q]\otimes Z_q) \cong \bigoplus_{q \in \IZ} H_n(C[q]) \otimes_R Z_q = \bigoplus_{p \in \IZ} H_{n-q}(C) \otimes_R Z_q\]
+    where we use that \(Z_q\) is projective.
+
+    Similarly \(H_n(C\otimes_R B) \cong \bigoplus_{q\in \IZ} H_{n-q}(C) \otimes B_q\).
+
+    This gives us a long exact sequence
+    \[\dots \to \bigoplus_{p+q = n} H_p(C) \otimes_R Z_q \to H_n(C\otimes_R D) \to \bigoplus_{p+q = n-1} H_p(C) \otimes B_q \to \bigoplus_{p+q = n-1} H_p(C) \otimes Z_q\]
+    This splits up into short exact sequences
+    \[0 \to \bigoplus_{p+q = n} \Coker(H_p(C) \otimes B_q \to H_p(C) \otimes_R Z_p) \to H_n(C\otimes_R D) \to \bigoplus_{p+q =n-1} \Ker(H_p(C) \otimes_R B_q \to H_p(C) \otimes Z_q) \to 0\]
+    We know \(0 \to B_q \to Z_q \to H_q(D)\) is a projective resolution of \(H_q(D)\).
+
+    This means for all \(R\)-modules \(N\),
+    \[\Tor^R(N; H_q(D)) = \Ker(N\otimes_R B_q \to N\otimes_R Z_q)\]
+    \[N\otimes_R H_q(D) \cong \Coker(N\otimes_R B_q \to N\otimes_R Z_q)\]
+    So we get:
+    \[0 \to \bigoplus_{p+q = n} H_p(C) \otimes H_q(D) \xrightarrow{\Phi} H_n(C\otimes_R D) \to \bigoplus_{p+q = n-1} \Tor^R(H_p(C), H_q(D)) \to 0\]
+
+    for next lecture remains, that \(\Phi\) has a \(R\)-linear retraction!
+\end{proof}
+
 
 
 
