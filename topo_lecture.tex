@@ -1085,11 +1085,11 @@ Step 3 is the hard step.
 Let \(A\) be an abelian group and \(R\) an commutative ring. We make the set \(\Hom(A,R)\) of group homomorphisms into an \(R\) module by pointwise addition and skalar multiplication. So \(f,g \in \Hom(A,R)\), \(r \in R\). then
 \[(f+g)(a) = f(a) + g(a), \quad ((r\cdot f)(a) = r\cdot f(a))\]
 Let \(B\) be another abelian group. Then
-\[\bigodot \colon \Hom(A,R) \times \Hom(B,R) \to \Hom(A\otimes B, R)\]
-by \((f\bigodot g)(a\otimes b) = f(A) \cdot g(b)\). This is additive in \(f\) and \(g\).
-\[(f+f') \bigodot g = (f\bigodot g) + (f' \bigodot g)\]
+\[\bullet \colon \Hom(A,R) \times \Hom(B,R) \to \Hom(A\otimes B, R)\]
+by \((f\bullet g)(a\otimes b) = f(A) \cdot g(b)\). This is additive in \(f\) and \(g\).
+\[(f+f') \bullet g = (f\bullet g) + (f' \bullet g)\]
 and
-\[(rf) \bigodot g = r \cdot (f\bigodot g) = f \bigodot (r\cdotg)\]
+\[(rf) \bullet g = r \cdot (f\bullet g) = f \bullet (r\cdot g)\]
 for all \(r \in R\).
 This means this extends to a well-defined \(R\)-linear map
 \[\Hom(A,R) \otimes_R \Hom(B,R) \to \Hom(A\otimes B, R)\]
@@ -1102,16 +1102,16 @@ This means this extends to a well-defined \(R\)-linear map
 \begin{proof}
     For \(A = \IZ\):
     \[\begin{tikzcd}
-        \Hom(\IZ,R) \otimes_R \Hom(B,R) \ar[r, "\bigodot"] \ar[d, "\ev \otimes_R \Hom(B,R)"] & \Hom(\IZ\otimes B, R) \ar[d, "\cong \; \Hom(k,R)"]\\
-        R \otimes_R \Hom(B,R) \ar[r, "\cong", "r\otimes g \mapsto r\cdot g"'] & \Hom(B,R)
+        {\Hom(\IZ,R) \otimes_R \Hom(B,R)} \ar[r, "\bullet"] \ar[d, "{\mathrm{ev} \otimes_R \Hom(B,R)}"] & {\Hom(\IZ\otimes B, R)} \ar[d, "{\cong \; \Hom(k,R)}"]\\
+        {R \otimes_R \Hom(B,R)} \ar[r, "\cong", "r\otimes g \mapsto r\cdot g"'] & {\Hom(B,R)}
     \end{tikzcd}\]
     where we have \(k \colon B \to \IZ \otimes B\) with \(b\mapsto 1 \otimes b\).
 
     Suppose the claim holds for \(A\) and \(A'\). Then it holds for \(A \oplus A'\).
     \[\begin{tikzcd}
-        \Hom(A\oplus A*, R) \otimes_R \Hom(B,R) \ar[r, "\bigodot"] \ar[d, phantom, sloped, "\cong"]& \Hom((A\oplus A') \otimes B, R) \ar[d, phantom, sloped, "\cong"] \\
-        (\Hom(A,R) \oplus \Hom(A',R)) \otimes_R \Hom(B,R) \ar[d, phantom, sloped, "\cong"] & \Hom((A\otimes B) \oplus (A' \otimes B), R) \ar[d, phantom, sloped, "\cong"]\\
-        (\Hom(A,R) \otimes_R \Hom(B,R)) \bigoplus (\Hom(A',R) \otimes_R \Hom(B,R)) \ar[r, "\cong \; \text{by assumption}"] \Hom(A\otimes B, R) \oplus \Hom(A' \otimes B, R) \\
+        {\Hom(A\oplus A*, R) \otimes_R \Hom(B,R)} \ar[r, "\bullet"] \ar[d, phantom, sloped, "\cong"]& {\Hom((A\oplus A') \otimes B, R)} \ar[d, phantom, sloped, "\cong"] \\
+        {(\Hom(A,R) \oplus \Hom(A',R)) \otimes_R \Hom(B,R)} \ar[d, phantom, sloped, "\cong"] & {\Hom((A\otimes B) \oplus (A' \otimes B), R)} \ar[d, phantom, sloped, "\cong"]\\
+        {(\Hom(A,R) \otimes_R \Hom(B,R)) \bigoplus (\Hom(A',R) \otimes_R \Hom(B,R))} \ar[r, "\cong \; \text{by assumption}"]&  {\Hom(A\otimes B, R) \oplus \Hom(A' \otimes B, R)} &\\
     \end{tikzcd}\]
 
     The claim holfs for \(A = \IZ^k\), \(k \in \IN\). any finitely generated free abelian group is isomorphic to \(\IZ^k\).
@@ -1121,7 +1121,7 @@ This means this extends to a well-defined \(R\)-linear map
     \begin{description}
         \item[\(R = \IF_2\)] \(A = B= \IZ[\IN]\). Then \(\Hom(\IZ[\IN], R) \cong \mathrm{maps}(\IN, R)\) by evaluation of generators. This is \(R\)-linear by the \(R\)-module structure on \(\mathrm{maps}(\IN, R)\).
         \[\begin{tikzcd}
-            \Hom(A,R) \otimes \Hom(B,R) \ar[r, "\bigodot"] & \Hom(A\otimes B, R) \\
+            \Hom(A,R) \otimes \Hom(B,R) \ar[r, "\bullet"] & \Hom(A\otimes B, R) \\
             \mathrm{maps}(\IN,R) \otimes_R \mathrm{maps}(\IN, R) & \Hom(\IZ[\IN \times \IN], R) \\
             & \mathrm{maps}(\IN \times \IN, R)
         \end{tikzcd}\]
@@ -1129,7 +1129,7 @@ This means this extends to a well-defined \(R\)-linear map
 
         \item[] \(A = B = \IZ/2\) and \(R = \IZ/4\). Then \(\Hom(A,R) = \Hom(B,R) = \Hom(\IZ/2, \IZ/4)\) is cyclif of order two generate by \(i \colon \IZ/2 \to \IZ/4\), \(n +2\IZ \mapsto 2n + 4\IZ\).
         \[\begin{tikzcd}
-            \Hom(A,R) \otimes_R \Hom(B,R) \ar[r, "\bigodot"] \ar[d, phantom, sloped, "="] & \Hom(A\otimes B, R) \\
+            \Hom(A,R) \otimes_R \Hom(B,R) \ar[r, "\bullet"] \ar[d, phantom, sloped, "="] & \Hom(A\otimes B, R) \\
             \Hom(\IZ/2, \IZ/4) \otimes_{\IZ/4} \Hom(\IZ/2, \IZ/4) \ar[d, phantom, sloped, "\cong"] & \Hom(\IZ/2 \otimes \IZ/2, \IZ/4) \ar[d, phantom, sloped, "\cong"]\\
             \IZ/2 \ar[r, "0"] & \IZ/2 \\
         \end{tikzcd}\]
@@ -1145,7 +1145,7 @@ and
 The sum of the \(\bigoplus\) homomorphism gives a cochain map
 \[\bigoplus \colon \Hom(C,R) \otimes_R \Hom(D,R) \to \Hom(C\otimes D, R)\]
 which is in dimension \(n\):
-\[\bigoplus_{p+q = n} \Hom(C_ü,R) \otimes_R \Hom(D_q, R) \xrightarrow{\text{sum of } \bigoplus} \Hom(\bigoplus_{p+q = n} C_p \otimes D_q, R)\]
+\[\bigoplus_{p+q = n} \Hom(C_p,R) \otimes_R \Hom(D_q, R) \xrightarrow{\text{sum of } \bigoplus} \Hom(\bigoplus_{p+q = n} C_p \otimes D_q, R)\]
 
 \begin{proposition}
     Let \(C\) and \(D\) be chain complexes of abelian groups, such that \(C_n = 0 = D_n\) for \(n < 0\) and that \(C_n\) is finitely generated and free for all \(n \geq 0\). Then \(\bigoplus\) is an isomorphism.
@@ -1201,7 +1201,7 @@ This is not yet good enough to apply to topological spaces, as they are very not
     Let \(x \in B_{n-1}\) be any cycle whose class is in the kernel of \(H_{n-1}(B_{<n}) \to H_{n-1}(C)\). Then \(x \in Z\) so \(x\) is a linear combination of the classes \(z_1, \dots, z_k\) and hence a boundary of a linear combination of \(y_1, \dots, y_k\). So \(x = d(w)\) for some \(w \in B_n\). Then 
     \[\begin{tikzcd}
         &H_{n-1}(B_n) \ar[rd] & \\
-        H_{n-1}(B_{<n}) \ar[ru] \ar[rr] & H_{n-1}(C)
+        H_{n-1}(B_{<n}) \ar[ru] \ar[rr]& & H_{n-1}(C)
     \end{tikzcd}\]
     the class of \(x\) maps to 0 and the map becomes injective and hence an isomorphism.
 
@@ -1209,7 +1209,6 @@ This is not yet good enough to apply to topological spaces, as they are very not
 
     By the end of last term we prooved, it is already a chain homotopy equivalence!
 \end{proof}
-
 
 
 
