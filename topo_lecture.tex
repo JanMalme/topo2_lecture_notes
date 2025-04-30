@@ -1210,9 +1210,176 @@ This is not yet good enough to apply to topological spaces, as they are very not
     By the end of last term we prooved, it is already a chain homotopy equivalence!
 \end{proof}
 
+\newLecture{30.04.2025}
 
 
+\begin{corollary}[Algebraic Künneth theorem, cohomology]
+    Let R be a commutative ring of global dimension \(\leq 1\). Let \(C,D\) be chain complexes of abelian groups such that \(C_n = 0 = D_n\) for \(n < 0\) and all \(C_n\) are free and \(H_n(C)\) is finitely generated free.
 
+    Then for all \(n \geq 0\):
+    \[\bigoplus_{p+q = n} H^p(\Hom(C,R)) \otimes_R H^q(\Hom(D,R)) \xrightarrow{\Phi} H^n(\Hom(C\otimes D, R))\]
+    is injective and its cokernel is isomorphic to
+    \[\bigoplus_{p+q = n+1} \Tor^R(H^p(\hom(C, R)), H^q(\Hom(D,R)))\]
+\end{corollary}
+
+\textbf{Warning.} We do not assume, that there is a splitting.
+
+\begin{proof}
+    \enquote{Basically just putting all the hard stuff we*ve already done together in the right way.}
+    \begin{description}
+        \item[Case 1] Suppose that also \(C_n\) is finitely generated for all \(n \geq 0\). Then \(\bullet \colon \Hom(C,R) \otimes _R \Hom(D,R) \to \Hom(C\otimes D, R)\) is an isomorphism of cochain complexes. Applying the homological algebraic Künneth theorem to
+        \[H^n(\Hom(C\otimes D,R)) \cong H^n(\Hom(C,R) \otimes_R \Hom(D,R))\]
+        since \(C_n\) is finitely generated and free, it is isomorphic to \(\IZ^k\) for some \(k \geq 0\), so \(\Hom(C,R)^n = \Hom(C_n,R) \cong \Hom(\IZ^k, R) = R^k\) which is free hence projective as an \(R\)-module for all \(n \geq 0\).
+
+        \textbf{Caveat 1.} we make cochain complexes into chain complexes, then apply Künneth, then come back. This turns \(n-1\) in the \(\bigoplus\) for \(\Tor R\) into \(n+1\).
+
+        \textbf{Caveat 2.} The proof of the homological Künneth theorem (without the splitting) used only that one complex is dimensionwise projective. Hence it is no problem, that \(D\) is not projective.
+
+        \item[General case] We choose a subcomplex \(B\) of \(C\) such that \(B_n\) is finitely generated for all \(n \geq 0\) and \(B \hookrightarrow C\) is a chain homotopy equivalence. Then
+        \[\Hom(i, R) \colon \Hom(B,R) \to \Hom(C,R)\]
+        is a chain homotopy equivalence of \(R\)-module complexes.\footnote{This is due to the Hom-functor being additive. Unfortunately I don't know what that means.}
+        
+        \textbf{Note} Additive functors preserve chain homotopy equivalences, however not quasi-isomorphisms. Because of that, quasi-Isomorphisms and chain homotopy equivalences are quite different.
+
+        Similarly we see
+        \[\Hom(i\otimes D, R) \colon \Hom(C\otimes D, R) \to \Hom(B\otimes D, R)\]
+        is a chain homotopy equivalence.
+
+        This gives a commutative square in \(\mathbf{coChains}_R\):
+        \[\begin{tikzcd}
+            {\bigoplus_{p+q = n} H^p(\Hom(C,R)) \otimes H^q(\Hom(D,R))} \ar[r, hook, "\Phi"] \ar[d, "\cong"] & {H^n(\Hom(C\otimes D, R))} \\
+            {\bigoplus_{p+q = n} H^p(\Hom(B,R)) \otimes_R H^q(\Hom(D,R))} \ar[r, hook, "\Phi", "\text{by special case}"'] & {H^n(\Hom(B\otimes D, R))} \\
+        \end{tikzcd}\]
+    \end{description}
+\end{proof}
+
+\begin{construction}
+    Let \(X,Y\) be spaces or simplicial sets. \(R\) an commutative ring. The \emph{exterior cup product} \index{exterior cup product}
+    \[\times \colon H^p(X,R) \times H^q(Y,R) \to H^{p+q}(X\otimes Y, R)\]
+    is defined by \((x,y) \mapsto p_1^*(x) \cup p_2^*(y)\), where \(p_1 \colon X\times Y \to X\) and \(p_2 \colon X \times Y \to Y\).
+\end{construction}
+
+\textbf{Recall.} The AW-map is
+\[\mathrm{AW}\colon C_*(X\times Y) \to C_*(X) \otimes C_*(Y)\]
+
+\begin{proposition}
+    Let \(X, Y\) be simplicial sets, \(R\) commutative ring. Then the composite
+    \[H^p(X,R) \otimes_R H^q(Y,R) \xrightarrow[[f]\otimes [g] \mapsto [f\otimes g]]{\Phi} H^{p+q}(\Hom(C_*(X) ,R) \otimes_R \Hom(C_*(Y),R)) \xrightarrow{H^{p+q}(\bullet)} H^{p+q} (\Hom(C_*(X) \otimes C_*(Y), R)) \xrightarrow{H^{p+q}(\mathrm{AW})} H^{p+q}(\Hom(C_*(X \otimes Y), R)) = H^{p+q}(X\otimes Y, R)\]
+
+    equals the external cup product.
+\end{proposition}
+
+\begin{proof}
+    In the notes.
+\end{proof}
+
+
+\begin{thm}{Künneth theorem in cohomology}{}
+    Let \(R\) be a commutative ring of global dimension \(\leq 1\). Let \(X,Y\) be spaces such that \(H_n(X, \IZ)\) is finitely generated for all \(n \geq 0\). Then the total exterior cup product map
+    \[\bigoplus_{p+q = n} H^p(X,R) \otimes_R H^q(Y,R) \to H^n(X \times Y, R)\]
+    is injective, and its cokernel is naturally isomorphic to
+    \[\bigoplus_{p+q = n+1} \Tor^R(H^p(X,R), H^q(Y,R))\]
+\end{thm}
+
+\begin{proof}
+    Similar to the homological one. Use the cohomological algebraic Künneth theorem and the Eilenberg-Zilber theorem. You can read it up somewhere.
+\end{proof}
+
+\begin{remark}
+    Let \(X\) be a CW-complex of finite type \index{finite type CW-complex} i.e. such that it has only finitely many cells in every dimension. (ex. \(\IR P ^\infty\)). Then
+    \[C^{Cell}_A(X,\IZ)\]
+    is finitely generated free in every dimension, hence \(H_n^{cell}(X,\IZ) \cong H_n(X, \IZ)\) if finitely generated, so Künneth theorem applies.
+\end{remark}
+
+\begin{construction}
+    Let \(A,B\) be graded-commutative\footnote{\(a \cdot b = (-1)^{\deg(A) \cdot\deg(B) b\cdot a}\)} rings. Then \(A\otimes B\) is another graded-commutative ring by
+    \[(A\otimes B)_n = \bigoplus_{p+q = n} A_p \otimes B_q\]
+    with multiplication for \(a \in A_p, b \in B_q, a' \in A_{p'}, b' \in B_{q'}\).
+    \[(a\otimes b) \cdot (a' \otimes b') = (-1)^{p' \cdot q} (aa') \otimes (bb')\]
+
+    Check for well-definedness yourself.
+\end{construction}
+
+\begin{corollary}
+    Let \(R\) be a field, \(X,Y\) spaces and suppose, that \(H_n(X, \IZ)\) is finitely generated for all \(n \geq 0\). Then
+    \[\times\colon H^*(X,R) \otimes_R H^*(Y,R) \to H^*(X\times Y, R)\]
+    is an isomorphism of graded-commutative \(R\)-algebras.
+\end{corollary}
+
+\textbf{Note.} We already knew that this is a isomorphism of abelian groups. The new information is, that this is compatible with ring structure.
+
+\begin{proof}
+    We take \(x \in H^p(X,R), x' \in H^{p'}(X,R) , y \in H^q(Y,R) , y' \in H^{q'}(Y,R)\) and then
+    \[\begin{split}
+        (x \cup x') \times (y \cup y') &= p_1^*(x \cup x') \cup p_2^*(y \cup y')\\
+        &= (p_1^*(x) \cup p_1^*(x')) \cup (p_2^*(y) \cup p_2^*(y')) \\
+        &= (-1)^{p'\cdot q} (p_1^*(x) \cup p_2^*(y)) \cup (p_1^*(x') \cup p_2^*(y')) \\
+        &=(-1)^{p\cdot q'} (x \times y) \cup (x' \times y')
+    \end{split}\]
+\end{proof}
+
+\begin{corollary}
+    Let \(X,Y\) be spacees such that \(H_n(X, \IZ)\) is finitely genrated and free for all \(n \geq 0\). Then
+    \[H^*(X, \IZ) \otimes H^*(Y,\IZ) \to H^*(X\times Y, \IZ)\]
+    is an isomoprhism of graded-commutative rings.
+\end{corollary}
+
+Now we are actually calculating some cohomology rings. Namely for \(S^k \times S^l\), \(S^1 \times \dots \times S^1\) and \(\IC P^2\).
+
+Remember
+\[H^n(S^k) = \begin{cases}
+    \IZ & n = 0,k \\
+    0 & n \neq 0,k \\
+\end{cases}\]
+and assume \(k \geq 1\). For dimensional reasons, the cup product on \(H^*(S^k, \IZ)\) is trivial. \(H^*(S^k, \IZ)\) is dimensionwise finitely generated free, and hence for every space \(Y\) the exterior cup product
+\[H^*(S^k, \IZ) \otimes H^*(Y, \IZ) \to H^*(S^k \times Y, \IZ)\]
+is an isomorphism of graded-commutative rings. Take \(Y = S^l\) for \(l \geq 1\).
+
+Let \(e_k \in H^n(S^k; \IZ)\) be one of the two generators. Then \(H^+(S^k, \IZ) = \Lambda(e_k)\) where \(\Lambda\) denotes an exterior product. This includes \(e_k^2 = 0\). We define \(a \coloneq p_1^*(e_k) \in H^k(S^k \times S^l; \IZ)\) and \(b\coloneq p_2^*(e_l) \in H^l(S^k \times S^l; \IZ)\). Then 
+\[H^*(S^k, \IZ) \otimes H^*(S^l, \IZ) \xrightarrow[x]{\cong} H^*(S^k \times S^l; \IZ) = \IZ\set{1 \times 1, 1 \times e_l, e_k \times 1, e_k \cdot e_l}\]
+where we have \(1\times 1 = 1, 1 \times e_l = b, e_k \times 1 = a, e_k \cdot e_l = a\cup b\).
+
+We look at multiplicative relations:
+\[a^2 = 0, b^2 = 0\]
+and so
+\[a^2 = (p_1^*(e_k))^2 = p_1^*(e_k^2) = p_1^*(0) = 0\]
+
+If \(k \) or \(l\) is even, then \(a \cup b = b\cup a\) and if both are odd, then \(a\cup b = - b\cup a\).
+
+We summarize, if \(k\) and \(l\) are even, then
+\[H^*(S^k \times S^l; \IZ) = \IZ[a,b]/(a^2 = 0, b^2 = 0)\]
+and if one is odd
+\[H^*(S^k \times S^l; \IZ) = \Lambda(a,b)\]
+where \(\Lambda\) again denotes exterior products.
+
+
+We give an inductive description of  \(H^*(S^1 \times \dots \times S^1; \IZ)\) \(n\)-times. We use, that
+\[\times \colon H^*(S^1; \IZ) \otimes H^*(\underbrace{S^1 \times \dots \times S^1}_{n-1 \text{ times}}) \cong H^*(S^1\times \dots \times S^1, \IZ)\]
+ we define \(a_i = p_i^*(e_1) \in H^1(\underbrace{S^1 \times \dots \times S^1}_{n}; \IZ)\), where \(p_i \colon (S^1)^n \to S^1\) is projection to the \(i\)-th factor for \(1 \leq i \leq n\). We get \(a_i^2 = 0\) and \(a_i \cup a_j = - a_j \cup a_i\) for \(i \neq j\). This gives us, that an additive basis of \(H^*(S^1)^n; \IZ\) is given by
+ \[a_{i_1} \cup \dots \cup a_{i_k} \text{ for all tuples } 1 \leq a_i < a_2 < \dots < a_k \leq n\]
+ This gives us \(\mathrm{rank}(H^*((S^^1)^n \IZ)) = 2^n\).
+ The multiplicative structure is given by \(H^*((S^1)^n, \IZ) = \Lambda(a_1, \dots, a_n)\).
+
+ Later we will compute \(H^*(\IC P^n; \IZ)\) via Poincaré-duality to get \(\cong \IZ[X]/(X^{n+1})\) for \(x \in H^2(\IC P^n, 2)\).
+
+ We will now use a trick to at least calculate \(H^*(\IC P^2; \IZ)\). We know, that
+ \[H^n(\IC P^2, \IZ) = \begin{cases}
+    \IZ & n = 0,2,4 \\
+    0 & \text{else}
+ \end{cases}\]
+ we take \(x \in H^2(\IC P^2; \IZ)\) a generator. The multiplicative structure is completely defined by which multiple of the generator of \(H^4(\IC P^2, \IZ)\) \(x^2\) is.
+
+We use homogenous coordinaet noatation for \(\IC P ^2\). For \(0 \neq (x,y,z) \in \IC^3\) we write \([x,y,z] \coloneq \IC \cdot (x,y,z) \in \IC P ^2\). We define a continuous map
+\[\mu\colon \IC P ^1 \times \IC P^1 \to \IC P ^2\]
+given by \(([v,w] , [x,y]) \mapsto [vx, vy+wx, wy]\).
+We let \(e \in [1,0]\). Then \(\mu(e, \_), \mu(\_, e) \colon \IC P ^1 \to \IC P ^2\).
+are both the \enquote{standard inclusions} \([x,y] \mapsto [x,y,0]\).
+
+\begin{proposition}
+    The map \(\mu^* \colon H^4(\IC P^2, \IZ) \to H^4(\IC P^1 \times \IC P^1, \IZ)\) is injective and its image has index 2.
+\end{proposition}
+
+proof next time.
 
 
 
