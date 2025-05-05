@@ -463,8 +463,8 @@ The Eilenberg-Zilber theorem is a natural pair of chain homotopy equivalences be
 
 \begin{remark}[Relation between AW-map and cup-product]
     For a simplicial set \(X\) and ring \(R\),
-    \[C^*(X,R) = \Hom(C_*(X,\IZ), R) = \Hom (C_*(\IZ[X])R)\]
-    and \(C^n(X,R) = \Hom(C_n(X,R), R)\).
+    \[C^*(X,R) = \Hom(C_*(X,\IZ), R) = \Hom (C_*(\IZ[X]),R)\]
+    and \(C^n(X,R) = \Hom(C_n(X,\IZ), R)\).
     If \(\psi \in C^n(X,R)\) is a cocycle, i.e. \(d(\psi) = 0\), then it extends to a chain map
     \[\tilde{\psi}\colon C_*(\IZ[X]) \to R[n]\]
     where \(R[n]\) is the complex with \(R\) in dimension \(n\) and \(0\) otherwise.
@@ -472,7 +472,7 @@ The Eilenberg-Zilber theorem is a natural pair of chain homotopy equivalences be
 
     For \(f \in C^n(X,R), g\in C^m(X,R)\) cocycles, we have \(f\cup g \in C^{n+m}(X,R)\). Then \(\tilde{f\cup g}\) is the following composite
     \[\begin{tikzcd}
-        {C_*(\IZ[X])} \ar[rr, "{C_*(\IZ[\text{diagonal}])}"] && {C_*(\IZ[X \times X])} \ar[r, "\cong", phantom] & {C_*(\IZ([X]) \otimes \IZ[X])} \ar[dlll, "\text{AW}"] \\
+        {C_*(\IZ[X])} \ar[rr, "{C_*(\IZ[\text{diagonal}])}"] && {C_*(\IZ[X \times X])} \ar[r, "\cong", phantom] & {C_*(\IZ[X] \otimes \IZ[X])} \ar[dlll, "\text{AW}"] \\
         {C_*(\IZ[X]) \otimes C_*(\IZ[X])} \ar[r, "\tilde{f} \otimes \tilde{g}"] & {R[n] \otimes R[m]} \ar[r, "\text{mult}"] & {R[n+m]} \\
     \end{tikzcd}\]
 \end{remark}
@@ -677,7 +677,7 @@ He specifies, that the calculation takes up 8 pages of his notes.
         Let \(\cC\) and \(F,G\colon \cC \to \mathbf{Chains}_+\) be as before, satisfying 2.. Then any natural transformation \(\psi_0\colon F_0 \to G_0\) can be extended to a natural transformation \(\psi\colon F \to G\).
     \end{Remark}
 
-    Now to actually proove the Eilenberg-Zilber-Theorem \ref{thm:elbzlb} (at least in a special case.) Let \(A,B\) be simplicial abelian groups. We assume \(A = C_*(\IZ[X])\), \(B= C_*(\IZ[Y])\) for some simplicial sets \(X,Y\). We write \(C_*(X), C_*(Y)\). For sets \(S,T\),
+    Now to actually proove the Eilenberg-Zilber-Theorem \ref{thm:elbzlb} (at least in a special case.) Let \(A,B\) be simplicial abelian groups. We assume \(A = \IZ[X]\), \(B= \IZ[Y]\) for some simplicial sets \(X,Y\). We write \(C_*(X), C_*(Y)\). For sets \(S,T\),
     \[\begin{tikzcd}
         \IZ[S] \otimes \IZ[T] \ar[rr, bend left] && \IZ[S \times T] \ar[ll, bend left] \\
         s\otimes t \ar[rr] && (s,t)
@@ -833,7 +833,7 @@ but \(C \otimes D = (0\ra 0 \ra \IZ \ra \IZ^2 \ra \IZ \ra 0)\). And
     \end{tikzcd}\]
 \end{defi}
 
-\textbf{Fact.} \(P\) is projective iff \(P\) is a direct summand of a free modulo iff there exists a \(R\)-module \(Q\) and a set \(S\), such that
+\textbf{Fact.} \(P\) is projective iff \(P\) is a direct summand of a free module iff there exists a \(R\)-module \(Q\) and a set \(S\), such that
 \[P \oplus Q \cong R[S].\]
 
 \begin{proof}
@@ -1210,6 +1210,7 @@ This is not yet good enough to apply to topological spaces, as they are very not
     By the end of last term we prooved, it is already a chain homotopy equivalence!
 \end{proof}
 
+
 \newLecture{30.04.2025}
 
 
@@ -1369,10 +1370,10 @@ We give an inductive description of  \(H^*(S^1 \times \dots \times S^1; \IZ)\) \
  \end{cases}\]
  we take \(x \in H^2(\IC P^2; \IZ)\) a generator. The multiplicative structure is completely defined by which multiple of the generator of \(H^4(\IC P^2, \IZ)\) \(x^2\) is.
 
-We use homogenous coordinaet noatation for \(\IC P ^2\). For \(0 \neq (x,y,z) \in \IC^3\) we write \([x,y,z] \coloneq \IC \cdot (x,y,z) \in \IC P ^2\). We define a continuous map
+We use homogenous coordinate noatation for \(\IC P ^2\). For \(0 \neq (x,y,z) \in \IC^3\) we write \([x,y,z] \coloneq \IC \cdot (x,y,z) \in \IC P ^2\). We define a continuous map
 \[\mu\colon \IC P ^1 \times \IC P^1 \to \IC P ^2\]
 given by \(([v,w] , [x,y]) \mapsto [vx, vy+wx, wy]\).
-We let \(e \in [1,0]\). Then \(\mu(e, \_), \mu(\_, e) \colon \IC P ^1 \to \IC P ^2\).
+We let \(e = [1,0]\) a basepoint in \(\IC P^1\). Then \(\mu(e, \_), \mu(\_, e) \colon \IC P ^1 \to \IC P ^2\).
 are both the \enquote{standard inclusions} \([x,y] \mapsto [x,y,0]\).
 
 \begin{proposition}
@@ -1380,6 +1381,139 @@ are both the \enquote{standard inclusions} \([x,y] \mapsto [x,y,0]\).
 \end{proposition}
 
 proof next time.
+
+\newLecture{5.05.2025} Rather sleepy today, quality may be accordingly.
+
+\textbf{Note.} Remember \(\IC P^2 \cong S^2\).
+
+\begin{proof}
+    We will drop coefficients from the notation. \(H^*(X) \coloneq H^*(X; \IZ)\). The continuous map \(\IC^2 \to \IC P^2\), \(\pi(a,b) = (a^2-b, 2a, 1)\) is an open embedding and a homoeomorphism onto the open \(4\)-cell \(\IC P^2 \setminus \IC P^1\). That is just the set \([x,y,1]\) for \((x,y) \in \IC^2\). Then
+    \[(x,y) = (a^2 -b, 2a) \implies a = y/2, b = (a-x = y^2/4 -x)\]
+
+    This gives an isomorphism of relative cohomology groups
+    \[\pi^*\colon H^4(\IC P^2 \setminus \IC P ^1, \IC P^2 \setminus (\IC P ^1 \cup [0,0,1])) \to H^4(\IC^2, \IC^2\setminus (0,0))\]
+    Then we hAVE AN EXCISION isomorphism:
+    \[H^4(\IC P^2, \IC P ^2\setminus [0,0,1]) \cong H^4(\IC P^2 \setminus \IC P ^1, \IC P ^2 \setminus \IC P ^1 \cup [0,0,1])\]
+    The long exact sequence of the pair gives an isomorphism
+    \[H^4(\IC P ^2, \IC P ^2 \setminus[0,0,1]) \to H^4(\IC P ^2)\]
+
+    We also Define
+    \[\pi'\colon \IC^2 \to \IC P ^1 \times \IC P ^1, (a,b) \mapsto ([a+b, 1], [a-b,1])\]
+    A similar calulation gives
+    \[H^4(\IC P ^1 \times \IC P ^1, \IC P^1 \times \IC P ^1\setminus ([0,1], [0,1]))\]
+    as isomorphic .to \(H^4(\IC P ^1 \times \IC P ^1)\).
+
+    We now also define \(\nu\).
+    \[\nu \colon \IC^2 \to \IC ^2 ; \quad (a,b) \mapsto (a, b^2)\]
+
+    Now a diagram I didn't copy commutes.
+
+
+    The problem nor reduces to show that
+    \[\nu^*\colon H^4(\IC^2, \IC^2\setminus (0,0)) \to H^4(\IC^2, \IC^2\times 0) , 0\]
+    is multiplication by 2.
+
+    A diagramm I didn't copy. He applied Künneth and found out some map is multiplication by 2.
+\end{proof}
+
+\begin{proposition}
+    Let \(x \in H^2(\IC P^2, Z)\) be an additive generator. Then \(x^2\) is an additive generator of \(H^4(\IC P^2, \IZ)\). So \(H^*(\IC P^2, \IZ)\) is a truncated polynomial algebra i.e.
+    \[H^*(\IC P ^2, \IZ) = \IZ[X]/ (x^3)\]
+
+\end{proposition}
+
+\textbf{Outlook.} \(H^*(\IC P^m; \IZ) = \IZ[X]/(x^{m+1})\)
+This will be proven later using Poincaré-Duality.
+
+\begin{proof}
+    We write \(i \colon \IC P ^1 \to \IC P ^2\) for \enquote{the inclusion}, \(i[x,y] = [x,y,0]\). Then
+    \[H^*(\IC P^1, \IZ) = \IZ\set{1, i^2(x)}\]
+
+    \[\times\colon H^*(\IC P^2) \otimes H^*(\IC P^1) \cong H^*(\IC P^1\times \IC P^1)\]
+    we write \(a \coloneq p_1^*(i^*(x)), b \coloneq p_2^*(i^*(x))\). Then
+    \[H^*(\IC P^1 \times \IC P^1) = \IZ\set{1,a,b,a\cdot b}\]
+    with \(a^2 = b^2 = 0, ab = ba\).
+
+    \textbf{Clain.} We have
+    \[\begin{tikzcd}
+        \mu^*(x) = a+b \ar[r, phantom, "\in"] &  H^2(\IC p^1 \times \IC P^1) \ar[d, "\cong"] \\
+        & H^2(\IC P^1 \vee \IC P^1) \ar[d, "\cong"] \\
+        & H^2(\IC P^1) \times H^2(\IC P^1)
+    \end{tikzcd}\]
+    where we use that the wedge is an isomorphis on the \(2\)-skeleton of \(\IC P^1 \times \IC P^1\). The composite map is given by
+    \[z \mapsto ((e, \_^*(z)), (\_, e)^*(z))\]
+
+    We note
+    \[\begin{split} 
+        (e,\_)^*(a+b) &= (e, \_)^*(p_1^*(i^*(x))) + (e, \_)^*(p_2^*(i^*(x))) \\
+        &= (i \circ \underbrace{p_1 \circ(e, \_)}_{\text{constant}})^*(x) + (i \circ \underbrace{p_2 \circ (e, \_)}_{\text{identity}})^*(x) \\
+        &=  i^*(x)
+    \end{split}\]
+    and also
+    \[\begin{split}
+        (e, \_)^*(\mu^*(x)) &= (\underbrace{\mu \circ (e, \_)}_{= 1})^* = i^*(x)
+    \end{split}\]
+    This gives \(\mu^*(x) = a+b\)
+    Now let \(y\in H^4(\IC P^2)\) be a generator and let \(n \in \IZ\) be such, that \(x^2 = n\cdot y\). Now
+    \[2ab = (a+b)^2 = (\mu^*(x))^2 = \mu^*(x^2) = \mu^*(ny) = n \cdot \mu^*(y) = n\cdot 2 \cdot ab\]
+    where the last equality uses degree \(2\) of \(\mu\). This holds in the free abelian group \(H^4(\IC P^1 \times \IC P^1) = \IZ\set{a,b}\). This means \(2 = 2n\) and hence \(n = 1\) and so j\(x^2 = y\).
+\end{proof}
+
+\underline{Application to the Hopf map.}
+
+The Hopf map \(\eta \colon S^3 \to S^2\) is defined as
+\[S^3 = S(\IC^2) \to \IC P^1 \cong S^2\]
+given by \((x,y) \mapsto [x,y]\).
+
+Then \(0 \neq [y] \in \pi_3(S^2, *) \cong \IZ\set{y}\).
+
+\begin{proposition}
+    Attaching a \(4\)-cell to \(\IC P^1\) yields a space homeomorphic to \(\IC P ^2\). Informally: \enquote{\(\eta\) is the attahing map of the \(4\)-cell in \(\IC P^2\).}
+\end{proposition}
+
+\begin{proof}
+    Consider the map \(\alpha\colon D(\IC^2) \to \IC P^2\), \((x,y) \mapsto [x,y, 1- \abs x ^2 - \abs{y}^2]\).
+
+    This restricts to a homeomorphism from \(D(\IC^4) \setminus S(\IC^2)\) onto \(\IC P^2 \setminus \IC P^1\) and the following commutes:
+    \[\begin{tikzcd}
+        S(\IC^2) \ar[d, hook] \ar[r, "\eta"] & \IC P^1 \ar[d, "i"] & {[x,y]} \ar[d]\\
+        D(\IC^2) \ar[r, "\alpha"] & \IC P^2 & {[x,y,0] }\\
+    \end{tikzcd}\]
+    this gives a well-defined continuous map \(D(\IC^2) \cup_{S(\IC^2), \eta} \IC P^1 \to \IC P^2\), This is a continuous bijection between compact Hausdorff spaces, hence a homeomorphism.
+\end{proof}
+
+\begin{thm}{Hopf map is not constant}{}
+    The Hopf map \(\eta\) is not hmotopic to a constant map.
+\end{thm}
+
+\begin{proof}
+    By contradiction. If \(\eta\) was homotopic to the constant map \(c\colon S^3 \to S^2\), then \(D^4 \cup_{S^3, \eta} \IC P^1 \) would be homotopy-equivalent to \(D^4 \cup_{S^3, \text{const}} \IC P^1 = \IC P^1 \vee (D^4/S^3)  \cong S^2 \vee S^4\).
+
+    These spaces have the same additive cohomology. However, their cup-product differs. Namely in \(H^*(\IC P^1 \vee S^4, \IZ)\) the square of every 2-dimensional class is \(0\).
+
+    As such,
+    \(\IC P^1 \vee S^4 \not\sim \IC P^2\).
+\end{proof}
+
+\textbf{Outlook.} The Hopf map is sometimes presented as the map
+\[S(\IC^2) \to \IC \cup \set \infty = \text{one point compactification of} \IC \cong S^2\]
+given by \((x,y) \mapsto x/y\). For \(\IH =\) the quaternions \(= \IR^4\) with the skew-field multiplication \(= \IR\set{1,i,j,k}\) and \(i^2 = j^2 = k^2 = ijk = -1\). And then we get
+\[\nu \colon S^7 = S(\IH^2) \mapsto \IH \cup \set \infty = S^4\]
+given by \((x,y) \mapsto x/y = xy^{-1} \vee y^{-1}x\). This map is also called the second Hopf-map. Using that most of linear algebra still applies to skew-fields, we can define \(\IH P^n\) and see by a similar argument, that \(\nu\) is not nullhomotopic. Then \([\nu] \in \pi_7(S^4, *) \cong \IZ\set{\nu} \oplus \IZ/?\)
+Schwede doesn't remember what exactly \(\pi_7\) is.
+
+Then we also have \(\IO = \text{Cayley octonians} = \IR^8\) with a nonassociative, noncommutative division algebra structure \(\cdot \IO \times \IO \to \IO\). Then there is still an \(\IO P^2\) but no general \(\IO P^n\).
+
+However this is enough to still calculate that \(H^*(\IO P^2, \IZ) = \IZ[w]/w^3\) where \(w \in H^8(\IO P^2, \IZ)\). And you can show
+\[\sigma \colon S(\IO^2) \to \IO P^1 = \IO \cup \set \infty\]
+given by \((x,y) \mapsto x/y\) is non zero-homotopic. And \([\sigma] \in \pi_{15}(S^8) = \IZ \oplus \IZ/120\).
+
+He also talks about a theorem, that these are all the Hopf-Maps that exist. No more in higher dimensions.
+
+
+
+
+
 
 
 
