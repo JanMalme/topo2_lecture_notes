@@ -1510,8 +1510,139 @@ given by \((x,y) \mapsto x/y\) is non zero-homotopic. And \([\sigma] \in \pi_{15
 
 He also talks about a theorem, that these are all the Hopf-Maps that exist. No more in higher dimensions.
 
+\newLecture{07.05.2025}
+
+\chapter{Poincaré Duality}
+
+The long-time goal is to proove Poincaré duality. For that we first need to study manifolds.
+
+\begin{defi}{Manifold}{}
+    An \(m\)-manifold \index{manifold} is a Hausdorff space \(M\) such that every point of \(M\) has an open neighborhood homeomorphic to \(\IR^m\).\footnote{This is sometimes called a topological manifold to differentiate from smooth ones.}
+\end{defi}
 
 
+\begin{remark}
+    \begin{itemize}
+        \item The empty space is an \(m\)-manifold for all \(m \geq 0\).
+        \item Let \(M\) be a non empty manifold. Then the dimension \(m\) is an intrinsic invariant. Let \(x \in M\) be a point, let \(U\) be an open neighborhood of \(x\) homeomorphic to \(\IR^m\). Let \(\varphi\colon \IR^m \to U\) be a homeomorphism such that \(\varphi(0) = x\). Then
+        \[H_i(M, M \setminus \set x, \IZ) \xleftarrow{\cong} H_i(U, U\setminus \set x, \IZ) \xleftarrow{\varphi_*} H_i(\IR^m, \IR^m \setminus \set 0, \IZ)\]
+        where we use excision for the first homeomorphism. Furthermore we see
+        \[H_i(\IR^m, \IR^m\setminus \set 0, \IZ) \sim H_i(D^m, S^{m-1}, \IZ) = \begin{cases}
+            \IZ & i = m \\
+            0 & i \neq m \\
+        \end{cases}\]
+        We call this the local homology of \(x\). From this we can reproduce the dimension of \(M\).
+        \item The Hausdorff condition is important to rule out pathological examples such as the \enquote{line with double origin}:
+        \[\IR \amalg \IR/(x,0)\sim (x,1) \text{ for all } x \in \IR \setminus \set 0\]
+        Can't draw the picture of the space.
+
+        This is not Hausdorff, but locally \(\IR^1\). we don't want this to be a manifold.
+    \end{itemize}
+\end{remark}
+
+\begin{example}
+    \begin{itemize}
+        \item open subsets of \(\IR^m\) are \(m\)-manifolds.
+        \item Let \(M\) be a Hausdorff space, such that every point has an open neighborhood that is an \(m\)-manifold.Then \(M\) is an \(m\)-manifold.
+        \item Let \(M\) be an \(m\)-manifold and \(N\) an \(n\)-manifold. Then \(M\times N\) is an \(m+n\)-manifold.
+        \item The \(m\)-sphere \(S^m = \set{(x_1, \dots, x_{m+1}) \in \IR^m \mid x_1^2 + \dots + x_{m+1}^2 = 1}\) is an \(m\)-manifold.
+        
+        Let \(x = (x_1, \dots, x_{m+1}) \in S^m\) be a point. Let \(V = \set{y \in \IR^{m+1} \mid \skal{y,x} = 0}\) be the orthogonal complement of \(x\). The stereographic projection is a homeomorphism
+        \[x \in S^m \setminus \set {-x} \to V\]
+        given by some formula I couldn't copy before it was erased and he also had a nice picture.
+        \item The real projective space \(\IR P^m \cong S^m/x \sim -x\) is an \(m\)-manifold. Let \(\set{x, -x}\) be a point in \(\IR P^m\) for \(x \in S^m\). Let \(x\) be one of the representatives. Let \(\IR^m \cong U = \set{z \in S^m \mid \skal{z,x} \geq 0}\) \enquote{The northern hemisphere with north-pole \(x\)}. As \(U \subseteq S^m\) we get via projection a map to \(\IR P^m\). This is an open embedding onto a neighborhood.
+        
+        \item Let \(\IC P^m = \set{l \in \IC^{n+1} : L \text{ complex line through } 0}\). is a \(2m\) manifold. Consider first the point \([0,0, \dots, 0, 1]\).
+        
+        Then \(\IR^{2n} \cong \IC^n \to \IC P ^n\) given by \((z_1, \dots, z_m) \mapsto [z_1, \dots, z_m, 1]\) is an homeomorphism onto a open neighborhood \(U\) of \([0,0,\dots, 0, 1]\).
+
+        Let \(l \in \IC P^n\) be any point, let \(v \in l\) be a nonzero vector in \(l\). Let \(A \in Gl_n(\IC)\) such that \(A\cdot (0, \dots, 0,1) = v\).
+        Then \(A \colon \IC P^n \to \IC P^n\), \(L_0 = [0, \dots, 0,1]\) given by \(L \mapsto A\cdot L\) sends \(A \cdot L_0 = L\). So we can take \(A(U)\) as an open neighborhood of \(L\) homeomorphic to \(\IR^{2n}\).
+    \end{itemize}
+\end{example}
+
+Now we do some examples that are a little more involved.
+
+\begin{example}[Stiefel manifold]
+    Let \(0 \leq k \leq n\). The Stiefel manifold \(V_{k,n} = \set{(v_1, \dots, v_k) \in \IR^n} \mid \text{orthonomal set.}\). We call this the \enquote{k-frame} this means
+    \[\skal{v_i, v_j} = \begin{cases}
+        1 & i = j \\
+        0 & i \neq j
+    \end{cases}\]
+    note, that each \(v_i\) is a vector in \(\IR^n\). We give \(V_{k,n}\) the subspace topology of \((\IR^{n})^k\). This is even a closed subspace of \((S^{n-1})^k\), so \(V_{k,n}\) is compact.
+
+    For example,
+    \begin{itemize}
+        \item \(V_{0,n} = \set \emptyset\) is a point hence a \(0\)-manifold.
+        \item \(V_{1,n} = S^{n-1}\).
+        \item \(V_{n,n} = O(n)\) the \(n\)-th orthogonal group.
+        \item \(V_{n-1, n} \xleftarrow{\cong} SO(n)\) given by \((Ae_1, \dots, A\cdot e_{n-1}) \mapsfrom A\) where \(e_i = \prescript{t}{}{(0,\dots, 1, \dots, 0)}\). This is bijective because it sends orthogonal matrices to the orthogonal vectors that span it. That is not what was written on the board. That was erased before I could copy.
+    \end{itemize}
+
+    \begin{proposition}
+        \(V_{k,n}\) is a manifold of dimension \((n-1) + (n-2) + \dots + (n-k) = nk - \frac{k(k+1)}{2}\)
+    \end{proposition}
+    \begin{proof}
+        By induction on \(k\). We have already seen \(V_{0,n} = \set \emptyset \) as a \(0\)-manifold and \(V_{1,n} = S^{n-1}\) a \((n-1)\)-manifold.
+
+        Now let \(k \geq 2\). Let \(S^{n-1}_+ = \set{(x_1, \dots, x_n) \in S^{n-1} : x_1 \geq 0}\) be the \enquote{northern hemisphere}. We define a continuous map \(\psi \colon S^{n-1}_+ \to O(n)\) as the following composite
+        \[S^{n-1}_* \to GL_n(\IR) \xrightarrow{\text{Gram-Schmidt}} O(n) \quad w \mapsto (\trans w, e_2, \dots, e_n) \mapsto \dots\]
+        where Gram-Schmidt is a continuous way to orthonormalize a matrix.
+
+        We remember the properties:
+        \begin{itemize}
+            \item \(\psi\) is contnuous
+            \item \(\psi(e_1) = \psi(1,0,0,\dots, 0) = E_n\)
+            \item \(\psi(w) \cdot e_1 = w\).
+        \end{itemize}
+
+        \textbf{Warning.} Ther is no continuous map \(\tilde \psi \colon S^{n-1} \to O(n)\) such that \(\tilde \psi (w) \cdot e_1 = w\).
+
+        We show the manifold condition around \((e_1, \dots, e_k) \in V_{k,n}\). We set \(U = \set{(v_1, \dots, v_k) \in V_{k,n} : v_1 \in S^{n-1}_+}\) is open in \(V_{k,n}\) around \((e_1, \dots, e_k)\). The map
+        \[U \to S^{n-1} \times V_{k-1, n-1}, \quad (v_1, \dots, v_k) \mapsto (v_1, (\psi(v_1))^{-1}(v_2), \dots, (\psi(v_1))^{-1}(v_k))\]
+        where \((\psi(v_1))^{-1}(v_i)\) are in \(0 \times \IR^{n-1}\). The well-definedness follows from \(\psi(v_1)^{-1}\) is an orthogonal matrix such that \(\psi(v_1)^{-1}(v_1) = e_1\). This means, that \(\psi(v_1)^{-1}(v_2, \dots, v_k)\) will be an orthonormal \(k-1\)-set that is also orthogonal to \(e_1\), i.e. they sit in \(0 \times \IR^{n-1}\). He also rambles, as to why this is continuous.
+
+        It is a homeomorphism. This shows that around \(e_1, e_2, \dots, e_k\) \(V_{k,n}\) is locally a manifold of dimension \((n-1) + \dim (V_{k-1,n-1}) = (n-1) + (n-2 + \dots + n-k)\).
+
+        We have a continuous inverse:
+        \[S^{n-1}_+ \times V_{k-1, n-1} \to U \quad (v, w_1, \dots, w_{k-1}) \mapsto (v, \psi(v)(0,w_1), \dots, \psi(v)(0,w_{k-1}))\]
+
+        Now let \((v_1, \dots, v_k) \in V_{k,n}\) be any point. We choose an extension to an orthonormal basis \((v_1, \dots, v_k, v_{k+1} , \dots, v_n)\). Set \(A = (v_1, \dots, v_n) \in O(n)\). then
+        \[A \cdot \_\colon V_{k,n} \to V_{k,n}\]
+        is a self homeomorphism that sends \((w_1, \dots, w_k) \mapsto (A \cdot w_1, \dots, A \cdot w_k)\) and specifically \(e_1, \dots, e_k\) to \(v_1, \dots, v_k\). So the homeomorphism takes the previous neighborhood \(U\) homeomorphically onto the neighborhood \(A \cdot U\) of \((v_1, \dots, v_k)\)
+    \end{proof}
+
+    \begin{remark}
+        What we really showed is, that \(V_{k,n} \to S^{n-1}\), \((v_1, \dots, v_k) \mapsto v_1\) is a smooth locally trivial fiberbundle with fiber \(V_{k-1, n-1}\).
+    \end{remark}
+
+    \textbf{Note.} Complex Stiefel Manifold. We can also define
+    \[V_{k,n}^\IC = \set{(v_1, \dots, v_k) \in \IC^n : \skal{v_i, v_j} = \delta_{i,j}}\]
+    where \(\delta\) denotes the Kronecker-symbol and we use the hermitian complex bilinear product. 
+
+    This is a manifold of dimension \((2n-1) + (2n-3) + (2n-5) + \dots + (2n-2k +1) = 2nk - k^2\). We will see.
+    \[V_{0,n}^\IC = \set *, \quad V_{1,n}^\IC = S^{2n-1}, \quad V_{n-1,n} \cong SU(n), \quad V_{n,n} \cong U(n)\]
+
+    For the quaternions \(\IH = \IR\set{1, i,j,k}\) with \(i^2 = j^2 = k^2 = ijk = -1\), we have quaternionic conjugation \(\lambda = a + bi + cj + dk \to \bar \lambda a- bi - cj - dk\) that is an anti-isomorphism: \(\bar{\lambda \cdot \mu} = \bar \mu \cdot \bar \lambda\). This gives a \enquote{Quaternionic skalar product} on \(\IH^n\) is defined by \([x,y] \coloneq \bar{x_1} y_1 + \dots + \bar{x_n} \cdot y_n\) for \(x,y \in \IH^n\). This is an \(\IH\)-sesquilinear, non degenerate positive definete \(\IR\)-bilinear form.
+
+    With the right definitions and being careful, all of this works.
+
+    This gives Quaternionic Stiefel manifolds:
+    \[V_{k,n}^\IH = \set{(v_1, \dots, v_k) \in (\IH^n)^k : [v_i, v_j] = \delta_{i,j}}\]
+    is a manifold of dimension \((4n-1) + (4n-5) + \dots + (4n - 4k +3) = 4nk - k(2k-1)\). And we see again
+    \[V_{1,n}^\IH = S^{4n-1}, \quad V_{n,n}^\IH = Sp(n) = \set{A \in M(n\times n, \IH) : A\cdot \bar A ^t = \bar A ^t \cdot A = E_n}\]
+    Where \(Sp\) is the simpletic group. There is no such thing as a special simpletic group, because you would need determinant for that, which then really needs commutativity.
+\end{example}
+
+\begin{example}[Graßmann manifolds]
+    Let \(0 \leq k \leq n\) The Graßmann manifold of \(k\)-pairs in \(\IR^n\) is
+    \[Gr(k,n) = Gr_k(n) = Gr_k(\IR^n) = \set{L \subseteq \IR^n : L \text{ is } k\text{-dimensional } \IR\text{-subspace.}}\]
+    There is a surjective map
+    \[\mathrm{span}\colon V_{k,n} \to Gr(k,n) \quad (v_1, \dots, v_k) \mapsto \mathrm{span}(v_1, \dots, v_k).\]
+    we give \(Gr(k,n)\) the quotient topology. Next time we will see \(Gr(k,n)\) is a compact manifold of dimension \(k \cdot (n-k)\).
+
+    The map \(Gr(k,n) \mapsto Gr(n-k,n)\) given by \(L \mapsto L^\perp\) is a homeomorphism.
+\end{example}
 
 
 
