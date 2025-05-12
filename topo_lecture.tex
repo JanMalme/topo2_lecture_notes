@@ -1644,6 +1644,177 @@ Now we do some examples that are a little more involved.
     The map \(Gr(k,n) \mapsto Gr(n-k,n)\) given by \(L \mapsto L^\perp\) is a homeomorphism.
 \end{example}
 
+\newLecture{12.05.2025}
+
+\begin{example}
+    We have \(Gr(1,n) = \IR P^{n-1}\).
+\end{example}
+
+\begin{thm}{Graßmann Manifolds}{}
+    \(Gr(k,n)\) is a compact manifold of dimension \(k \cdot (n-k)\).
+\end{thm}
+
+\begin{proof}
+    We first show compactness. Quasicompactness is clear, as it is a quotient space of a compact space.
+
+    We will show Hausdorff by constructing an injection into a Hausdorff space. For \(V \in Gr(k,n)\) we consider the orthogonal projection \(p_V\colon \IR^n \to \IR^n\). Let \((v_1, \dots, v_k)\) be an orthonomal basis. then
+    \[p_V(x) = \skal{x,v_1} \cdot v_1 + \dots + \skal{x, v_k} \cdot v_k\]
+    We will sometimes also write \(p_V \colon \IR^n \to \IR^k\).
+
+    The map \(Gr(k,n) \to \Hom_\IR(\IR^n \to \IR^n)\) given by \(V \mapsto p_V\) is injective. Claim: this map is continuous.
+
+    By the quotient topology, we need to show, that the composite \(V_{k,n} \to Gr(k,n) \to \Hom_\IR(\IR^n, \IR^n) \) is continuous. This map is
+    \[(v_1, \dots, v_k) \mapsto \sum_{i = 1, \dots, k} \skal{\_, v_i} \cdot v_i\]
+    and as a sum of continuous maps it is continuous.
+    Because \(Gr(kn)\) admits an injective continuous map to a Hausdorff space, it is Hausdorff.
+
+    \textbf{Manifold property.} Let \(V \in Gr(k,n)\) be any \(k\)-plane. Set \(U \coloneq \set{L \in Gr(k,n) : L \cap V^\perp = \set 0}\). Claim: \(U\) is an open subset of \(Gr(k,n)\). We choose an orthonormal basis \((v_1, \dots, v_k)\) of \(V\).
+
+    \textbf{Claim.} \(\spn{-1}(U) = \set{(l_1, \dots, l_k) : \det(\skal{l_i, v_j}_{1 \leq i,j \leq k}) \neq 0} \subseteq V_{k,n}\).
+
+    If we show this, we are done, as \(\det \neq 0\) is an open condition.
+
+    \textbf{Note.} \(V^\perp\) is the kernel of \(p_V \colon \IR^n \to \IR^n\). So \(L \cap V^\perp = \set 0 \Lra pr\rvert_L \colon L \to V\) is injective.
+    
+    As \(\dim(L) = \dim(V) = k\), this is equal to \(pr\rvert_L\colon L \to V\) is bijective. Since \((\skal{l_i, v_j})_{1 \leq i,j \leq k}\) is the matrix that expresses \((pr)\rvert_L\) in terms of the basis \((l_i)_{1 \leq i \leq k}\) and \((v_j)_{1 \leq j \leq k}\), this is equivalent to \(\det(\skal{l_i, v_j}) \neq 0\).
+
+    The map \(V_{k,n} \to \IR, (l_1, \dots, l_k) \mapsto \det(\skal{l_i, v_j})\) is continuous, so \(\spn^{-1}(U)\) is open in \(V_{k,n}\), hence \(U\) is open in \(Gr(k,n)\).
+
+    Next, we exhibit a homeomorphism
+    \[\begin{tikzcd}
+        U \ar[r, bend left, "\Psi"] & {\Hom_\IR(V, V^\perp)} \ar[l, bend left, "\Gamma"]
+    \end{tikzcd}\]
+    We then use \(\dim(V) = k, \dim(V^\perp) = n-k\), so \(\Hom_\IR(V, V^\perp) \cong \IR^{k(n-k)}\).
+
+    Note that \(\Gamma(f) \cap V^\perp = \set{v \oplus f(V) : v = 0} = \set{0,0}\).
+
+    We define \(\Gamma\colon \Hom(V, V^\perp) \to U\) using that \(\IR^n = V \oplus V^\perp\). Then
+    \[\Gamma(f\colon V \to V^\perp) = \text{Graph of } f = \set{v \oplus f(v) : v \in V}\]
+    The graph map factors as the composite after choice of orthonormal basis \(v_1, \dots, v_k\) of \(V\) as
+    \[\Hom_\IR(V, V^\perp) \xrightarrow{\text{Gram-Schmidt}} V_{k,n} \xrightarrow{\spn} Gr(k,n)\]
+    so \(\Gamma\) is a continuous map.
+
+    We define \(\Psi \colon U \to \Hom_\IR(V, V^\perp)\) as follows: If \(L \in U\), then \(p_V\rvert_L \colon L \to V\) is a linear isomorphism.
+
+    We define \(\Psi(L)\) as the composite \(V \xrightarrow{(p_V)\rvert_L^{-1}} L \xrightarrow{(p_{V^\perp})\rvert_L} V^\perp\).
+
+    This is inverse to \(\Gamma\) by go check yourself.
+
+    For Continuity of \(\Psi\colon U \to \Hom_\IR(V, V^\perp)\). Since \(\spn\colon V_{k,n} \to Gr(k,n)\) is a quotient map, so is its restriction
+    \[\spn\colon \spn^{-1}(U) \to U\]
+    So it suffices to show, that the composite
+    \[\spn^{-1}(U) \to U \xrightarrow{\Psi} \Hom_\IR(V, V^\perp)\]
+    is continuous.
+
+    To proove that, we choose orthonormal bases \((v_1, \dots, v_k)\) of \(V\) and \(w_1, \dots, w_{n-k}\) of \(V^\perp\). Expressing a linear map in the basis is a linear isomorphism
+    \[\Hom_\IR(V, V^\perp) \cong M(k \times (n-k), \IR).\]
+    So we only need to show that
+    \[\spn^{-1}(U) \xrightarrow{\spn} U \xrightarrow{\Gamma} \Hom_\IR(V, V^\perp) \cong M(k \times (n-k), \IR)\]
+    is continuous. Did not copy the argument. Something about how we just compose matrices.
+\end{proof}
+
+
+\begin{corollary}
+    The map \(Gr(k,n) \to P_{k,n} \coloneq {q \in \Hom_\IR(\IR^n, \IR^n) : q^2 = q = q^*, \; \mathrm{trace}(q) = k}\) is a homeomorphism.
+\end{corollary}
+
+\begin{corollary}
+    For all \(0 \leq k \leq n\), the map \(Gr(k,n) \to Gr(n-k, n)\) given by \(V \mapsto V^\perp\) is an homeomorphism.
+\end{corollary}
+
+\begin{proof}
+    We need only show continuity.
+    \[\begin{tikzcd}
+        Gr(k,n) \ar[d, phantom, sloped, "\cong"] \ar[r, "V \mapsto V^\perp"] & Gr(n-k, n) \ar[d, phantom, "\cong", sloped] \\
+        P_{k,n} \ar[r, "f \mapsto \Id - f"] & P_{n-k, n} \\
+    \end{tikzcd}\]
+\end{proof}
+
+We can define the compelx analogue: \(Gr^\IC(k,n) = \set{ L \subseteq \IC^n : \text/ Complex linear subspaces}\) with quotient topology by \(V_{k,n}^\IC \xrightarrow{\spn}Gr^\IC(k,n)\) is a compact manifold of dimension \(2k \cdot (n-k)\).
+
+We can even define this for Quarternions:
+\[Gr^\IH(k,n) = \set{L \subseteq \IH^n : \IH\text{- right submoule of dimension } k}\]
+is a compactr manifold of dimension \(4\cdot k \cdot (n-k)\).
+
+\textbf{Bigger picture.}  The orthogonal group \(O(n)\) acts transitively on \(V_{k,n}\). This gives an isomoprhism \(O(n)/(1 \times O(n-k)) \to V_{k,n}\), that is even a homeomorphism.
+
+Similarly, we have a transitive action \(O(n) \to Gr(k,n)\). Looking at the stabilizor of \(\IR^k\). We get \(O(n)/O(k) \times O(n-k) \xrightarrow{\cong} Gr(k,n)\) an homeomorphism.
+
+This works similarly for complex and quaternionic Stiefel/Graßmann manifolds. This can be summarized as: \enquote{Stiefel manifolds and Grassmannians are homogenous spaces}.
+
+\textbf{Fact.} Let \(G\) be a liegroup. \(H\) a closed subgroup. Then \(G/H\) is a (smooth) manifold of dimension \(\dim G - \dim H\).
+
+
+\section{Orientations}
+
+\textbf{Notation.} We will write \(H_n(X)\) for \(H_n(X, \IZ)\).
+
+For \(Y \subseteq X\), write \(H_n(X \mid Y)\coloneq H_n(X, X\setminus Y; \IZ)\), we call the \enquote{local homology of \(X\) at \(Y\)}.
+
+This is because for \(Y \subseteq U \subseteq X\), \(U\) a neighborhood of \(Y\), then excision gives
+\[H_n(U \mid Y) = H_n(U ; U\setminus Y; \IZ) \xrightarrow{\cong} H_n(X, X\setminus Y; \IZ) = H(X \mid Y)\]
+
+If \(M\) is an \(m\)-manifold, and \(x \in M\), then \(H_n(X \mid x) = H_n(X \mid \set x)\). This is \(\IZ\) iff \(m = n\) and else \(0\).
+
+\begin{defi}{Local orientation}{}
+    Let \(M\) be an \(m\)-manifold. A local orientation of \(M\) at  \(x \in M\) is a generator of \(H_m(X \mid x)\).
+\end{defi}
+
+There are exactly two local orientations at every point.
+
+\begin{construction}[Orientation covering]
+    Let \(M\) be an \(m\)-manifold. We define the set \(\tilde M = \set{(x, \mu) : x \in M, \mu \text{ is a local orientation at } x}\). This comes with a map \(p \colon \tilde M \to M\), \(p(x, \mu) = x\). This map is surjective and every point in \(M\) has exactly tow preimages.
+
+    A subset \(B\) of \(M\) is a \emph{Local ball} if \(B\) is a local subset of \(M\), such that there exists a homeomorphism \(\phi \colon \IR^n \to M\) onto some open subset, sucht that \(\phi(\inner D^n) = B\).
+
+    \textbf{NOte.} IF \(B\) is a local ball in \(M\), then \(M\setminus B \to M \setminus \set x\) is a homotopy-equivalence (here we need the special definition of open ball). This induces a isomorphism \(r_x^B\colon H_m(M \mid B) \to H_m(X \mid x) \cong \IZ\) for all \(x \in B\).
+    If \(\mu\) is a local orientation at \(x\), i.e. a generator of \(H_m(X \mid B)\), we set \(U(B, \mu) = \set{(x, r_x^B(\mu)) : x \in B} \subseteq \tilde M\).
+\end{construction}
+
+\begin{thm}{Orientation covering}{}
+    Let \(M\) be an \(m\)-manifold.
+    \begin{enumerate}
+        \item As \((B, \mu)\) varies over all pairs of local balls \(B\) and generators \(\mu\) of \(H_m(M \mid B)\), the subset \(U(B, \mu)\) of \(\tilde M\) are the basis of a topology on \(\tilde M\).
+        \item In this topology on \(\tilde M\), the map \(p \colon \tilde M \to M\), \(p(x, \mu) = x\) is a twofold covering, the orientation covering of \(M\). \index{Orientation covering}
+        \item \(\tilde M\) is an \(m\)-manifold.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}
+    \begin{enumerate}
+        \item We need to show, that for all local balls \(B, B'\) and all generators \(\mu \in H_m(X \mid B), \mu' \in H_m(X,B')\), the set \(U(B, \mu) \cap U(B', \mu')\) is a union of basiss sets. Let \((x, \nu) \in U(B, \mu) \cap U(B', \mu')\). so \(x \in B \cap B'\). and \(r_x^B(\mu) = r_x^{B'}(\mu') \coloneq \nu\).
+
+        Choose a smaller local ball, s.t. \(x \in B'' \subseteq B \cap B'\). We consider the following diagram of local homology groups:
+        \[\begin{tikzcd}
+            H_m(X \mid B) \ar[rrd, "r_x^B", "\cong"']\ar[d] \ar[dr, "\cong"] & & \\
+            H_m(X\mid B \cap B') \ar[r] & H_m(X \mid B'') \ar[r, "r_x^{B''}", "\cong"'] & H_m(X \mid x) \\
+            H_m(X \mid B') \ar[rru, "r_x^{B'}", "\cong"'] \ar[u] \ar[ur, "\cong"]\\
+        \end{tikzcd}\]
+        so \(\mu\) and \(\mu'\) map to the same generator of \(H_m(X \mid B'')\). Set \(\mu'' = \incl_*(\mu) = \incl'_*(\mu')\). Then \((x, \nu) \in U(B'', \mu'') \subseteq U(B, \mu) \cap U(B', \mu)\)
+
+        \item Because \(M\) is a manifold, the local balls form athe basis of a topology of \(M\). So it suffices to establish for all local balls \(B\) in \(M\) a homeomorphism
+        \[\begin{tikzcd}
+            p^{-1}(B)\ar[d, "p"] \ar[r, phantom, "\cong"] & B\amalg B  \ar[dl, "fold"]\\
+            B
+        \end{tikzcd}\]
+        I did not manage to copy the rest of this argument.
+
+        \item is a special case of 
+        \begin{proposition}
+            Let \(p \colon N \to M\) be a covering map and \(M\) and \(m\)-manifold. Then \(N\) is an \(m\)-manifold.
+        \end{proposition}
+        \begin{proof}
+            Hausdorff is clear. 
+
+            For \(y \in N\) choose an open neighborhood \(U\) of \(p(y) = x\) in \(M\), such that \(U \cong \IR^m\) and \(p\) is locally trivial over \(U\). Choose a homeomorphism of \(p^{-1}(U) \cong U\times F\) for \(F\) some discrete space. Then \(U\times {f}\) is again homeomorphic to \(\IR^n\) and its preimage is an open neighborhood of \(y \in N\).
+        \end{proof}
+\end{enumerate}
+\end{proof}
+
+
+
+
+
 
 
 
