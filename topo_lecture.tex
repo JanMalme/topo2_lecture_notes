@@ -812,7 +812,7 @@ For \(X,Y\) simplicial sets, we have
 and for \(R\otimes C_*(X; \IZ) \otimes C_*(Y; \IZ) \cong (R\otimes C_*(X;Z)) \otimes_R (R \otimes C_*(Y; \IZ)) = C_*(X,R) \otimes_R C_*(Y,R)\), so we get a Eilenberg-Zilber map
 \[C_*(X,R)\otimes_R C_*(Y,R) \xrightarrow{\mathbf{EZ}} C_*(X\times Y; R)\]
 
-\textbf{Aim.} relate \(H_*(C\otimes_R D)\) to \(H_*(C), H_*(D)\). Our bope is to have a map
+\textbf{Aim.} relate \(H_*(C\otimes_R D)\) to \(H_*(C), H_*(D)\). Our hope is to have a map
 \[\bigoplus_{p+q = n} H_p(C) \otimes_R H_q(D) \xrightarrow{???} H_n(C\otimes_R D)\]
 
 For example taking \(R = \IZ\) and \(C = D = (\dots ,\ra 0\ra \IZ \xrightarrow{\cdot 2}\IZ \ra 0)\). Then
@@ -944,7 +944,7 @@ If \(P\) is projective, then \(\Tor^R(P,N) = 0 = \Tor^R(M,P)\).
 
 \begin{construction}
     For \(R\) a commutative ring, \(C,D\) complexes of \(R\)-modules. We define a natural homomorphism
-    \[\Phi \colon H_p(C) \otimes_R H_q(D) \to H_{p+q}(C\otimes R D)\]
+    \[\Phi \colon H_p(C) \otimes_R H_q(D) \to H_{p+q}(C\otimes_R D)\]
     via \([x] \otimes [y] \mapsto [x\otimes y]\)
 \end{construction}
 
@@ -1086,7 +1086,7 @@ Let \(A\) be an abelian group and \(R\) an commutative ring. We make the set \(\
 \[(f+g)(a) = f(a) + g(a), \quad ((r\cdot f)(a) = r\cdot f(a))\]
 Let \(B\) be another abelian group. Then
 \[\bullet \colon \Hom(A,R) \times \Hom(B,R) \to \Hom(A\otimes B, R)\]
-by \((f\bullet g)(a\otimes b) = f(A) \cdot g(b)\). This is additive in \(f\) and \(g\).
+by \((f\bullet g)(a\otimes b) = f(a) \cdot g(b)\). This is additive in \(f\) and \(g\).
 \[(f+f') \bullet g = (f\bullet g) + (f' \bullet g)\]
 and
 \[(rf) \bullet g = r \cdot (f\bullet g) = f \bullet (r\cdot g)\]
@@ -1214,19 +1214,19 @@ This is not yet good enough to apply to topological spaces, as they are very not
 \newLecture{30.04.2025}
 
 
-\begin{corollary}[Algebraic Künneth theorem, cohomology]
+\begin{thm}{Algebraic Künneth theorem, cohomology}{}
     Let R be a commutative ring of global dimension \(\leq 1\). Let \(C,D\) be chain complexes of abelian groups such that \(C_n = 0 = D_n\) for \(n < 0\) and all \(C_n\) are free and \(H_n(C)\) is finitely generated free.
 
     Then for all \(n \geq 0\):
     \[\bigoplus_{p+q = n} H^p(\Hom(C,R)) \otimes_R H^q(\Hom(D,R)) \xrightarrow{\Phi} H^n(\Hom(C\otimes D, R))\]
     is injective and its cokernel is isomorphic to
     \[\bigoplus_{p+q = n+1} \Tor^R(H^p(\hom(C, R)), H^q(\Hom(D,R)))\]
-\end{corollary}
+\end{thm}
 
 \textbf{Warning.} We do not assume, that there is a splitting.
 
 \begin{proof}
-    \enquote{Basically just putting all the hard stuff we*ve already done together in the right way.}
+    \enquote{Basically just putting all the hard stuff we've already done together in the right way.}
     \begin{description}
         \item[Case 1] Suppose that also \(C_n\) is finitely generated for all \(n \geq 0\). Then \(\bullet \colon \Hom(C,R) \otimes _R \Hom(D,R) \to \Hom(C\otimes D, R)\) is an isomorphism of cochain complexes. Applying the homological algebraic Künneth theorem to
         \[H^n(\Hom(C\otimes D,R)) \cong H^n(\Hom(C,R) \otimes_R \Hom(D,R))\]
@@ -1248,8 +1248,8 @@ This is not yet good enough to apply to topological spaces, as they are very not
 
         This gives a commutative square in \(\mathbf{coChains}_R\):
         \[\begin{tikzcd}
-            {\bigoplus_{p+q = n} H^p(\Hom(C,R)) \otimes H^q(\Hom(D,R))} \ar[r, hook, "\Phi"] \ar[d, "\cong"] & {H^n(\Hom(C\otimes D, R))} \\
-            {\bigoplus_{p+q = n} H^p(\Hom(B,R)) \otimes_R H^q(\Hom(D,R))} \ar[r, hook, "\Phi", "\text{by special case}"'] & {H^n(\Hom(B\otimes D, R))} \\
+            {\bigoplus\limits_{p+q = n} H^p(\Hom(C,R)) \otimes H^q(\Hom(D,R))} \ar[r, hook, "\Phi"] \ar[d, "\cong"] & {H^n(\Hom(C\otimes D, R))} \ar[d, "\cong"] \\
+            {\bigoplus\limits_{p+q = n} H^p(\Hom(B,R)) \otimes_R H^q(\Hom(D,R))} \ar[r, hook, "\Phi", "\text{by special case}"'] & {H^n(\Hom(B\otimes D, R))} \\
         \end{tikzcd}\]
     \end{description}
 \end{proof}
@@ -1809,6 +1809,185 @@ There are exactly two local orientations at every point.
             For \(y \in N\) choose an open neighborhood \(U\) of \(p(y) = x\) in \(M\), such that \(U \cong \IR^m\) and \(p\) is locally trivial over \(U\). Choose a homeomorphism of \(p^{-1}(U) \cong U\times F\) for \(F\) some discrete space. Then \(U\times {f}\) is again homeomorphic to \(\IR^n\) and its preimage is an open neighborhood of \(y \in N\).
         \end{proof}
 \end{enumerate}
+\end{proof}
+
+
+\newLecture{19.05.2025}
+\footnote{I recently got a new laptop (including a new keyboard), which may negatively affect my writing speed and subsquently quality of the script for the next few lectures}
+
+
+\begin{defi}{Orientation}{}
+    An orientation\index{Orientation} of an \(m\)-manifold is a continuous section \(s\colon M \to \tilde M\) of \(p\) the orientation covering.
+\end{defi}
+
+\begin{defi}{Orientablity}{}
+    An manifold is orientable, if it has an orientation.
+\end{defi}
+
+\begin{remark}
+    If \(M\) is connected and orientable, \(s\colon M \to \tilde M\) an orientation. Then \(\tau \circ s \colon M \to \tilde M\) is another orientation where
+    \(\tau \colon \tilde M \to \tilde M, (x, \mu) \mapsto (x, -\mu)\).
+
+    Then \(M \amalg M \cong \tilde M\) is a homeomorphism and \(p\colon \tilde M \to M\) is the trivial covering.
+
+    So for connected \(M\), the following are equivalent: \(M\) is orientable, \(p\colon \tilde M \to M\) has a continuous section, \(p\) is trivial, i.e. \(\tilde M \cong M\amalg M\).
+
+    An orientable connected manifold has exactly two orientations
+
+    If \(M\) is orientable and has \(n\) path-components, then \(M\) has exactly \(2^n\) orientations.
+\end{remark}
+
+\begin{corollary}
+    Let \(M\) be a connected  \(m\)-manifold such that for some (hence any) \(x \in M\), the group \(\pi_1(M, x)\) does not have a subgroup of index \(2\). Then \(M\) is orientable.
+\end{corollary}
+
+\begin{proof}
+    We argue by contradiction. If \(M\) was not orientable, then \(p\colon \tilde M \to M\) is not a product covering. So \(\tilde M\) is path connected, so for every \(\tilde x \in \tilde M\) the homomorphism on fundamental groups \(p_*\colon \pi_1(\tilde M, \tilde x) \to \pi_1(M, p(\tilde x))\) is a monomorphism with image of index \(2\). So \(\img(p_*)\) is an index \(2\) subgroup of \(\pi_1(M,x)\).
+\end{proof}
+
+This gives that in particular every simply connected manifold is orientable.
+
+\begin{example}
+    The spaces \(S^n\) (for \(n \geq 2\)), \(\IC P^n, \IH P^n\) are orientable manifolds.
+
+    He continues to draw, that \(S^1\) is also orientable.
+
+    Let \(M\) be an \(m\)-manifold, that is also a topological group, i.e. there is a continuous map \(m\colon M \times M \to M\) that is also a group structure on \(M\) and such that \(m \mapsto m^{-1}\) is continuous. Then \(M\) is orientable.
+
+    \begin{proof}
+        choose a local orientation \(\mu \in H_m(M \mid 1)\), where \(1 \in M\) is the multiplicative unit. For every \(m \in M\),
+        \[m\cdot \_\colon M \to M\]
+        is a homoeomorphism that takes \(1\) to \(m\), so \((m\cdot \_)_* \colon H_m(M \mid1) \to H_m(M \mid m)\) is an isomorphism. Set \(\mu_m\coloneq (m\cdot \_)_*(\mu)\). Then \(\set{\mu_m}_{m \in M}\) is an orientation of \(M\).
+    \end{proof}
+
+    Examples for this are \(S^1, O(n), U(n), \mathrm{Sp}(n), SO(n), SU(n), \dots\)
+\end{example}
+
+\begin{proposition}
+    Let \(M\) be any \(n\)-manifold.
+    \begin{enumerate}
+        \item The manifold \(\tilde M\) is orientable, and the map \(\tau \colon \tilde M \to \tilde M\) given by \(\tau(x, \mu) = (x, -\mu)\) is orientation reversing.
+        \item Let \(q \colon N \to M\) be a twofold covering and \(N\) be orientable manifold, \(\tau \colon N \to N\) the free deck-transformation. If \(\tau \colon N \to N\) is orientation reversing, then \(q\colon N \to M\) is isomorphic as a covering to \(p\colon \tilde M \to M\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}\leavevmode
+    \begin{enumerate}
+        \item Let \(\tilde x = (x, \mu) \in \tilde M\) be any point in \(\tilde M\). Since \(p\colon \tilde M \to M\) is a local homeomorphism. so \(p\colon H_n(\tilde M, \tilde x) \xrightarrow{\cong} H_n(M, x) \ni \mu\). Set \(\mu_{\tilde x} \coloneq p_*^{-1}(\mu)\). then \(\set{\mu_{\tilde x \in \tilde M}}\) is an orientation of \(\tilde M\).
+        
+        The map \(\tau \colon \tilde M \to \tilde M\) reverses this orientation.
+        \[\tau_*\colon H_n(\tilde M, \tilde x) \to H_n(\tilde M, \tau_*(x))\quad p_*^{-1}(\mu)\mapsto \tau_*(p_*^{-1}(\mu)) = p_*^{-1}(\mu) = - p_*^{-1}(-\mu) = \mu_{\tau(\tilde x)}\]
+
+        \item We have
+        \[\begin{tikzcd}
+            N \ar[rd, "q"] & & \tilde M \ar[ld, "p"]\\
+            & M & \\
+        \end{tikzcd}\]
+        and we look for a map \(N \to \tilde M\). Define \(f\colon N \to \tilde M\) by \(f(y) = (q(y), q_*(\mu_y))\). We use \(q_*\colon H_n(N\mid y) \xrightarrow{\cong} H_n(M\mid q(y))\). this \(f\) is continuous. We will not check this, \(f\) commutes with the free involution:
+        \[f(\tau y) = (q(y), q_*(\mu_{\tau_y})) = (q(y), q_*(-\tau_*(\mu_y))) = (q(y), -q_*(\mu_y)) = \tau(q(y), q_*(\mu_y)) = \tau(f(y))\]
+        So \(f\) is a continuous bijection over \(M\), hence a homeomorphism.
+    \end{enumerate}
+\end{proof}
+
+\subsection{Orientability of \(\IR P^n\)}
+
+We already know \(\IR P ^1\) and \(\IR P^3\) are orientable, as \(\IR P^1 \cong S^1\) and \(\IR P^3 \cong SO(3)\).
+
+\textbf{Recall.} The antipodal map \(A\colon S^n \to S^n\), given by \(x \mapsto -x\) has degree \((-1)^{n+1}\).
+
+Let \(\mu \in H_n(S^n, \IZ)\) be any generator, define an orientation on \(S^n\) by \(x \in S^n : \mu_x \coloneq \mu_x^{S^n}(\mu) \in H_n(S^n(x))\).
+
+We look at
+\[\begin{tikzcd}
+    H_n(S^n, \IZ) \ar[d, "A_*"] \ar[r, "\cong", "r_x^{S^n}"'] & H_n(S^n \mid x) \ar[d, "A_*"] \\
+    H_n(S^n, \IZ) \ar[r, "\cong"] & H_n(S^n \mid -x) \\
+\end{tikzcd}\]
+
+Some of this diagram is missing.
+
+this gives if \(n\) is even, then \(A \colon S^n \to S^n\) is orientation reversing. if \(n\) is odd, then \(A\colon S^n \to S^n\) is orientation preserving:
+
+ So for even \(n\), then \(q\colon S^n \to \IR P^n\) is twofold covering and flip reverses orientation, so this \enquote{is} the orientation covering. As \(S^n \not \cong \IR P^n \amalg \IR P^n\) we have no continuous section to \(S^n \xrightarrow{q} \IR P^n\) and \(\IR P^n\) is not orientable.
+
+ For \(n\) odd we have
+
+ \begin{proposition}
+    Let \(f\colon N \to N\) be continuous free involution and a connected oriented \(m\)-manifold. Then
+    \begin{enumerate}
+        \item \(M \coloneq N/x\sim f(x)\) is an \(m\)-manifold.
+        \item If \(N\) is orientable and \(f\) is orientation preserving, then \(M\) is orientable.
+    \end{enumerate}
+ \end{proposition}
+
+ \begin{proof}
+    \begin{enumerate}
+        \item We have implicitly already done he's trying to convince me.
+        \item Choose an orientation \(\set{\mu_y}_{y \in N}\) of \(N\). We define an orientation of \(M\) as follows: For \(x \in M\) choose \(y \in N\), such that \(p(y) = x\). Then we have
+        \[p_*\colon H_n(N\mid y) \xrightarrow{\cong} H_n(M \mid x)\]
+        and set \(\mu_x \coloneq q_*(\mu_y)\). This is independent of the choice of \(y\): the other choice is \(f(y)\).
+
+        Some diagram I couldn't copy. As \(f\) is orientation preserving, the chocie does not matter.
+    \end{enumerate}
+ \end{proof}
+
+ Then \(\IR P^n\) is orientable for \(n\) odd.
+
+\textbf{Next.} For a \(m\)-manifold and for all \(n > m\): \(H_n(M,A) = 0\).
+
+\enquote{Homology vanishes above the geometric dimension.}
+
+In many examples, \(m\)-manifolds \(M\) have \(m\)-dimensional CW-structure, e.g.
+\[S^n, \IR P^n, \IH P^n, \IC P^n\]
+
+We could also produce CW-strucutre on the Grassmannians and Stiefel-Manifolds.
+
+\textbf{Warning.} an \(m\)-manifold need not admit a CW-structure! Smooth manifolds admit triangulations, hence CW-structures. But there are non-smoothable manifolds, that do not admit CW-structures.
+
+\begin{thm}{Vanishing homology in high dimensions}{}
+    Let \(M\) be an \(m\)-manifold; let \(K\) be a compact subset of \(M\). Then
+    \begin{enumerate}
+        \item \(H_i(M, M\setminus K; A) = 0\) for all \(i > n\) and \(A\) any abelian group.
+        
+        In particular, if \(M\) is compact, then \(H_i(M; A) = 0\) for all \(i > n\) and all \(A\).
+        \item A class in \(H_n(M, M\setminus K, A)\) is zero if and only if for all \(x \in K\), its image under \(r_*^K\colon H_n(M, M\setminus K, A) \to H_n(M, M\setminus \set x; A)\) is zero.
+        
+        In particular, if \(M\) is compact, the map \(r_x\colon H_n(M,A) \to H_n(M, M \setminus \set x; A)\) are jointly injective.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}
+    In \(6\) bootstrapping-steps.
+    \begin{description}
+        \item[Step 1] If \(M = \IR^n\), and \(K \) is a convex compact subset. Choose \(R > 0\) such that \(K\) is contained in the open ball of radius \(R\) around \(y \in K\).
+        \[\set{z \in IR^n : \abs{z-y} = R} \eqcolon S^{n-1}_R \subseteq  M\setminus K \subseteq M \setminus \set y\]
+        and these are homotopy equivalences.
+
+        So \(H_i(M \mid K) \cong H_i(M \mid x) = 0\) for \(i > n\).
+
+        \item[Step 2] \(K_1, K_2\) two compact subsets of \(M\). Suppose the claim holds for \(K_1, K_2\) and \(K_1 \cap K_2\). Then it also holds for \(K_1 \cup K_2\).
+        
+        We do this by a Mayer-Vietoris argument for local homology.
+        \[M\setminus(K_1 \cap K_2) = (M\setminus K_1) \cup (M\setminus K_2)\]
+        And \(M\setminus K_1 \cap M\setminus K_2 = M \setminus (K_1 \cup K_2)\)
+
+        Remembering the theorem of small simplices we get long fractions of chain complexes, which I did not copy. We get a long exact sequence of homology groups
+        \[H_{n+1}(M \mid K_1 \cap K_2) \xrightarrow{\partial} H_{n}(M\mid K_1 \cup K_2) \to H_n(M \mid K_1) \oplus H_n(M \mid K_2) \to H_n(M \mid K_1 \cap K_2)\]
+
+        For \(i > n\) we have \(H_i(M \mid K_1 \cup K_2)\) lies between \(H_{i+1}(M \mid K_1 \cap K_2) = 0\) and \(H_i(M \mid K_1) \oplus H_i(M \mid K_2) = 0\).
+
+        For \(i = n\)
+        \[0 = H_{n+1}(M\mid K_1 \cap K_2) \to H_n(M \mid K_1 \cup K_2) \hookrightarrow H_n(M \mid K_1) \oplus H_n(M \mid K_2)\]
+        Let \(Z \in H_n(M \mid K_1 \cup K_2)\) such that \(r_x^{K_1 \cup K_2}(z) = 0\) for all \(x \in K_1 \cup K_2\).
+
+        \textbf{Claim.} \(r_{K_1}^{K_1 \cup K_2}(z) = 0\). To see this pick \(x \in K_1\). Then
+        \[\begin{tikzcd}
+            H_n(M \mid K_1 \cup K_2) \ar[r, "r_{K_1}^{K_1 \cup K_2}"] \ar[dr] & H_n(M \mid K_1) \ar[d, "r_X^{K_1}"] \\
+            & H_n(M \mid x) \\
+        \end{tikzcd}\]
+
+        For all \(x \in K_1\), \(r_X^{K_1}(r_{K_1}^{K_1 \cup K_2}) = 0\) and so \(r_{K_1}^{K_2 \cap K_1} (z) = 0\) because the claim ii) holds for \(K_1\). Similarly \(r_{K_2}^{K_1 \cap K_2}(z) = 0\) and then also \(z = 0\) by the injectivity of
+        \[(r_{K_1}^{K_1 \cap K_2}, r_{K_2}^{K_1 \cup K_2})\]
+    \end{description}
 \end{proof}
 
 
