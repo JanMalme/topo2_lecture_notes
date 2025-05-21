@@ -1987,8 +1987,177 @@ We could also produce CW-strucutre on the Grassmannians and Stiefel-Manifolds.
 
         For all \(x \in K_1\), \(r_X^{K_1}(r_{K_1}^{K_1 \cup K_2}) = 0\) and so \(r_{K_1}^{K_2 \cap K_1} (z) = 0\) because the claim ii) holds for \(K_1\). Similarly \(r_{K_2}^{K_1 \cap K_2}(z) = 0\) and then also \(z = 0\) by the injectivity of
         \[(r_{K_1}^{K_1 \cap K_2}, r_{K_2}^{K_1 \cup K_2})\]
+
+\newLecture{21.05.2025}
+
+\textbf{Interlude.}
+
+\begin{construction}
+    Let \(\mu \in H_m(M \mid x)\) be a local orientation of a manifold \(M\) at \(x\). Let \(\nu \in H_n(N\mid y)\) similarly. We construct the relative Künneth isomorphism 
+    \[H_m(M \mid x) \otimes H_n(N \mid y) = H_m(M, M \setminus \set x; \IZ) \otimes H_n(N, N \setminus \set x; \IZ) \xrightarrow{\times} H_{m+n}(M\times N, M \times (N\setminus \set y) \cup (M\setminus \set x)\times N; \IZ) = H_{m+n}(M \times N \mid (x,y))\]
+    \enquote{We can combine local orientations to get some in the product.}
+    \(\mu \times \nu\) is a local orientation of \(M \times N\) at \((x,y)\). Because we did'nt make any choices, this is probably continuous. Let \(\set{\mu_x}_{x \in X}\) and \(\set{\nu_y}_{y \in Y}\) be orientation of \(M\) and \(N\). Then \(\set{\mu_x \times \nu_y}_{(x,y) \in X \times Y}\) is an orientation of \(M \times N\).
+\end{construction}
+
+\textbf{End of interlude.}
+
+    \item[Step 3] Let \(M = \IR^n\), \(K = K_1 \cup \dots, \cup K_m\) for \(K_1, \dots, K_m\) being compact convex subsets of \(M = \IR^n\).
+    
+    \begin{proof}
+        By induction on \(m\). \(m = 1\) is clear by step 1.
+
+        Now let \(K = (K_1 \cup \dots \cup K_{m-1}) \cup K_m\) where we have for both terms the conditions by induction. We need to look at
+        \[(K_1 \cup \dots \cup K_{m-1}) \cap K_m = (K_1 \cap K_m) \cup \dots \cup (K_{m-1} \cap K_m)\]
+        where we use that the intersection of convex subsets is again convex. Then the union is again fullfilling the conditions by induction.
+    \end{proof}
+
+    \item[Step 4] \(M = \IR^n\) and \(K\) any compact subset of \(\IR^n\). We need the following claim.
+    
+    \textbf{Claim.} Let \(\alpha\in H_i(\IR^n \mid K)\). Then there is a compact neighborhood \(N\) of \(K\)and a class \(\alpha'\in H_i(\IR^n \mid N)\) such that \(\alpha \in r_K^N(\alpha')\).
+
+    \begin{proof}
+        Let \(\alpha = [x + C_i(\IR^n \setminus K)]\) for some \(x \in C_i(\IR^n)\) such that \(d_i(x) \in C_{i-1}(\IR^n\setminus K)\). Then
+        \[d_i(x) = \sum_{\text{finite}} \alpha_j \cdot (f_j\colon \nabla^{i-1} \to \IR\setminus K)\]
+        with \(a_j \in A\) and \(f_j\) continuous. Set \(L = \mathrm{supp}(d_i(x)) \coloneq \bigcup f_j(\nabla^{i-1})\) a compact subset of \(\IR^n\setminus K\). Now \(K,L\) are disjoint subsets of \(\IR^n\). so there is an \(N\), compact neighborhood of \(K\) with \(N \cap L = \emptyset\). You can for example look at \(\dist(L,K) > 0\) and take \(N\) accordingly.
+
+        Then \(d_i(x) \in C_{i-1}(L) \subseteq C_{i-1}(\IR^n \setminus N)\) so \(\alpha' \coloneq [x + C_i(\IR^n \setminus N)] \in H_i(\IR^n \mid N)\) satisfies \(r_K^N(\alpha') = \alpha\).
+    \end{proof}
+
+    Now for the proof of step 4: either \(i > n\) or \(i = n\) and \(res_x^K(\alpha) = 0\) for all \(x \in K\).
+
+    Let \(N\) be a compact neighborhood of \(K\) and \(\alpha' \in H_i(\IR^n \mid N)\) with \(r_K^N(\alpha') = \alpha\). Since \(K\) is  compact, it can be covered with finitely many metric open balls in \(N\). Let \(b_1, \dots, B_m\) be the closed metric balls, whlich still lie in \(N\). Now
+    \(K \subseteq B_1 \cup \dots \cup B_m \subseteq N\) and \(B_i\) is a convex compact subset, so laim \(i)\) and \(ii)\) holf for \(B_1 \cup \dots \cup B_m\). So
+    \[r_{B_1 \cup \dots \cup B_m}^n(\alpha') = 0\]
+    if \(i > n\). and
+    \[res_X^{B_1\cup \dots \cup B_m}(res_{B_1 \cup \dots \cup B_m}^N(\alpha')) = 0\]
+    for \(i = n, x \in B_1 \cup \dots \cup B_m\). And then
+    \[r_{B_1 \cup \dots \cup B_m}^N(\alpha') = 0\] by step 3. and then \(\alpha = r_K^N(\alpha') = r_K^{B_1 \cup \dots \cup B_m}(\underbrace{r_{B_1\cup \dots \cup B_m}^N}_{= 0}(\alpha')) = 0\)
+
+    \item[Step 5] \(M\) arbitrary, there is an open neighborhood \(U\) of \(K\) homeomorphic to \(\IR^n\).
+    
+    Choose a homeomorphism \(\phi\colon U \xrightarrow{\cong} \IR^n\). contemplate the commutative diagram
+
+    \[\begin{tikzcd}
+        H_i(M \mid K) & H_i(U \mid K)\ar[d, "r_*^K"]  \ar[l, "\cong", "\text{excision}"'] \ar[r, "\phi_*"', "\cong"] & H_i(\IR^n \mid \phi(K)) \ar[d, "r_{\phi(x)}^{\phi(K)}"] \\
+        & H_i(U\mid x) \ar[r, "\cong", "\phi_*"'] & H_i(\IR^n \mid \phi(x)) \\
+    \end{tikzcd}\]
+
+    \item[Step 6] General case.
+    
+    \textbf{Claim.} There are compact subsets \(K_1, \dots, K_m\) of \(M\) such that
+    \begin{itemize}
+        \item \(K_i\) is contained in an open subset homeomorphic to \(\IR^m\).
+        \item \(K = K_1 \cup \dots \cup K_m\).
+    \end{itemize}
+
+    When we proove this claim, we are done by step 2.
+
+    \begin{proof}[Proof of claim.]
+        Each \(x \in K\) has an open neighborhood homeomorphic to \(\IR^n\). So there is a compact neighborhood \(N_x\) of \(x\) such that \(x \in N_x \subseteq U \cong \IR^n\). \(K \subseteq \bigcup_{x \in K} N_x\) so by compactness \(K = N_{x_1} \cup \dots \cup N_{x_m}\).
+    \end{proof}
     \end{description}
 \end{proof}
+
+\subsection{The fundamental class}
+
+We know \(H_n(S^n; \IZ) \cong \IZ\), \(H_{k+l}(S^k \times S^l; \IZ) \cong \IZ, \; H_n(S^n \amalg S^n; \IZ) \cong \IZ \oplus \IZ\) annd \(H_{2n}(\IC P^n; \IZ) \cong \IZ\)
+, \(H_{4n}(\IH P^n; \IZ) \cong \IZ\)
+\[H_n(\IR P^n, \IZ) \cong \begin{cases}
+    \IZ & n \text{ odd} \\
+    0 & n \text{ even.}
+\end{cases}\]
+\(H_m(\IR^n; \IZ) = 0\) for \(n \geq 1\).
+
+The pattern should be for connected manifolds, their top homology is \(\IZ\), if \(M\) is compact and orientable.
+
+We want to show:
+\begin{proposition}
+    Let \(M\) be a compact connected \(n\)-manifold. Then
+    \[H_n(M; \IZ) \cong \begin{cases}
+        \IZ & \text{ if} M \text{ is orientable} \\
+        0 & M \text{ is not orientable.}
+    \end{cases}\]
+\end{proposition}
+
+For that we first study fundamental classes.
+\begin{thm}{Fundamental Classes}{}
+    Let \(M\) be an oriented \(n\)-manifold and \(K\) a compact subset of \(M\). then there is a unique class \(\mu_K\in H_n(M, M \setminus K; \IZ) \cong H_n(M \mid K)\) such that
+    \[r_x^K(\mu_K) = \mu_x \in H_n(M \mid x)\]
+    for all \(x \in K\).
+
+    The class \(\mu_K\) is the relative fundamental class \index{fundamental class}.
+\end{thm}
+
+\textbf{Special Case.} Let \(M\) be a compact oriented \(m\)-manifold. Then there is a unique class \([M] \in H_n(M; \IZ)\) such that \(r_x^K([M]) = \mu_x\) for all \(x \in M\). Then \([M]\) is the fundamental class.
+
+If in addition \(M\) is connected, then \([M]\) generates \(H_n(M, \IZ) \cong \IZ\).
+
+\begin{proof}
+    Uniqueness is already done. We make a construction in three steps.
+    \begin{description}
+        \item[Step 1] Suppose \(K\) is contained in an open subset \(U\) homeomorphic to \(\IR^n\). Then \(K\) is contained in a local ball \(B\) in the sense of the definition of the orientation covering. We consider the commutative diagram:
+        For \(x, y \in K\):
+        \[\begin{tikzcd}
+            H_n(M \mid B) \ar[d, "r_K^B"]\ar[dd, bend right, "r_x^B \; \cong"] \ar[ddr, bend left, "r_y^B \; \cong"] & \\
+            H_n(M \mid K) \ar[d, "r_x^K"] \ar[dr, "r_y^K"] & \\
+            H_N(M \mid x) & H_n(M \mid y) \\
+        \end{tikzcd}\]
+        Then \(r_K^B(\mu_B)\) has the desired property.
+
+        \item[Step 2] Suppose that \(K = K_1 \cup K_2\), \(K_1, K_2\) compact , claim true for \(K_1\) and \(K_2\). Let \(\mu_{K_1} \in H_n(M \mid K_1)\) and \(\mu_{K_2} \in H_n(M \mid K_2)\) be the relative fundamental classes. We showed in the proof of Step 2 of the previous result that the following is exact:
+        \[0 \to H_n(M \mid K) \xrightarrow{(r_{K_1}^K, r_{K_2}^K)} H_n(M \mid K_1) \oplus H_n(M \mid K_2) \to H_n(M \mid K_1 \cap K_2) \to \dots\]
+        so we see \((\mu_{K_1}, \mu_{K_2}) \mapsto r_{K_1 \cap K_2}^{K_1}(\mu_{K_1}) - r_{K_1 \cap K_2}^{K_2}(\mu_{K_2})\), where both terms are equal to \(\mu_{K_1 \cap K_2}\), so their difference is \(0\). Any \(x \in K\) is contained in \(K_1 \cap K_2\). If \(x \in K_1\), then
+        \[r_x^K(\mu_K) = r_x^{K_1}(r_{K_1}^K(\mu_K)) = r_x^{K_1}(\mu_{K_1}) = \mu_x\]
+
+        \item[Step 3] General case. As in step 6 of the previous proof, we can write \(K = K_1 \cup \dots \cup K_m\) where all \(K_i\) are compact and all \(K_i\) are contained in an open subset homeomorphic to \(\IR^n\). Then \(\mu_{K_i}\) exists for all \(i = 1, \dots, m\) by step 1. By induction on \(m\) and Step 2 it holds for \(K = K_1 \cup \dots \cup K_m\).
+    \end{description}
+\end{proof}
+
+We draw some corollaries:
+
+\begin{thm}{Top Homology of connected Manifolds}{}
+    Let \(M\) be a connected, compact, oriented \(n\)-manifold. Then \(H_n(M; \IZ) \cong \IZ\), generated by \([M]\).
+
+    Moreover, for all \(x \in M\), the restriction \(r_x^M\colon H_n(M, \IZ) \to H_n(M \mid x)\) is an isomorphism.
+\end{thm}
+
+\begin{proof}
+    \textbf{Claim.} Let \(\alpha\in H_n(M, \IZ)\). Then the set \(x \in \set{M \mid r_x^M(\alpha) = 0 \text{ in } H_n(M \mid x)}\) is open and closed in \(M\).
+
+    Let \(x \in M\) be such that \(r_x^M(\alpha) = 0\) (or \(r_x^M(\alpha) \neq 0\)). Let \(B\) be a local ball in \(M\) containing \(x\). We get a commutative diagram:
+    For \(x,y \in B\)
+    \[\begin{tikzcd}
+        & H_n(M) \ar[d, "r_B^M"] & \\
+        & H_n(M \mid B) \ar[dl, "r_x^B", "\cong"'] \ar[rd, "r_y^B", "\cong"'] & \\
+        H_n(M \mid x) && H_n(M \mid y) \\
+    \end{tikzcd}\]
+    For some reason, this shows the claim.
+
+    Then \(r_x^M \colon H_m(M; \IZ) \to H_n(M \mid x) \cong \IZ\) is surjective, because \(r_x^M([M]) = \mu_x\) generates \(H_n(M \mid x)\). If \(\alpha \in H_n(M, \IZ)\) is such that \(r_x^M(\alpha) = 0\), then \(\set{y \in M: r_y^M(\alpha) = 0}\) is open, closed and nonempty. Since \(M\) is connected, this set is all of \(M\), so \(\alpha = 0\) by the detection property (ii) in the previous theorem.
+\end{proof}
+
+\begin{corollary}
+    Let \(M\) be a compact connected and non-orientable \(n\)-manifold. Then
+    \(H_n(M; \IZ) = 0\).
+\end{corollary}
+
+\begin{proof}
+    Let \(\alpha \in H_n(M, \IZ)\). As in the previous proof,
+    \(\set{x \in M : r_x^M(\alpha) = 0}\) is an open and closed subset. Also \(r_x^M\colon H_n(M, \IZ) \to H_n(M \mid x)\) is injective for all \(x \in M\). Hence \(H_n(M; \IZ) \hookrightarrow H_n(M \mid x) \cong \IZ\), so \(H_n(M; \IZ)\) is torsion free.
+
+    Let \(p\colon \tilde M \to M\) be the orientation covering. Since \(M\) is connected and not orientable, \(\tilde M\) is connected, compact and orientable. Let \(\set{\mu_x}_{x \in \tilde M}\) be an orientation of \(\tilde M\). Then
+    \[H_n(\tilde M; \IZ) \cong \IZ\]
+    generated by \([\tilde M]\). Let \(\tau\colon \tilde M \to \tilde M\) be the nonidentity deck transformation. Then \(\tau\) is orientation reversing, \(\tau_*[\tilde M] = - [\tilde M]\) (A diagram I didn't copy as proof).
+
+    So \(p_*[\tilde M] = p_*(\tau_*([\tilde M])) = p_*(- [\tilde M]) = - p_* [\tilde M]\) so \(2 \cdot p_*[\tilde M] = 0\). so by torsion-freeness \(p_*([\tilde M]) = 0\).
+
+    As \([\tilde M]\) generates \(H_n(\tilde M, \IZ)\), \(p_* = 0\colon H_n(\tilde M; \IZ) \to H_n(M; \IZ)\).
+
+    Let \(\mathrm{tr}\colon H_n(M, \IZ) \to H_n(\tilde M; \IZ)\) be the transfer map. Then \(0 = p_* \circ \mathrm{tr} = \text{ multiplication by 2 on } H_n(M; \IZ) \) so \(H_n(M, \IZ) = 0\).
+\end{proof}
+
+
+
 
 
 
