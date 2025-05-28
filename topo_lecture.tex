@@ -2160,12 +2160,193 @@ We draw some corollaries:
 
 \breakline{Was unfortunately unable to attend the lecture.}
 
-TLDR of the lecture: (Coming with the repitition this wendnesday)
+\newLecture{28.05.2025}
 
+Due to missing the last lecture I intented to copy the repetition Schwede does at the beginning of his lecture. However, public transport prevented me from copying the start of the Repetition. The most important definition of last lecture was the Cap-Product:
 
+It will later be used for Poíncare-Duality.
 
+\begin{defi}{Cap-Product}{}
+    Let \(X\) be a simplicial set, \(Y \subseteq X\) simplicial subset, \(R\) any commutative ring. For \(0 \leq i \leq n\) we define
+    \[\cap \colon C_n(X, Y ; R) \times C^{i}(X,Y, R) \to C_{n-1}(X;R)\]
+    given by
+    \[x \in C_n(X,Y;R) = \frac{R[X_n]}{R[Y_n]}, f \in C^{i}(X,Y;R), \text{i.e. } f \colon X_i \to R, f(Y_i) = \set{0}\]
+    and
+    \[x \cap f = \underbrace{f(x[0,i])}_{\in R} \cdot x[i, n]\]
+    and then i missed something due to broken board
+\end{defi}
 
+\begin{proposition}
+    \(Y \subseteq X\) simplicial sets, \(R\) some commutative ring. Then the following hold:
+    \begin{enumerate}
+        \item \(d(x \cap f) = (-1^{i}) \cdot (dx \cap f - x \cap df)\) for \(x \in C_n(X,Y;R), f \in C^{i}(X,Y;R)\)
+        \item The cap product descends to a well defined and \(R\)-bilinear map
+        \[\cap \colon H_n(X,Y;R) \times H^{i}(X,Y;R) \to H_{n-1}(X,R), \quad [x] \cap [f] \coloneq [x \cap f]\]
+        \item If \(Y = \emptyset\) \(\xi \in H_n(X,R)\), \(\alpha \in H^{i}(X,R), \beta \in H^{j}(X,R)\) we have
+        \[(\xi \cap \alpha) \cap \beta = \xi \cap (\alpha\cup \beta)\]
+        \item if \(Y = \emptyset\), then \(\xi \cap 1 = \xi\).
+        \item Let \(\Psi \colon X \to X'\) bee a morphism of simplicial sets, s.t. \(\Psi(Y) \subseteq Y'\), \(\xi \in H_n(X,Y;R), \alpha \in H^{i}(X',Y', R)\). Then
+        \[\Psi_*(\xi) \cap \alpha = \Psi_*(\xi \cap \Psi^*(\alpha))\]
+    \end{enumerate}
+\end{proposition}
 
+\begin{proof}
+    \begin{enumerate}
+        \item Was done last time.
+        \item Suppose \(dx = 0\), \(df = 0\), then
+        \[d(x \cap f) = (-1)^{i}(\underset{= 0}{(dx)} \cap f - x \cap \underset{= 0}{df}) = 0\]
+        so \(x \cap f\) is a cycle. For \(y \in C_{n+1}(X,Y;R)\)
+        \[(x+dy) \cap f = x \cap f \pm d(y\cap f)\]
+        which gives \([(x+dy) \cap f] = [x \cap f]\) and similarly \([x \cap (f+ dg)] = [x\cap f]\) for \(g \in C^{i-1}(X,Y; R)\).
+        \item Let \(x \in C_n(X;R)\) represent \(\xi \in H_n(X,R)\). Let \(a\colon X_i \to R, b\colon X_j \to R\) represent \(\alpha\in H^{i}(X,R)\) and \(\beta \in H^j(X,R)\). Then
+        \[\begin{split}
+            (x\cap a) \cap b &= (a(x[0,i]) \circ x[i, n]) \cap b\\
+            &= a(x[0,i])\cdot (x[i,n] \cap b) \\
+            &= a(x[0,1]) \cdot b(x[i,n][0,j]) \cdot x[i,n][j,n-1] \\
+            &= a(x[0,i]) \cdot b(x[i, i+j]) \cdot x[i+j, n] \\
+            &= a(x[0, i+j][0,i]) \cdot b(x[0, i+j][i, i+j]) \cdot x[i+j,n] \\
+            &= (a\cup b)(x[0, i+j]) \cdot x[i+j,n] \\
+            &= x \cap (a\cup b) \\
+        \end{split}\]
+        \item For some reason clear.
+
+        \item We let \(x \in X_n\) be an \(n\)-simplex, \(f \in C^{i}(X', Y'; R)\) representing a chain in \(H^{i}(X', Y'; R)\).
+        \[\begin{split}
+            \Psi_*(x) \cap f &= \Psi_n(x) \cap f \\
+            &= f((\Psi_n(x))[0, i]) \cdot (\psi_n(x))[i,n] \\
+            &= \underset{\in R}{f(\psi_i(x[0,i]))} \cdot \Psi_[n-i](x[i,n]) \\
+            &= \Psi_*(f(\Psi_i(x[0,i])) \cdot x[i,n]) \\
+            &= \Psi_*(x \cap \Psi^*(f))
+        \end{split}\]
+    \end{enumerate}
+\end{proof}
+
+\section{Cohomology with compact support}
+
+We are working towards:
+
+\begin{thm}{Poíncare-duality}{}
+    Let \(M\) be a compact \(n\)-manifold, \(i \geq 0\).
+    \begin{itemize}
+        \item If \(M\) is oriented, then \([M] \cap \_ \colon H^{i}(M; \IZ) \to H_{n-i}(M; \IZ)\) is an isomorphism.
+        \item The map \(\nu_M \cap \_ \colon H^{i}(M; \IF_2) \to H_{n-i}(M; \IF_2)\) is an isomorphism.
+    \end{itemize}
+\end{thm}
+
+Our idea is to proof this by
+\begin{itemize}
+    \item Proof for \(\IR^n\)
+    \item Patching/Mayer-Vietoris argument \(M = U_1 \cap U_2\).
+\end{itemize}
+
+However, we have a problem: \(M = \IR\) is an oriented \(1\)-manifold. \(H^{1}(R; \IZ) \cong 0\), but \(H_0(\IR; \IZ) \cong \IZ\), which is not the same.
+
+To solve this, we introduce Compactly supported cohomology as a variation of singular cohomology that has Poincare duality for not necessarily compact manifolds: We will get
+\[H_{comp}^{i}(M; \IZ) \xrightarrow{\cong} H_{n-i}(M; \IZ)\]
+for compact \(M\).
+
+\begin{construction}
+    Let \(X\) be a topological space, \(A\) an abelian group. A singular cochain \(f \in C^n(\cS(X),A)\)
+    \[f \colon \cS(X)_n = \mathrm{maps}^{\text{cont}}(\nabla^n; X) \to A\]
+    is supported in a subset \(K\) of \(X\) if \(f(\phi) = 0\) for all \(\phi\colon \nabla^n \to X\) with \(\phi(\nabla^n) \subseteq X \setminus K\). Equivalently \(f\) belongs to the kernel of the homomorphism
+    \[C^n(\cS(X);A) \to C^n (\cS(X\setminus K); A)\]
+
+    \(f \in C^n(\cS(X);A) \) is \emph{compactly supported}\index{compactly supported} if there is a compact subset \(K\) of \(X\) such that \(f\) is supported on \(K\).
+\end{construction}
+
+\begin{proposition}
+    Compactly supported cochains form a subcomplex of \(C^*(\cS(X); A)\).
+\end{proposition}
+\begin{proof}
+    Suppose \(f\colon \cS(X)_n \to A\) is supported on \(K\) with \(K\) compact. Then
+    \[(df)(\Psi) = \sum_{i = 0, \dots, n+1} (-1)^{i} f(d_i^*(\Psi)) = \sum_{i = 0, \dots, n+1} (-1)^{i} f(\Psi \circ (d_i)_*)\]
+    and then he outspeeded me.
+\end{proof}
+
+\begin{example}
+    There are no continuous maps \(\phi \colon \nabla^n \to X\) with image in \(X \setminus X\), so every cochain \(f\in C^n(\cS(X), A)\) is supported on \(X\).
+
+    So if \(X\) is compact, then every cochain is compactly supported, hence \(C_{comp}^*(X,A) = C^*(X,A)\).
+\end{example}
+
+\begin{example}
+    Note: \(\set 0\) is a compact subset of \(\IR^n\). So
+    \[\underbrace{C^*(\cS(X), \cS(X\setminus \set 0); A)}_{\text{Cochains supported on } \set 0} \subseteq C^*_{comp}(\cS(X),A)\]
+
+    \begin{proposition}
+        For all \(n \geq 1\), all abelian groups \(A\), the inclusion
+        \[C^*(\cS(\IR^n); \cS(\IR^n\setminus \set 0);A) \to C_{comp}^*(S(\IR^n;A))\]
+        is a quasi-isomorphism. In paricular:
+        \[H_{comp}^{i}(\IR^n; A) = H^{i}(\IR^n; \IR^n\setminus \set 0; A) \cong \begin{cases}
+            A & \text{if } i = n \\
+            0 & \text{ else} \\
+        \end{cases}\]
+    \end{proposition}
+
+    \begin{proof}
+        By the five lemma, it suffices to show that the quotient complex
+        \[\frac{C_{comp}^*(\cS(\IR^n))}{C^*(\cS(\IR^n), \cS(\IR^n\setminus \set 0))}\]
+        is acyclic. Let \(f \in C^{i}_{comp}(\cS(X))\) be a compactly supported cochain  class in the quotient complex in a cocycle, i.e. \(df \in C^{i+1}(\cS(X), \cS(X \setminus 0))\). Then ?? of \(f\) is supported on \(\set 0\).
+
+        Since \(f\) is compactly supported and every compact subset of \(\IR^n\) is contained in a sufficiently large ball, there is a \(r > 0\) s.t. \(f\) is supported on \(D_r^n = \set{x \in \IR^n : \abs x \leq r}\) the disc of radius \(r\) around \(0\). Write \(\mathrm{res}(f)\) for the restriction of \(f\) to \(C^*(\cS(X), \cS(X \setminus D_r^n))\). The inclusion
+        \[\IR^n \setminus D_r^n \to \IR^n \setminus \set 0\]
+        is a homotopy equivalence, so the cohomology of the pair \(\IR^n\setminus \set 0; \IR^n \setminus D_r^n\) is tirivial. Equivalently, the residue cochain complex
+        \[C^*(\cS(\IR^n \setminus 0), \cS(\IR^n \setminus D_r^n))\]
+        is trivial. So the cycle \(\mathrm{res}(f)\) in the acyclic complex is a coboundary. So there exists \(g \in C^{i-1}(\cS(\IR^n \setminus 0), \cS(\IR^n \setminus D_r^n))\) s.t. \(dg = \mathrm{res}(f)\). We extend \(g\) to a cochain
+        \[\tilde g \colon \cS(X)_{i-1} \to A\] by zero, i.e. 
+        \[\tilde g(\phi) = \begin{cases}
+            g(\phi) & \text{if } \phi(\nabla^{i-1}) \subseteq \IR^n \setminus 0 \\
+            0 & \text{else} \\ 
+        \end{cases}\]
+        Then \(\mathrm{res}(\tilde g) = g\). In particular, \(\tilde g\) is supported on \(D_r^n\) because \(g\) is.
+
+        Then
+        \[\mathrm{res}(d\tilde g) = d(\mathrm{res}(\tilde g)) = dg \mathrm{res}(f)\]
+        so \(\mathrm{res}(f - d\tilde g) = 0\) in \(C^i(\cS(\IR^n \setminus 0), \cS(\IR^n \setminus D_r^n))\). so \(f - d\tilde g\) is supported on \(0\), so ?? to \(C^*(\cS(\IR^n); \cS(\IR^n \setminus 0))\).
+        Since \([f] = [f - d \tilde g] = 0\). 
+    \end{proof}
+
+    He talks about how this could also be done using some category theory.
+\end{example}
+
+\textbf{Note.} We can take \(\IR^n \to \IR^{n+1} \to \IR^n\) taking inclusion and projection. So we get \(\IZ \cong H_{comp}^n(\IR^n; \IZ)\) is a retract of \(H_{comp}^n(\IR^{n+1}; \IZ) \cong 0\). That doesn't make sense and gives the following
+
+\textbf{Warning!} \(H_{comp}^*\) is \underline{not} functorial for arbitrary continuous maps!
+
+Compactly supported cohomology is
+\begin{itemize}
+    \item contravariantly functorial in \emph{proper} continuous maps
+    \item covariantly functorial in open embeddings.
+\end{itemize}
+
+\begin{defi}{Proper maps}{}
+    A continuous map \(f\colon X \to Y\) is \emph{proper} if for every compact subset \(K\) of \(Y\), the set \(f^{-1}(K)\) is compact with the subspace topology of \(X\).
+\end{defi}
+
+\begin{example}
+    Let \(X\) be a space. Then \(X \to \set x\) is proper iff \(X\) is compact.
+
+    If \(K\) is compact and \(X\) is any space, then the projection \(X \times K \xrightarrow{p} X\) is proper: For \(L \subseteq X\) compact, \(p^{-1}(L) = L \times K\) is compact.
+\end{example}
+
+\begin{proposition}
+    Let \(\psi\colon X \to Y\) be a proper continuous map. Then the cochain map
+    \[\psi^*\colon C^*(\cS(Y),A) \to C^*(\cS(X); A)\]
+    takes compactly supported cochains to compactly supported cochains, so it restricts to a chain map
+    \[\psi^*\colon C_{comp}^*(\cS(Y),A) \to C_{comp}^*(\cS(X),A)\]
+
+    This restriction induces group homomorphisms \(\psi^*\colon H_{comp}^i(Y;A) \to H_{comp}^i(X,A)\)
+\end{proposition}
+
+\begin{proof}
+    We let \(f\colon \cS(Y)_n \to A\) be a simplicial cochain that is supported on the compact subset \(K\) of \(Y\). then \(\psi^{-1}(K)\) is compact because \(f\) is proper. 
+
+    \textbf{Claim.} \(\psi^*(f)\) is  supported on \(\psi^{-1}(K)\).
+
+    Let \(\phi\colon \nabla^n \to X\) be continuous with image in \(X \setminus \psi^{-1}(K)\). Then
+    \[(\psi^*(f))(\phi) = f(\psi \circ \phi) = 0\]
+    because \(\psi \circ \phi\) has image in \(Y \setminus K\).
+\end{proof}
 
 
 
