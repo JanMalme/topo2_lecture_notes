@@ -1994,7 +1994,10 @@ We could also produce CW-strucutre on the Grassmannians and Stiefel-Manifolds.
 
 \begin{construction}
     Let \(\mu \in H_m(M \mid x)\) be a local orientation of a manifold \(M\) at \(x\). Let \(\nu \in H_n(N\mid y)\) similarly. We construct the relative Künneth isomorphism 
-    \[H_m(M \mid x) \otimes H_n(N \mid y) = H_m(M, M \setminus \set x; \IZ) \otimes H_n(N, N \setminus \set x; \IZ) \xrightarrow{\times} H_{m+n}(M\times N, M \times (N\setminus \set y) \cup (M\setminus \set x)\times N; \IZ) = H_{m+n}(M \times N \mid (x,y))\]
+    \[\begin{tikzcd}
+        H_m(M \mid x) \otimes H_n(N \mid y) \ar[d, "\cong", phantom, sloped] & H_{m+n}(M \times N \mid (x,y)) \ar[d, "\cong", phantom, sloped] \\
+        H_m(M, M \setminus \set x; \IZ) \otimes H_n(N, N \setminus \set x; \IZ) \ar[r, "\times"] & H_{m+n}(M\times N, M \times (N\setminus \set y) \cup (M\setminus \set x)\times N; \IZ) \\
+    \end{tikzcd}\]
     \enquote{We can combine local orientations to get some in the product.}
     \(\mu \times \nu\) is a local orientation of \(M \times N\) at \((x,y)\). Because we did'nt make any choices, this is probably continuous. Let \(\set{\mu_x}_{x \in X}\) and \(\set{\nu_y}_{y \in Y}\) be orientation of \(M\) and \(N\). Then \(\set{\mu_x \times \nu_y}_{(x,y) \in X \times Y}\) is an orientation of \(M \times N\).
 \end{construction}
@@ -2347,6 +2350,190 @@ Compactly supported cohomology is
     \[(\psi^*(f))(\phi) = f(\psi \circ \phi) = 0\]
     because \(\psi \circ \phi\) has image in \(Y \setminus K\).
 \end{proof}
+
+
+\newLecture{02.06.2025}
+
+So \(f\) from the last proposition induces a homomorphism
+\[f^*\colon H^i_{comp}(Y,A) \to H_{comp}^i(X,A)\]
+and we get a contravariant functor in proper maps.
+
+Today we will talk about
+
+\subsection{Covariant functoriality for open embeddings}
+
+This comes formally from understanding that compactly supported Cohomology is a colimit of some relative Cohomologies.
+
+Let \(K\) be a compact subset of some space \(X\). Then
+\[C^*(\cS(X), \cS(X\setminus K)) \subseteq C_{comp}^*(X,A)\]
+We write
+\[\lambda_K\colon H^i(X,X\setminus K; A) \to H_{comp}^i(X,A)\]
+for the induced map in cohomology.
+
+For \(K \subseteq L \subseteq X\), \(L\) also compact, then \(X\setminus K \supseteq X \setminus L\) so
+\[C^*(\cS(X), \cS(X \setminus K), A) \hookrightarrow C^*(\cS(X), \cS(X\setminus K); A) \subseteq C^*_{comp}(X,A)\]
+giving a commutative triangle of cohomology groups:
+\[\begin{tikzcd}
+    {H^i(X, X\setminus K; A)} \ar[rrd, "\lambda_K"] \ar[dd, "\incl^*"] & & \\
+    & & {H_{comp}^i(X;A)} \\
+    {H^i(X,X\setminus L; A)} \ar[rru, "\lambda_L"] & & \\
+\end{tikzcd}\]
+
+\begin{proposition}
+    Let \(X\) be a Hausdorff space, \(A\) and \(B\) two abelian groups. Let \(\alpha_K\colon H^i(X, X\setminus K;A ) \to B\) be a homomorphism, for all compact subsets \(K\) of \(X\), such that for all \(K \subseteq L \subseteq X\), with \(L\) compact, the following commutes:
+    \[\begin{tikzcd}
+        {H^i(X, X\setminus K; A)} \ar[rrd, "\alpha_K"] \ar[dd, "j_L^K"] & & \\
+    & & B \\
+    {H^i(X, X \setminus L; A)} \ar[rru, "\alpha_L"] & & \\
+    \end{tikzcd}\]
+
+    Then there is a unique homomorphism \(\alpha\colon H^i_{comp}(X,A) \to B\) such that \(\alpha \circ \lambda_K = \alpha_K\) for all \(K \subseteq X\) compact.\footnote{The morphisms \(\set{\lambda_K}_K\) express \(H_{comp}^i(X,A)\) as a colimit of the groups \(H^i(X, X\setminus K; A)\)}
+\end{proposition}
+
+\begin{proof}
+    We drop the coefficients \(A\) from the notation (but only when he remembers he did this). Furthermore we set for this proof \(n = i\).
+    \begin{description}
+        \item[Uniqueness] We let \(\alpha\colon H^i_{comp}(X) \to B\) be a homomorphism such that \(\alpha\circ \lambda_K = \alpha_K\) for all \(K\) compacct in \(X\).
+        
+        Let \(f \in C_{comp}^n(X,A)\) be a compactly supported cochain. Let \(f\) be supported on the compact subset \(K\). Then \(f \in C^n(X, X\setminus K)\), and \(\lambda_K[f] = [f]\). Hence
+        \[\alpha[f] = \alpha(\lambda_K[f]) = \alpha_K[f]\]
+
+        \item[Existence/Construction] Given \(f \in C^n_{comp}(X,A)\) let \(K\) be a compact subset on which \(f\) is supported.
+        
+        \textbf{Claim.} \(\alpha[f] \coloneq \alpha_K[f]\) is independent of the choice of \(K\).
+
+        Let \(K'\) be another compact subset of \(X\) on which \(f\) is supported. Let \(L = K \cup K'\), another compact subset of \(X\). We consider
+        \[\alpha_K[f] = \alpha_L(j_K^L[f]) = \alpha_L[f] = \alpha_L(j_{K'}^L[f]) = \alpha_{K'}[f]\]
+
+        \textbf{Claim.} \(\alpha_K[f]\) only depends on the cohomology class of \(f\).
+
+        Let \(g \in C_{comp}^{n-1}(X,A)\) be any cochain. Then \(g\) is suppored on some compact subset \(K'\) of \(X\). Then \(f\) and \(g\) are supported on \(L = K \cup K'\). So \(\alpha[f] = \alpha_K[f] = \alpha_L[f + dg] = \alpha[f+dg]\), so \(\alpha\colon H_{comp}^i(X,A) \to B\) is a well defined map and \(\alpha\circ \lambda_K = \alpha_K\) for all \(K\) compact.
+
+        We still need to show, that \(\alpha\) is a group homomorphism: Let \(f, f' \in C_{comp}^n(X,A)\). Let \(f \) be supporetd on \(K\), \(f'\) supported on \(K'\), for \(K, K'\) compact in \(X\). Then \(f\) and \(f'\) are both supported on \(L = K \cup K'\), and
+        \[\alpha[f + f'] = \alpha_L[f+f'] = \alpha_L[f] + \alpha_L[f'] = \alpha[f] + \alpha[f']\]
+    \end{description}
+\end{proof}
+
+\begin{excursion}[filtered colimits.]
+    \begin{definition}
+        A PoSet (partially ordered set) is a pair \((P, \leq)\) consisting of a set \(P\) and a relation \(\leq\), that is
+        \begin{itemize}
+            \item reflexve
+            \item transitive
+            \item antisymmetric, i.e. if \(x \leq y\) and \(y \leq x\), then \(x = y\).
+        \end{itemize}
+
+        A poset \((P, \leq)\) is \emph{filtered} if for all \(x,y \in P\), there is \(z \in P\) s.t. \(x \leq z, y \leq z\).
+    \end{definition}
+
+    Some examples are
+    \begin{itemize}
+        \item \((\IN, \leq), (\IR, \leq)\)
+        \item the set of finite subsets of a given set, under \(\subseteq\).
+        \item The set of finite dimension vector subspaces of a vector space under \(\subseteq\)
+        \item the set of compact subsets \(\cC(X)\) in a Hausdorff space under \(\subseteq\).
+    \end{itemize}
+
+    Every poset \(P, \subseteq\) gives rise to a category \(\underline{P}\) with
+    \begin{itemize}
+        \item \(\mathrm{Ob}(\underline P) = P\)
+        \item \(\underline{P}(x,y) = \begin{cases}
+            \set{(x,y)} & \text{if } x \leq y \\
+            \emptyset & \text{else}
+        \end{cases}\)
+    \end{itemize}
+    Composition is then uniqueily defined.
+
+    A filtered colimit is a colimit over a filtered poset.
+    \begin{example}
+        Let \(X\) be a Hausdorff space, \(\cC(X)\) the poset of its compact subsets. A functor \(\cC(X) \to \mathbf{Ab}\) is given by \(K \mapsto H^i(X, X\setminus K; A)\) and for \(K \subseteq L\), we get \(j_L^K\).
+
+        We can now say
+        \[C_{comp}^i(X,A) = \colim_{\cC(X)} C^*(X, X\setminus K; A)\]
+    \end{example}
+
+    \begin{Proposition}[filtered colimits are exact]
+        Let \((P, \leq)\) be a filtered poset, \(F,G,H \colon \underline{P} \to \mathbf{Ab}\) functors, \(\phi\colon F \to G\) and \(\psi\colon G \to H\) natural transformations of functors. Suppose that for all \(x \in P\),
+        \[0 \to F(x) \xrightarrow{\phi(x)} G(x) \xrightarrow{\psi(x)} H(x) \to 0\]
+        is exact. Then the sequence
+        \[0 \to \colim_{\underline P}(F) \xrightarrow{\colim_{\underline P} \phi} \colim_{\underline P} G \xrightarrow{\colim_P \psi} \colim_{\underline P} H \to 0\]
+        is exact.
+    \end{Proposition}
+
+    This might become an exercise.
+
+    \begin{corollary}
+        Let \((P, \leq)\) be a filtered coposet, \(F\colon \underline P \to \mathbf{Chains}\) a functor. Then the canonical morphism
+        \[\colim_P(H_n \circ F) \to H_n(\colim_P(F))\]
+        is an isomoprhism.
+    \end{corollary}
+
+    \begin{corollary}
+        \[H^i_{comp}(X,A) = H^i(\colim_{\cC(X)} C^*(X, X\setminus K; A)) \xleftarrow{\cong} \colim_{\cC(X)} H^i(C^*(X,X\setminus K; A)) = \colim_{\cC(X)} H^i(X, X\setminus K;A)\]
+    \end{corollary}
+
+    \begin{definition}
+        Let \((P \leq)\) be a poset. Let \(Q \subseteq P\) a subset. \(Q\) is \emph{cofinal} in \(P\), if for all \(x \in P\), there is \(y \in Q\) such that \(x \leq y\).
+    \end{definition}
+
+    If \(P\) is filtered, \(Q\) cofinal in \(P\), then \(Q\) is also filtered.
+
+    \begin{Proposition}
+        Let \(Q\) be a cofinal subset of a filtered Poset \(P\). Let \(F\colon \underline P \to \cC\) be a functor to any category that has a colimit. Then \(\colim_Q F = \colim_P F\).
+    \end{Proposition}
+    Proof might be another exercise.
+
+    \begin{example}
+        \(\cC(\IR^n) \subseteq \set{D_r^n : r\geq 0} \subseteq {D_r^n : r \in \IN}\) are cofinal, where \(D_r^n\) again denotes the ball of radius \(r\) around \(0\). This gives
+
+        \[H_{comp}^i(\IR^n; A) = \colim_{K \in \cC(X)} H^i(X, X \setminus K; A) \underset{\text{cofinal}}\cong \colim_{r \in (\IN, \leq)} H^i(\IR^n, \IR^n \setminus D_r^n; A)\]
+        \[= \colim(H^i(\IR^n, \IR^n\setminus\set 0) \xrightarrow{\cong} H^i(\IR^n; \IR^n\setminus D_1^n) \xrightarrow{\cong} \dots \xrightarrow{\cong} Hî(\IR^n, \IR^n\setminus D_k^n) \xrightarrow{\cong} \dots)\]
+        which is by category theory already isomorphic to \(H^i(\IR, \IR^n\setminus 0)\). This roughly represents the proof we did last week in more detail.
+    \end{example}
+\end{excursion}
+
+\begin{construction}
+    Let \(Y\) be a open subset of a Hausdorff space \(X\). We'll define a homomorphism
+    \[\iota_Y^X\colon H_{comp}^i(Y;A) \to H_{comp}^i(X;A)\]
+    Let \(K\) be a compact subset of \(Y\). We define
+    \[\alpha_K\colon H^i(Y, Y\setminus K;A) \to H_{comp}^i(X,A)\]
+    by looking at \(H^i(Y, Y\setminus K; A) \xleftarrow[\text{excision}]{\cong} H^i(X, X\setminus K; A)\) is an isomorphism and we can invert it. We use \((X,Y,K)\) is excisive. We then compose with \(\lambda_K \colon H^i(X, X\setminus K; A) \xrightarrow{\lambda_K} H^i_{comp}(X,A)\).
+
+    The maps \(\alpha_K\) are compatible for \(K \subseteq L \subseteq Y\) all compact.
+
+    \[\begin{tikzcd}
+    H^i(Y,Y \setminus K; A) \ar[dd, "j_L^K"] \ar[rrd, bend left, "\alpha_K"] & 
+    H^i(X, X \setminus K; A) \ar[l, "\cong"'] \ar[dd, "j_L^K"] \ar[rd, "\lambda_K"] & 
+    \\
+    & & H_{comp}^i(X;A) \\
+    H^i(Y, Y \setminus L; A) \ar[rru, bend right, "\alpha_L"'] & 
+    H^i(X, X \setminus L; A) \ar[l, "\cong"] \ar[ru, "\lambda_L"'] & 
+    \end{tikzcd}\]
+
+    The universal property of \(H^i_{comp}(Y,A)\) as a colimit yields a unique homomorphism \(\iota_Y^X\) that admits a commutative square I couldn't copy for all \(K \subseteq Y\) and \(K\) compact.
+\end{construction}
+
+\begin{proposition}
+    Let \(X\) be a Hausdorff space.
+    \begin{enumerate}
+        \item The homomorphism \(\iota_X^X\colon H_{comp}^i(X,A) \to H_{comp}^i(X,A)\) is the identity.
+        \item If \(Z \subseteq Y \subseteq X\) with \(Z\) and \(Y\) open, then
+        \[\iota_Y^X \circ \iota_Z^Y = \iota_Z^X \colon H_{comp}^i(Z,A) \to H_{comp}^i(X,A)\]
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    We let \(K\) be any compact subset of \(Z\).
+
+    \[\begin{tikzcd}
+        {H^i(X, X\setminus K;A)} \ar[r, "\cong", "\text{excision}"'] \ar[d, "\lambda_K"] \ar[rr, bend left, "\cong", "\text{excision}"'] & {H^i(Y, Y \setminus K, A)} \ar[r, "\cong", "\text{excision}"'] \ar[d, "\lambda_K"] & {H^i(Z, Z\setminus K; A)} \ar[d, "\lambda_K"] \\
+        {H_{comp}^i(X,A)} & {H_{comp}^i(Y;A)} \ar[l, "\iota_Y^X"] & {H_{comp}^i(Z;A)} \ar[l, "\iota_Z^Y"] \ar[ll, bend left, "\iota_Z^X"] \\
+    \end{tikzcd}\]
+
+    Something about precomposing with any \(H^i(Z, Z\setminus K; A)\) is enough.
+\end{proof}
+
+
 
 
 

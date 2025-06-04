@@ -444,6 +444,7 @@
 \newtheorem{remark}[lemma]{Remark}
 \newtheorem*{Remark}{Remark}
 \newtheorem{notation}[lemma]{Notation}
+\newtheorem{excursion}[lemma]{Excursion}
 
 
 
