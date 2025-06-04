@@ -2487,7 +2487,7 @@ giving a commutative triangle of cohomology groups:
         \(\cC(\IR^n) \subseteq \set{D_r^n : r\geq 0} \subseteq {D_r^n : r \in \IN}\) are cofinal, where \(D_r^n\) again denotes the ball of radius \(r\) around \(0\). This gives
 
         \[H_{comp}^i(\IR^n; A) = \colim_{K \in \cC(X)} H^i(X, X \setminus K; A) \underset{\text{cofinal}}\cong \colim_{r \in (\IN, \leq)} H^i(\IR^n, \IR^n \setminus D_r^n; A)\]
-        \[= \colim(H^i(\IR^n, \IR^n\setminus\set 0) \xrightarrow{\cong} H^i(\IR^n; \IR^n\setminus D_1^n) \xrightarrow{\cong} \dots \xrightarrow{\cong} Hî(\IR^n, \IR^n\setminus D_k^n) \xrightarrow{\cong} \dots)\]
+        \[= \colim(H^i(\IR^n, \IR^n\setminus\set 0) \xrightarrow{\cong} H^i(\IR^n; \IR^n\setminus D_1^n) \xrightarrow{\cong} \dots \xrightarrow{\cong} H^i(\IR^n, \IR^n\setminus D_k^n) \xrightarrow{\cong} \dots)\]
         which is by category theory already isomorphic to \(H^i(\IR, \IR^n\setminus 0)\). This roughly represents the proof we did last week in more detail.
     \end{example}
 \end{excursion}
@@ -2533,10 +2533,169 @@ giving a commutative triangle of cohomology groups:
     Something about precomposing with any \(H^i(Z, Z\setminus K; A)\) is enough.
 \end{proof}
 
+The maps \(\iota_Y^X\) form a covariant fun ctor from the poset op open subsets of \(X\).
+
+\newLecture{04.06.2025}
+
+\section{The duality map}
+
+For compact oriented manifolds \(M\), Poincáre duality says that
+\[[M] \cap \_ \colon H^i(M; \IZ) \to H_{n-i}(M;\IZ)\]
+is an isomorphism.
+
+If \(M\) is oriented, but not necessarily compact, this is generalized by the duality map\index{duality map}, for which we will write
+\[D_M\colon H^i_{comp}(M;\IZ) \to H_{n-i}(M; \IZ)\]
+This will be an isomorphism.
+
+\begin{construction}
+    Let \((M, \mu)\) be an oriented \(n\)-manifold. \(\mu = \set{\mu_x}_{x \in M}\) an orientation; earlier we saw: For every compact subset \(K\) of \(M\) there is a unique class (\enquote{relative fundamental class}) \(\mu_K \in H_n(M, M\setminus K; \IZ)\) such that
+    \[r_x^K(\mu_K) = \mu_x\]
+    for all \(x \in K\). So the cap product gives a map
+    \[\mu_K \cap \_\colon H^i(M, M \setminus K; \IZ) \to H_{n-i}(M; \IZ)\]
+
+    \textbf{Claim.} for \(K \subseteq L\) both compact, the map
+    \[\incl_*\colon H_n(M, M\setminus L; \IZ) \to H_n(M, M\setminus K; \IZ)\]
+    satisfies \(\incl_*(\mu_L) = \mu_K\).
+
+    Indeed for all \(x \in K\),
+    \[r_x^K(\incl_*(\mu_L)) = r_x^L(\mu_L) = \mu_x\]
+    for all \(x \in K\), so \(\incl_*(\mu_L)\) has the properties that charecterize \(\mu_K\).
+
+    \textbf{Claim.} For \(\alpha\in H^i(M; M\setminus K; \IZ)\) we have
+    \[\mu_K \cap \alpha = \incl_*(\mu_L) \cap \alpha = \mu_L\cap \incl^*(\alpha) \]
+    in \(H_{n-i}(M; \IZ)\) using the mixed functoriality of cap.
+
+    So the following commutes
+    \[\begin{tikzcd}
+        H^i(M, M\setminus K; \IZ) \ar[rd, "\mu_K \cap \_"] \ar[d, "j_L^K = \incl^*"] & \\
+        H^i(M, M\setminus L; \IZ) \ar[r, "\mu_L \cap \_"] & H_{n-i}(M, \IZ)\\
+    \end{tikzcd}\]
+    so there is a unique homomorphism \(D_M\colon H^i_{comp}(M, \IZ) \to H_{n-i}(M; \IZ)\) such that for all \(K \subseteq M\) compact, the following commutes:
+    \[\begin{tikzcd}
+        H_{comp}^i(M; \IZ) \ar[r] & H_{n-i}(M; \IZ) \\
+        H^i(M, M\setminus K; \IZ) \ar[u, "\lambda_K"] \ar[ru, "\mu_K \cap \_"] & \\
+    \end{tikzcd}\]
+    This can be thought of to some extend as \enquote{capping with a non-existent fundamental class.}
+\end{construction}
+
+\begin{proposition}
+    For any orientation of \(\IR^n\), all \(i \geq 0\), the duality map
+    \[D_{\IR^n}\colon H_{comp}^i(\IR^n, \IZ) \to H_{n-i}(\IR^n; \IZ)\]
+    is an isomorphism.
+\end{proposition}
+
+\begin{proof}
+    Earlier: \(H^i_{comp}(\IR^n; \IZ) = \begin{cases}
+        \IZ & \text{if } i = n \\
+        0 & \text{else} \\
+    \end{cases}\)
+    and \(H_{n-i}(\IR^n; \IZ) = 0\), if \(i \neq n\), so \(D_M\) is an isomorphism between trivial groups for \(i \neq n\).
+
+    For \(i = n\), let
+    \[\Psi\colon H^n(\IR^n; \IR^n\setminus \set 0; \IZ) \to \Hom(H_n(\IR \mid 0), \IZ)\]
+    be the evaluation homomorphism from the universal coefficient theorem. This map is surjective by the universal coefficient theorem. Let \(\mu_0 \in H_n(\IR^n \mid 0)\) be the chosen local orientation. So there is a class \(\alpha \in H^i(\IR^n, \IR^n\setminus \set 0; \IZ)\) such that
+    \[\Phi(\alpha) (\mu_0) = 1.\]
+
+    Since \(\IR^n\) is path connected, every point \(x \in \IR^n\) represents the same element \(e = [x] \in H_0(\IR^n; \IZ)\) a generator. Let \(f \in C^n(\cS(\IR^n), \cS(\IR^n\setminus 0); \IZ)\) be a cochain that represents \(\alpha\),  and let
+    \[\sum a_i \cdot \psi_i \in C_n(\cS(\IR^n), \cS(\IR^n \setminus 0); \IZ)\]
+    represent \(\mu_0\). with some \(\psi_i\colon \nabla^n \to \IR^n, a_i \in \IZ\). Then
+    \[\begin{split}
+        \mu_0 \cap \alpha &= [\sum a_i \cdot \psi_i] \cap [f] \\
+        &= \sum a_i \cdot [\psi_i \cap f] \\
+        &= \sum a_i \cdot f(\psi_i) \cdot [\psi(0,0,\dots,0,1)] \\
+        &= (\sum a_i \cdot f(\psi_i)) \cdot e \\
+        &= \underbrace{\Psi(\alpha)(\mu_0)}_{= 1} \cdot e = e
+    \end{split}\]
+    where \(e \in H_0(\IR, \IZ)\) is the geometric generator. So \(\mu_0 \cap \alpha\) generates \(H_0(\IR^n; \IZ)\).
+
+    We can conclude:
+    \[\begin{tikzcd}
+        {H^n(\IR^n, \IR^n\setminus 0; \IZ)} \ar[r, "\lambda_{\set 0}", "\cong"'] \ar[dr, "\mu_0 \cap \_", two heads] & H^n_{comp}(\IR^n; \IZ) \ar[d, "D_{\IR^n}"] \\
+        & H_0(\IR^n; \IZ) \\
+    \end{tikzcd}\]
+    So \(D_M\) is a surjection between free abelian groups of rank 1, hence an isomorphism!
+\end{proof}
+
+We now prooved Poincáre duality for \(\IR^n\). This is in itself of course not very exciting, but the first step for the bootstrapping we will do later. For that we will develop a Mayer-Vietoris sequence for compactly supported cohomology.
+
+We now first need
+
+\subsection{Naturality of the duality map}
+
+We let \(M\) be a \(n\)-manifold, \(\mu = \set{\mu_x}_{x \in X}\) an orientation and \(U\) an open subset of \(M\). Then \(\set{r_U^M(\mu_x)}_{x\in U}\) is an orientation of \(U\).
+
+\begin{proposition}
+    Let \((M, \mu)\) be an oriented \(n\)-manifold and \(U\) an open subset of \(M\) with induced orientation. Then the following diagram commutes:
+    \[\begin{tikzcd}
+        H^i_{comp}(M; \IZ) \ar[r, "D_M"] & H_{n-i}(M; \IZ) \\
+        H^i_{comp}(U, \IZ) \ar[u, "\iota_U^M"] \ar[r, "D_U"] & H_{n-i}(U; \IZ) \ar[u, "\incl_*" ] \\
+    \end{tikzcd}\]
+\end{proposition}
+
+\begin{proof}
+    Let \(K\) be a compact susbset of \(U\).
+
+    \textbf{Claim.} The map
+    \[\incl_*\colon H_n(U, U\setminus K; \IZ) \to H_n(M, M\setminus K; \IZ)\]
+    takes \(\mu_K^U\) to \(\mu_K^M\).
+
+    Indeed for all \(x \in K\),
+    \[r_x^M(\incl_*(\mu_K^U)) = r_x^U(\mu_K^U) = \mu_x^U = \mu_x\]
+    Since this property characterizse \(\mu_K^M\), the claim holds.
+
+    Consider the diagram
+    \[\begin{tikzcd}
+        H^i(U, U\setminus K; \IZ) \ar[r, "\lambda_K"] \ar[rr, bend left, "\mu_K^U \cap \_"] & H^i_{comp}(U; \IZ) \ar[d, "\iota_U^M"] \ar[r, "D_U"] & H_{n-i}(U; \IZ) \ar[d, "\incl_*"] \\
+        H^i(M, M\setminus K; \IZ) \ar[u, "\incl^*", "\cong"'] \ar[rr, bend right, "\mu_K^M \cap \_"] \ar[r, "\lambda_K"] & H^i_{comp}(M; \IZ) \ar[r, "D_M"] & H_{n-i}(M; \IZ) \\
+    \end{tikzcd}\]
+    where we now the left square commutes but don't know about the right one yet.
+
+    Every class in \(H^i_{comp}(U, \IZ)\) is of the form \(\lambda_K(\alpha)\) for some compact subset \(K\) of \(U\), some \(\alpha \in H^i(U, U\setminus K; \IZ)\).
+    By excision there is a class \(\beta \in H^i(M, M\setminus K; \IZ)\), such that \(\incl^*(\beta) = \alpha\). So using the mixed functoriality of \(\cap\) and the definition of \(D_M\), we get
+    \[\begin{split}
+        \incl_*(D_U(\lambda_K(\alpha))) &\overset{\text{def. } D_U}= \incl_*(\mu_K^U \cap \alpha) \\
+        &= \incl_*(\mu_K^U \cap \incl^*(\beta)) \\
+        &= \mu_K^M \cap \beta \\
+        &= D_M(\lambda_K(\beta)) \\
+        &= D_M(\iota_U^M(\lambda_K(\incl^*(\beta)))) \\
+        &= D_M(\iota_U^M(\lambda_K(\alpha))) \\
+    \end{split}\]
+    Since all classes in \(H_{comp}^i(U; \IZ)\) are of the form \(\lambda_K(\alpha)\), this prooves the proposition.
+\end{proof}
 
 
 
+\subsection{Mayer-Vietoris sequences for compactly supported cohomology}
 
+\begin{lem}{Compact unions}{}
+    Let \(X\) be a locally compact Hausdorff space. Let \(U,V\) be open subsets of \(X\), such that \(X = U \cup V\). Then every compact subset of \(X\) is of the form \(K \cup L\) for a compact subset \(K\) of \(U\) and a compact subset \(L\) of \(V\).
+\end{lem}
+
+\begin{proof}
+    Let \(C\) be any compact subset of \(X = U \cup V\). Then every point \(x \in C\) is contained in \(U\) or in \(V\). If \(x \in U\), then \(U\) is a neighborhood of \(x\) in \(X\). Since \(x\) is locally compact, there is a compact neighborhood \(N_x\) of \(x\) in \(U\). If \(x \in V\), there is a compact neighborhood \(N_x\) of \(x\) in \(V\). Since \(C\) is compact, it is covered by finitely many \(N_{x_1} \cup \dots \cup N_{x_n}\) of these compact neighborhoods, with each \(N_{x_i}\) contained in \(U\) or \(V\).
+
+    Set \(\bar K = \bigcup N_{x_i}\) such that \(N_{x_i} \subseteq U\) and \(\bar L = \bigcup N_{x_i}\) such that \(N_{x_i} \subseteq V\). So \(\bar K, \bar L\) are compact, \(\bar K \subseteq U, \bar L \subseteq V\). So \(K = C \cap \bar K\) is compact in \(U\) and \(L = C \cap \bar L\) is compact in \(V\). We see \(C = K \cup L\).
+\end{proof}
+
+\begin{construction}[Connecting homomorphism]
+    Let \(X\) be a locally compact hausdorff space, \(U, V \subseteq X\) open, such that \(X = U \cup V\). Let \(A\) be any coefficient group, that we drop from the notation. We define
+    \[\partial\colon H^i_{comp}(X) \to H_{comp}^{i+1}(U \cap V)\]
+    For every compact subset \(C\) of \(X\), we define
+    \[\partial_C\colon H^i(X, X\setminus C) \to H^{i+1}_{comp}(U\cap V)\]
+    as follows. We choose compact subsets \(K\) of \(U\) and \(L\) of \(V\), such that \(C = K \cup L\) and define \(\partial_C\) as the composite
+    \[H^i(X, X\setminus C) = H^i(X, X\setminus (C \cup L)) \xrightarrow{\partial} H^{i+1}(X,X\setminus(K \cap L)) \xrightarrow{\text{excision}} H^{i+1}(U \cap V, (U \cap V) \setminus (K \cap L)) \xrightarrow{\lambda_{K \cap L}} H_{comp}^{i+1}(U\cap V)\]
+    using \(X\setminus (K \cap L) = (X\setminus K) \cup (X\setminus L)\) and \((X\setminus K) \cap (X\setminus L) = X \setminus (K \cup L)\)
+
+    \textbf{Claim.}
+    \begin{enumerate}
+        \item the definition of \(\partial_C\) is independent of the choice of \(K,L\).
+        \item If \(C \subseteq \bar C \subseteq X\) with \(C, \bar C\) compact, then
+        \[\begin{tikzcd}
+            H^i(X, X\setminus C) \ar[rd, "\partial_C"] \ar[d, "\iota_C^{\bar C}"] & \\
+            H^i(X, X\setminus \bar C) \ar[r, "\partial_{\bar C}"] & H_{comp}^{i+1}(U\cap V) \\
+        \end{tikzcd}\]
+    \end{enumerate}
+\end{construction}
 
 
 \end{document}
