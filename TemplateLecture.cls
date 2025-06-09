@@ -418,33 +418,47 @@
 %%%% THEOREMS %%%%
 % \theoremstyle{theorem}
 \newtheorem*{lemm}{Lemma}
-\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]  %% Counter for all theorems
 % \theoremstyle{theorem}
 % \newtheorem{satz}[lemma]{Satz}
 % \theoremstyle{theorem}
-\newtheorem{prop}[lemma]{Proposition}
-\newtheorem{corollary}[lemma]{Korollar}
+
 \theoremstyle{definition}
-\newtheorem{frage}[lemma]{Frage}
-\newtheorem*{definition}{Definition}
-\newtheorem*{beispiel}{Beispiel}
-\newtheorem{bsp}[lemma]{Beispiel}
+
+%% German %%
+
 \newtheorem{aufgabe}{Aufgabe}
-\newtheorem{behauptung}[lemma]{Behauptung}
-\newtheorem*{bemerkung}{Bemerkung}
-\newtheorem{construction}[lemma]{Construction}
-\newtheorem{bem}[lemma]{Bemerkung}
-\newtheorem{axiom}[lemma]{Axiom}
-\newtheorem{example}[lemma]{Example}
 \newtheorem{problem}{Aufgabe}
+\newtheorem{axiom}[lemma]{Axiom}
+\newtheorem{bsp}[lemma]{Beispiel}
+\newtheorem*{Beispiel}{Beispiel}
+\newtheorem{behauptung}[lemma]{Behauptung}
+\newtheorem{bem}[lemma]{Bemerkung}
+\newtheorem*{bemerkung}{Bemerkung}
+\newtheorem{prop}[lemma]{Proposition}
+\newtheorem{frage}[lemma]{Frage}
+\newtheorem{Solution}{Lösung}
+
+
+%% English %%
+
+\newtheorem*{Definition}{Definition}
+\newtheorem*{Theorem}{Theorem}
+\newtheorem*{Lemma}{Lemma}
+
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem*{Corollary}{Corollary}
+\newtheorem{construction}[lemma]{Construction}
+\newtheorem{example}[lemma]{Example}
+\newtheorem*{Example}{Example}
+\newtheorem{excursion}[lemma]{Excursion}
+\newtheorem*{Excursion}{Excursion}
+\newtheorem{notation}[lemma]{Notation}
+\newtheorem*{Notation}{Notation}
 \newtheorem{proposition}[lemma]{Proposition}
 \newtheorem*{Proposition}{Proposition}
-% \theoremstyle{solution} 
-\newtheorem{Solution}{Lösung}
 \newtheorem{remark}[lemma]{Remark}
 \newtheorem*{Remark}{Remark}
-\newtheorem{notation}[lemma]{Notation}
-\newtheorem{excursion}[lemma]{Excursion}
 
 
 

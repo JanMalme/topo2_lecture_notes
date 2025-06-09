@@ -8,11 +8,9 @@
 \begin{document}
 
 \setcounter{chapter}{0}
-\chapter{Cohomology}
+\part{Cup product and Künneth theorem}
 
 \newLecture{07.04.2025}
-
-\section{Last Term}
 
 In last term, we discussed
 \begin{itemize}
@@ -30,7 +28,7 @@ In the very end, cohomology was started. Remeber
     & & & \mathrm{Ab}^{op} \\
 \end{tikzcd}\]
 
-\section{Cup-product}
+\chapter{Cup-product}
 
 
 Let \(X\) be a simplicial set, and \(R\)\footnote{A ring is not necessarily commutative, but has a unit} a ring\index{ring}.
@@ -364,7 +362,7 @@ The first two methods are not very practical.
     \end{Remark}
 \end{example}
 
-\section{Künneth theorem}
+\chapter{Künneth theorem}
 \index{Künneth theorem}
 The Künneth theorem is an algebraic relationship between \(H^*_*(X,R), H^*_*(Y,R)\) and \(H^*_*(X\times Y, R)\)\footnote{\(H_*^*\) denotes, that Schwede was too lazy to write the statement for homology and cohomology separately}.
 
@@ -376,7 +374,7 @@ Here is a simplest version in homology with field coefficients:
     \[\bigoplus_{p+q = n} H_p(X,k) \otimes_k H_q(Y,k)\]
 \end{thm}
 
-\subsection{The Eilenberg-Zilber-theorem}
+\section{The Eilenberg-Zilber-theorem}
 
 Let \(A,B\) be simplicial abelian groups. Then we get two natural chain homotopy equivalences
 \[\begin{tikzcd}
@@ -387,11 +385,11 @@ Let \(A,B\) be simplicial abelian groups. Then we get two natural chain homotopy
     A \emph{simplicial abelian group} \index{simplicial abelian group} is a functor \(A\colon \Delta^{Op} \to \mathbf{Ab.Groups}\).
 \end{defi}
 
-\begin{remark}
+\begin{Remark}
     Equivalently a simplicial abelian group is a colleciton of abelian groups \(A_n\), and homomorphisms \(\alpha^*\colon A_m \to A_n\) for all \(\alpha\colon [n] \to [m]\) in \(\Delta\), s.t. \((\alpha\circ \beta)^* = \beta^* \circ \alpha^*\).
 
     Equivalently a simplicial abelian group is a simplical set endorsed with abelian group structure on the sets of \(n\)-simplices, such that all \(\alpha^*\) are homomorphisms.
-\end{remark}
+\end{Remark}
 
 
 \begin{example}
@@ -543,141 +541,143 @@ He specifies, that the calculation takes up 8 pages of his notes.
     are mutually inverse natural chain homotopy equivalences.
 \end{thm}
 
+A first method of proof would be explicit formulas for the chain homotopies \(\text{AW} \circ EZ \sim \Id\) and \(EZ \circ AW \sim \Id\). That is however infinitely annoying and we will not do this.
+
+For the special case, where \(A = \IZ[X], B= \IZ[Y]\) for simplicial sets \(X,Y\) we proove this via acyclic models. For that we need some category-theory:
+
+\section{Yoneda Lemma \& Acyclic models}
+
+\begin{thm}{Yoneda lemma}{}
+    Let \(\cC\) be a category and \(c\) an object of \(\cC\). Let \(F\colon \cC \to (\mathbf{sets})\) be a functor: Then the evaluation map
+    \[\Nat_{\cC \to \mathbf{sets}}(\cC(c,\_), F) \to F(c)\]
+    given by
+    \[(\tau\colon \cC(c,\_) \to F) \mapsto (\tau_c\colon \cC(c,c)\to F(c))(\id_c)\]
+    is bijective.
+
+    Equally: for every \(x \in F(c)\), there is a unique natural transformation \(\tau\colon (\cC(c, \_) \to F)\), such that \(\tau_c(\id_c) = x\).
+\end{thm}
+
+\begin{Remark}
+    A special case of this is
+    \[\Hom_{\mathbf{sset}}(\Delta^n, X) \cong X_n, \quad (f\colon \Delta
+    ^n\to X) \mapsto f_n(\id_{[n]}).\]
+    where \(\Delta^n = \Delta(\_, [n])\).
+\end{Remark}
+
 \begin{proof}
-    A first method of proof would be explicit formulas for the chain homotopies \(\text{AW} \circ EZ \sim \Id\) and \(EZ \circ AW \sim \Id\). That is however infinitely annoying and we will not do this.
+    We show injectivity and surjectivity.
+    \begin{description}
+        \item[Injectivity] Let \(\tau\colon \cC(c,\_) \to F\) be any natural transformation. Let \(d\) be another object of \(\cC\), \(f\colon c\to d\) any morphism. Then we have
+        \[\tau_d\colon \cC(c,d) \to F(d)\]
+        and
+        \[\tau_d(f\colon c \to d) = \tau_d(\cC(c,f)(\id_c)) = F(f) (\tau_c(\id_c))\]
+        where we use naturality of \(\tau\):
+        \[\begin{tikzcd}
+            {\cC(c,d)} \ar[r, "\tau_d"] \ar[d, "{\cC(c,g)}"] & F(d) \ar[d, "F(g)"] \\
+            {\cC(c,e)} \ar[r, "\tau_e"] & F(e) \\
+        \end{tikzcd}\]
+        which implies the value of \(\tau\) at \(d,f\colon c\to d\) is determined by its value of \((c, \id_c)\) and the functorality of \(F\).
+        \item[Surjectivity] Let \(y \in F(c)\) be given. For an object \(d\) of \(\cC\) and morphism \(f\colon c \to d\), we define
+        \[\tau_d\colon \cC(c,d) \to F(d) \quad \tau_d(f) \coloneq F(f)(y).\]
+        We check \(\tau_c(\id_c) = F(\id_c)(y) = y\).
+        We need to check for naturality. Let \(g\colon d \to e \) be another morphism. Then
+        \[\begin{split}
+            F(g)(\tau_d(f)) &= F(g)(F(f)(y)) = F(g\circ f)(y) \\
+            &= \tau_e(g\circ f) = \tau_e(\cC(c,g)(f)) \\
+        \end{split}\]
+        \end{description}
+\end{proof}
 
-    For the special case, where \(A = \IZ[X], B= \IZ[Y]\) for simplicial sets \(X,Y\) we proove this via acyclic models. For that we need some category-theory:
+Let \(\cC\) be a category, \(c\) an object of \(\cC\). We define the functor \(\IZ[\cC(c,\_)]\colon \cC \to (\mathbf{ab.grps.})\) as the composite
+\[\cC \xrightarrow{\cC(c,\_)} (\mathbf{sets}) \xrightarrow{\IZ[\_]} (\mathbf{ab.grps.}).\]
+In particular, \(\IZ[\cC(c, \_)] (d) = \IZ[\cC(c,d)]\).
+\begin{Proposition}[Additive Yoneda lemma]
+    Let \(c \in ob(\cC), F\colon \cC \to (\mathbf{ab.grps.})\) any functor. Then the evaluation map
+    \[\Nat_{\cC \to (\mathbf{ab.grps.})}(\IZ[\cC(c,\_)], F) \to F(c)\]
+    is bijective. \((\tau\colon \IZ[\cC(c, \_)] \to F) \mapsto \tau_c(1\cdot \id_c)\).
+\end{Proposition}
 
-    \begin{proposition}[Yoneda lemma]
-        Let \(\cC\) be a category and \(c\) an object of \(\cC\). Let \(F\colon \cC \to (\mathbf{sets})\) be a functor: Then the evaluation map
-        \[\Nat_{\cC \to \mathbf{sets}}(\cC(c,\_), F) \to F(c)\]
-        given by
-        \[(\tau\colon \cC(c,\_) \to F) \mapsto (\tau_c\colon \cC(c,c)\to F(c))(\id_c)\]
-        is bijective.
+\begin{proof}
+    For varying objects \(d\) of \(\cC\), the bijections
+    \[\Hom_{AB}(\IZ[\cC(c,d)], F(d)) \cong \Hom_{\mathbf{sets}}(\cC(c,d), F(d))\]
+    assemble into a bijection\footnote{I don't know why though.}
+    \[\Nat_{\cC \to \mathbf{Ab}}(\IZ[\cC(c, \_)], F) \cong \Nat_{\cC \to \mathbf{sets}}(\cC(c, \_), F) \overset{\text{Yoneda}}{\cong} F(c)\]
+\end{proof}
 
-        Equally: for every \(x \in F(c)\), there is a unique natural transformation \(\tau\colon (\cC(c, \_) \to F)\), such that \(\tau_c(\id_c) = x\).
-    \end{proposition}
+\begin{defi}{Representable functor}{}
+    A functor \(F\colon \cC \to \mathbf{Ab}\) is representable\index{representable functor} if there is an object \(c \in \cC\) and a natural isomorphism \(F\cong \IZ[\cC(c,\_)]\)
+\end{defi}
+\textbf{Note.} Any isomorphism \(F \cong \IZ[\cC(c,\_)]\) is determined by the \enquote{universal element} in \(F(c)\).
 
-    \begin{Remark}
-        A special case of this is
-        \[\Hom_{\mathbf{sset}}(\Delta^n, X) \cong X_n, \quad (f\colon \Delta
-        ^n\to X) \mapsto f_n(\id_{[n]}).\]
-        where \(\Delta^n = \Delta(\_, [n])\).
-    \end{Remark}
+\begin{example}
+    Let \(\cC = (\mathbf{ssets}) \times (\mathbf{ssets})\) be the product of two copies of the category of simplicial sets. Define \(f\colon (\mathbf{ssets})\times (\mathbf{ssets}) \to \mathbf{Ab}\) given by \(F(X,Y) = \IZ[X_p \times Y_q]\) for some \(p,q \geq 0\).
+    \textbf{Claim.} This functor is representable by \((\Delta^p, \Delta^q)\) with natural isomorphisms.
+    \[(\mathbf{ssets}\times \mathbf{ssets})((\Delta^p, \Delta^q), (X,Y)) = \mathbf{sets}(\Delta^p, X) \times \mathbf{sets}(\Delta^q,Y) \cong X_p \times Y_q\]
+    Apply free abelian groups to get
+    \[\IZ[(\mathbf{ssets} \times \mathbf{ssets})((\Delta^p,\Delta^q)(X,Y))] \cong \IZ[X_P \times Y_q]\]
+\end{example}
 
-    \begin{proof}
-        We show injectivity and surjectivity.
-        \begin{description}
-            \item[Injectivity] Let \(\tau\colon \cC(c,\_) \to F\) be any natural transformation. Let \(d\) be another object of \(\cC\), \(f\colon c\to d\) any morphism. Then we have
-            \[\tau_d\colon \cC(c,d) \to F(d)\]
-            and
-            \[\tau_d(f\colon c \to d) = \tau_d(\cC(c,f)(\id_c)) = F(f) (\tau_c(\id_c))\]
-            where we use naturality of \(\tau\):
-            \[\begin{tikzcd}
-                {\cC(c,d)} \ar[r, "\tau_d"] \ar[d, "{\cC(c,g)}"] & F(d) \ar[d, "F(g)"] \\
-                {\cC(c,e)} \ar[r, "\tau_e"] & F(e) \\
-            \end{tikzcd}\]
-            which implies the value of \(\tau\) at \(d,f\colon c\to d\) is determined by its value of \((c, \id_c)\) and the functorality of \(F\).
-            \item[Surjectivity] Let \(y \in F(c)\) be given. For an object \(d\) of \(\cC\) and morphism \(f\colon c \to d\), we define
-            \[\tau_d\colon \cC(c,d) \to F(d) \quad \tau_d(f) \coloneq F(f)(y).\]
-            We check \(\tau_c(\id_c) = F(\id_c)(y) = y\).
-            We need to check for naturality. Let \(g\colon d \to e \) be another morphism. Then
-            \[\begin{split}
-                F(g)(\tau_d(f)) &= F(g)(F(f)(y)) = F(g\circ f)(y) \\
-                &= \tau_e(g\circ f) = \tau_e(\cC(c,g)(f)) \\
-            \end{split}\]
-         \end{description}
-    \end{proof}
+\begin{notation}
+    For \(F\colon \cC \to \mathbf{Chains}\) we write \(F_n = (\_)_n \circ F\colon \cC \to \mathbf{Ab}\) as the composite.
+    \[\cC \xrightarrow{F} \mathbf{Chains} \xrightarrow{(\_)_n} \mathbf{Ab}\]
+    and the second map sends \(C = C(n, d_n)_{n \in \IZ} \mapsto C_n\).
+\end{notation}
 
-    Let \(\cC\) be a category, \(c\) an object of \(\cC\). We define the functor \(\IZ[\cC(c,\_)]\colon \cC \to (\mathbf{ab.grps.})\) as the composite
-    \[\cC \xrightarrow{\cC(c,\_)} (\mathbf{sets}) \xrightarrow{\IZ[\_]} (\mathbf{ab.grps.}).\]
-    In particular, \(\IZ[\cC(c, \_)] (d) = \IZ[\cC(c,d)]\).
-    \begin{Proposition}[Additive Yoneda lemma]
-        Let \(c \in ob(\cC), F\colon \cC \to (\mathbf{ab.grps.})\) any functor. Then the evaluation map
-        \[\Nat_{\cC \to (\mathbf{ab.grps.})}(\IZ[\cC(c,\_)], F) \to F(c)\]
-        is bijective. \((\tau\colon \IZ[\cC(c, \_)] \to F) \mapsto \tau_c(1\cdot \id_c)\).
-    \end{Proposition}
-
-    \begin{proof}
-        For varying objects \(d\) of \(\cC\), the bijections
-        \[\Hom_{AB}(\IZ[\cC(c,d)], F(d)) \cong \Hom_{\mathbf{sets}}(\cC(c,d), F(d))\]
-        assemble into a bijection\footnote{I don't know why though.}
-        \[\Nat_{\cC \to \mathbf{Ab}}(\IZ[\cC(c, \_)], F) \cong \Nat_{\cC \to \mathbf{sets}}(\cC(c, \_), F) \overset{\text{Yoneda}}{\cong} F(c)\]
-    \end{proof}
-
-    \begin{defi}{Representable functor}{}
-        A functor \(F\colon \cC \to \mathbf{Ab}\) is representable\index{representable functor} if there is an object \(c \in \cC\) and a natural isomorphism \(F\cong \IZ[\cC(c,\_)]\)
-    \end{defi}
-    \textbf{Note.} Any isomorphism \(F \cong \IZ[\cC(c,\_)]\) is determined by the \enquote{universal element} in \(F(c)\).
-
-    \begin{example}
-        Let \(\cC = (\mathbf{ssets}) \times (\mathbf{ssets})\) be the product of two copies of the category of simplicial sets. Define \(f\colon (\mathbf{ssets})\times (\mathbf{ssets}) \to \mathbf{Ab}\) given by \(F(X,Y) = \IZ[X_p \times Y_q]\) for some \(p,q \geq 0\).
-        \textbf{Claim.} This functor is representable by \((\Delta^p, \Delta^q)\) with natural isomorphisms.
-        \[(\mathbf{ssets}\times \mathbf{ssets})((\Delta^p, \Delta^q), (X,Y)) = \mathbf{sets}(\Delta^p, X) \times \mathbf{sets}(\Delta^q,Y) \cong X_p \times Y_q\]
-        Apply free abelian groups to get
-        \[\IZ[(\mathbf{ssets} \times \mathbf{ssets})((\Delta^p,\Delta^q)(X,Y))] \cong \IZ[X_P \times Y_q]\]
-    \end{example}
-
-    \begin{notation}
-        For \(F\colon \cC \to \mathbf{Chains}\) we write \(F_n = (\_)_n \circ F\colon \cC \to \mathbf{Ab}\) as the composite.
-        \[\cC \xrightarrow{F} \mathbf{Chains} \xrightarrow{(\_)_n} \mathbf{Ab}\]
-        and the second map sends \(C = C(n, d_n)_{n \in \IZ} \mapsto C_n\).
-    \end{notation}
-
-    \begin{thm}{Acyclic models}{}
-        Let \(\cC\) be a category, \(F,G\colon \cC \to \mathbf{Chains}_+ = \text{non-negative grade chain complexes}\). Let \(\psi \colon F \to G\) be a natural transformation of functors. Suppose;
-        \begin{enumerate}
-            \item The transformation \(\psi_0 \colon F_0 \to G_0 \colon \cC \to \mathbf{Ab}\) is the zero natural transformation
-            \item For every \(n \geq 1\), the functor \(F_n \colon \cC \to \mathbf{Ab}\) is isomorphic to a direct sum of representable functors, \(\bigoplus_{i \in I} IZ[\cC(c_i,\_)]\) for some family \(\set{c_i}_{i \in I}\) of \(\cC\)-objects such that \(H_n(G(c_i)) = 0\).
-        \end{enumerate}
-        Then \(\psi\) is naturally chain nullhomotopic.
-    \end{thm}
+\begin{thm}{Acyclic models}{}
+    Let \(\cC\) be a category, \(F,G\colon \cC \to \mathbf{Chains}_+ = \text{non-negative grade chain complexes}\). Let \(\psi \colon F \to G\) be a natural transformation of functors. Suppose;
+    \begin{enumerate}
+        \item The transformation \(\psi_0 \colon F_0 \to G_0 \colon \cC \to \mathbf{Ab}\) is the zero natural transformation
+        \item For every \(n \geq 1\), the functor \(F_n \colon \cC \to \mathbf{Ab}\) is isomorphic to a direct sum of representable functors, \(\bigoplus_{i \in I} IZ[\cC(c_i,\_)]\) for some family \(\set{c_i}_{i \in I}\) of \(\cC\)-objects such that \(H_n(G(c_i)) = 0\).
+    \end{enumerate}
+    Then \(\psi\) is naturally chain nullhomotopic.
+\end{thm}
 
 
 \newLecture{16.04.2025}
 
-    \begin{proof}
-        For \(n \geq 0\), we will construct natural transformations
-        \[s_n\colon F_n \to G_{n+1}\]
-        of functors \(\cC \to \mathbf{Ab}\), such that
-        \begin{equation}\tag{*}
-            d_{n+1} \circ s_n + s_{n-1} \circ d_n = \psi_n
-        \end{equation}
-        as natural transformations (i.e. they have the chain homotopy property).
+\begin{proof}
+    For \(n \geq 0\), we will construct natural transformations
+    \[s_n\colon F_n \to G_{n+1}\]
+    of functors \(\cC \to \mathbf{Ab}\), such that
+    \begin{equation}\tag{*}
+        d_{n+1} \circ s_n + s_{n-1} \circ d_n = \psi_n
+    \end{equation}
+    as natural transformations (i.e. they have the chain homotopy property).
 
-        The construction is by induction on \(n.\) We begin with \(s_0 = 0\) and \(s_{-1} = 0\). Suppose \(n \geq 1\) and that \(s_0, \dots, s_{n-1}\) have been constructed satisfying (*). Then
-        \[d_n^G \circ (\psi_n - s_{n-1} \circ d_n^F) = d_n^G \circ \psi_n - d_n^G \circ s_{n-1} \circ d_n^F\]
-        as \(\psi\) is a chain map,
-        \[= \psi_{n-1} \circ d_n^F - d_n^G \circ s_{n-1} \circ d_n^F = (\psi_{n-1} - d_n^G \circ s_{n-1}) \circ d_n^F \overset{(*)}{=} s_{n-2} \circ d_{n-1}^F \circ d_n^F = 0.\]
-        So \(\psi_n - s_{n-1} \circ d_n^F\colon F_n \to G_n\) takes values in cycles.
-        By 2.,
-        \[f_n = \bigoplus_{i \in I} \IZ[\cC(c, \_)]\]
-        for some set \(\set{c_i}_{i \in I}\) of \(\cC\)-objects, such that \(H_n(G(c_i)) = 0\). Let \(j \in I\), write
-        \[x_j \in F(c_j) = \bigoplus_{i \in I} \IZ[\cC(c_i,c_j)]\]
-        be the element \(1 \cdot \id_j\) in the \(j\)-th summand. Then
-        \[\psi_n^{c_j}(x_j) - s_{n-1}^{{c_j}}(d_n^{F, c_i}(x_j)) \in G_n(c_j)\]
-        is a cycle. Since \(H_n(G(c_j)) = 0\), the class is a boundary in the complex \(G(c_j)\).
+    The construction is by induction on \(n.\) We begin with \(s_0 = 0\) and \(s_{-1} = 0\). Suppose \(n \geq 1\) and that \(s_0, \dots, s_{n-1}\) have been constructed satisfying (*). Then
+    \[d_n^G \circ (\psi_n - s_{n-1} \circ d_n^F) = d_n^G \circ \psi_n - d_n^G \circ s_{n-1} \circ d_n^F\]
+    as \(\psi\) is a chain map,
+    \[= \psi_{n-1} \circ d_n^F - d_n^G \circ s_{n-1} \circ d_n^F = (\psi_{n-1} - d_n^G \circ s_{n-1}) \circ d_n^F \overset{(*)}{=} s_{n-2} \circ d_{n-1}^F \circ d_n^F = 0.\]
+    So \(\psi_n - s_{n-1} \circ d_n^F\colon F_n \to G_n\) takes values in cycles.
+    By 2.,
+    \[f_n = \bigoplus_{i \in I} \IZ[\cC(c, \_)]\]
+    for some set \(\set{c_i}_{i \in I}\) of \(\cC\)-objects, such that \(H_n(G(c_i)) = 0\). Let \(j \in I\), write
+    \[x_j \in F(c_j) = \bigoplus_{i \in I} \IZ[\cC(c_i,c_j)]\]
+    be the element \(1 \cdot \id_j\) in the \(j\)-th summand. Then
+    \[\psi_n^{c_j}(x_j) - s_{n-1}^{{c_j}}(d_n^{F, c_i}(x_j)) \in G_n(c_j)\]
+    is a cycle. Since \(H_n(G(c_j)) = 0\), the class is a boundary in the complex \(G(c_j)\).
 
-        Let \(y_j \in G(c_j)_{n+1}\) be a element such that
-        \[d_{n+1}^{c_j}(y_j) = \psi_n^{c_j}(x_j) - s_{n-1}^{c_j}(d_n^{F, c_j}(x_j))\]
-        The additive Yoneda lemma provides a unique natural transformation
-        \[s_{n,j} \colon \IZ[\cC(c_j, \_)] \to G_{n+1}\]
-        such that \(s_{n,j}(x_j) = s_{n,j}^{c_j}(1\cdot \id_{c_j}) = y_j \in G_{n+1}(c_j)\).
+    Let \(y_j \in G(c_j)_{n+1}\) be a element such that
+    \[d_{n+1}^{c_j}(y_j) = \psi_n^{c_j}(x_j) - s_{n-1}^{c_j}(d_n^{F, c_j}(x_j))\]
+    The additive Yoneda lemma provides a unique natural transformation
+    \[s_{n,j} \colon \IZ[\cC(c_j, \_)] \to G_{n+1}\]
+    such that \(s_{n,j}(x_j) = s_{n,j}^{c_j}(1\cdot \id_{c_j}) = y_j \in G_{n+1}(c_j)\).
 
-        We define the natural transformation
-        \[s_n\colon F_n = \bigoplus_{i \in I} \IZ[\cC(c_i, \_)] \to G_{n+1}\]
-        as \(s_n = \bigoplus_{j \in I} s_{n,j}\).
+    We define the natural transformation
+    \[s_n\colon F_n = \bigoplus_{i \in I} \IZ[\cC(c_i, \_)] \to G_{n+1}\]
+    as \(s_n = \bigoplus_{j \in I} s_{n,j}\).
 
-        It suffices now to show, that (*) holds on each summand \(\IZ[\cC(c_j, \_)]\). By the additive Yoneda lemma, there it suffices to check the relation on \(1\cdot \id_{c_j}\), which holds by definition.
-    \end{proof}
+    It suffices now to show, that (*) holds on each summand \(\IZ[\cC(c_j, \_)]\). By the additive Yoneda lemma, there it suffices to check the relation on \(1\cdot \id_{c_j}\), which holds by definition.
+\end{proof}
 
-    \begin{Remark}
-        We only prooved \enquote{half} of the acyclic models theorem. The other half states:
+\begin{Remark}
+    We only prooved \enquote{half} of the acyclic models theorem. The other half states:
 
-        Let \(\cC\) and \(F,G\colon \cC \to \mathbf{Chains}_+\) be as before, satisfying 2.. Then any natural transformation \(\psi_0\colon F_0 \to G_0\) can be extended to a natural transformation \(\psi\colon F \to G\).
-    \end{Remark}
+    Let \(\cC\) and \(F,G\colon \cC \to \mathbf{Chains}_+\) be as before, satisfying 2.. Then any natural transformation \(\psi_0\colon F_0 \to G_0\) can be extended to a natural transformation \(\psi\colon F \to G\).
+\end{Remark}
 
-    Now to actually proove the Eilenberg-Zilber-Theorem \ref{thm:elbzlb} (at least in a special case.) Let \(A,B\) be simplicial abelian groups. We assume \(A = \IZ[X]\), \(B= \IZ[Y]\) for some simplicial sets \(X,Y\). We write \(C_*(X), C_*(Y)\). For sets \(S,T\),
+\begin{proof}[Proof of theorem \ref{thm:ElbZlb}]
+    Now to actually proove the Eilenberg-Zilber-Theorem \ref{thm:ElbZlb} (at least in a special case.) Let \(A,B\) be simplicial abelian groups. We assume \(A = \IZ[X]\), \(B= \IZ[Y]\) for some simplicial sets \(X,Y\). We write \(C_*(X), C_*(Y)\). For sets \(S,T\),
     \[\begin{tikzcd}
         \IZ[S] \otimes \IZ[T] \ar[rr, bend left] && \IZ[S \times T] \ar[ll, bend left] \\
         s\otimes t \ar[rr] && (s,t)
@@ -751,7 +751,7 @@ He specifies, that the calculation takes up 8 pages of his notes.
     This concludes the proof of the Künneth theorem.
 \end{proof}
 
-\subsection{Commutativity of the cup-product revisited}
+\section{Revisiting Commutativity of the cup-product}
 
 The symmetry isomorphism of chain complexes \(C,D\) is the morphism.
 \[\tau_{C,D} \colon C\otimes D \xrightarrow{\cong} D\otimes C\]
@@ -761,6 +761,7 @@ is given by
     & \bigoplus_{p+q = n} C_p \otimes D_q & \bigoplus_{q+p= n} D_q \otimes C_p \\
     & c\otimes d & (-1)^{pq} \cdot d\otimes c
 \end{tikzcd}\]
+me not being able to keep up.
 
 \textbf{Fact.}
 \[\begin{tikzcd}
@@ -770,7 +771,7 @@ is given by
 commutes. where \(flip \colon X \times Y \to Y \times X, \; (x,y) \mapsto (y,x)\).
 Hence, \enquote{The Eilenberg-Zilber map is symmetric}.
 
-But however for AW the same diagram does NOT commute.
+But however for AW the same diagram does NOT commute. Another diagram is missing.
 
 %%Diagram
 
@@ -794,7 +795,9 @@ that commutes up to homotopy. We apply the functor \(\Hom(\_, R)\) to get a new 
 
 The Plan for today is to show the Künneth theorem for homology. The rough approximation is, that product of spaces goes to Tensorproducts of abelian groups.
 
-If \(X,Y\) are simplicial sets, then by EZ we have \(H_*(X\times Y; R) = H_*(C_*(X\times Y; R)) \cong H_*((C_*(X,R)) \otimes_R C_*(Y; R))\) and we want to see how that relates to \(H_*(X,R) \otimes_R H_*(Y; R)\).
+\section{Algebraic Künneth theorem.}
+
+If \(X,Y\) are simplicial sets, then by EZ we have \(H_*(X\times Y; R) = H_*(C_*(X\times Y; R)) \cong H_*((C_*(X,R)) \otimes_R C_*(Y; R))\) and we want to see how that relates to \(H_*(X,R) \otimes_R H_*(Y; R)\). This will be the algebraic Künneth theorem.
 
 In the following \(R\) is a commutative ring (have integers and fields in mind).
 
@@ -1035,6 +1038,8 @@ We can check this is well defined.
     \[0 \to \bigoplus_{p+q = n} H_p(C) \otimes H_q(D) \to H_n(C\otimes D) \to \bigoplus_{p+q = n-1} \Tor(H_p(C), H_q(D)) \to 0\]
 \end{example}
 
+\section{Homological Künneth theorem}
+
 \begin{construction}[Homology exterior pairing]
     Let \(X,Y\) be simplicial sets. Let \(R\) be a commutative ring. We define
     \[\times \colon H_p(X,R) \otimes_R H_q(Y,R) \to H_{p+q} (X\times Y, R)\]
@@ -1068,6 +1073,8 @@ We can check this is well defined.
 \[\bigoplus_{p+q = n} H_p(X, \IZ) \otimes H_q(Y, \IZ) \xrightarrow{\Phi} H_n(X\times Y; \IZ)\]
 is an isomorphism.
 
+\section{Künneth theorem for cohomology}
+
 Next we want to show the Künneth theorem for cohomology. The strategy:
 \begin{itemize}
     \item EZ provides a chain homotopy equilvalence \(C_*(X, \IZ) \otimes C_*(Y, \IZ)\) to \(C_*(X\times Y, \IZ)\).
@@ -1078,9 +1085,7 @@ Next we want to show the Künneth theorem for cohomology. The strategy:
     \item apply the algebraic Künneth theorem.
 \end{itemize}
 
-Step 3 is the hard step.
-
-\subsection{Relation between Homs and Tensors}
+Step 3 is the hard step. For that we study relations between \(\Hom\) and tensors.
 
 Let \(A\) be an abelian group and \(R\) an commutative ring. We make the set \(\Hom(A,R)\) of group homomorphisms into an \(R\) module by pointwise addition and skalar multiplication. So \(f,g \in \Hom(A,R)\), \(r \in R\). then
 \[(f+g)(a) = f(a) + g(a), \quad ((r\cdot f)(a) = r\cdot f(a))\]
@@ -1288,12 +1293,12 @@ This is not yet good enough to apply to topological spaces, as they are very not
 
 \begin{remark}
     Let \(X\) be a CW-complex of finite type \index{finite type CW-complex} i.e. such that it has only finitely many cells in every dimension. (ex. \(\IR P ^\infty\)). Then
-    \[C^{Cell}_A(X,\IZ)\]
+    \[C^{Cell}_*(X,\IZ)\]
     is finitely generated free in every dimension, hence \(H_n^{cell}(X,\IZ) \cong H_n(X, \IZ)\) if finitely generated, so Künneth theorem applies.
 \end{remark}
 
 \begin{construction}
-    Let \(A,B\) be graded-commutative\footnote{\(a \cdot b = (-1)^{\deg(A) \cdot\deg(B) b\cdot a}\)} rings. Then \(A\otimes B\) is another graded-commutative ring by
+    Let \(A,B\) be graded-commutative\footnote{\(a \cdot b = (-1)^{\deg(A) \cdot\deg(B)} b\cdot a\)} rings. Then \(A\otimes B\) is another graded-commutative ring by
     \[(A\otimes B)_n = \bigoplus_{p+q = n} A_p \otimes B_q\]
     with multiplication for \(a \in A_p, b \in B_q, a' \in A_{p'}, b' \in B_{q'}\).
     \[(a\otimes b) \cdot (a' \otimes b') = (-1)^{p' \cdot q} (aa') \otimes (bb')\]
@@ -1320,10 +1325,12 @@ This is not yet good enough to apply to topological spaces, as they are very not
 \end{proof}
 
 \begin{corollary}
-    Let \(X,Y\) be spacees such that \(H_n(X, \IZ)\) is finitely genrated and free for all \(n \geq 0\). Then
+    Let \(X,Y\) be spaces such that \(H_n(X, \IZ)\) is finitely genrated and free for all \(n \geq 0\). Then
     \[H^*(X, \IZ) \otimes H^*(Y,\IZ) \to H^*(X\times Y, \IZ)\]
     is an isomoprhism of graded-commutative rings.
 \end{corollary}
+
+\section{Example calculations for Cohomology-rings}
 
 Now we are actually calculating some cohomology rings. Namely for \(S^k \times S^l\), \(S^1 \times \dots \times S^1\) and \(\IC P^2\).
 
@@ -1392,7 +1399,7 @@ proof next time.
 
     This gives an isomorphism of relative cohomology groups
     \[\pi^*\colon H^4(\IC P^2 \setminus \IC P ^1, \IC P^2 \setminus (\IC P ^1 \cup [0,0,1])) \to H^4(\IC^2, \IC^2\setminus (0,0))\]
-    Then we hAVE AN EXCISION isomorphism:
+    Then we have an excision isomorphism:
     \[H^4(\IC P^2, \IC P ^2\setminus [0,0,1]) \cong H^4(\IC P^2 \setminus \IC P ^1, \IC P ^2 \setminus \IC P ^1 \cup [0,0,1])\]
     The long exact sequence of the pair gives an isomorphism
     \[H^4(\IC P ^2, \IC P ^2 \setminus[0,0,1]) \to H^4(\IC P ^2)\]
@@ -1483,7 +1490,7 @@ Then \(0 \neq [y] \in \pi_3(S^2, *) \cong \IZ\set{y}\).
 \end{proof}
 
 \begin{thm}{Hopf map is not constant}{}
-    The Hopf map \(\eta\) is not hmotopic to a constant map.
+    The Hopf map \(\eta\) is not homotopic to a constant map.
 \end{thm}
 
 \begin{proof}
@@ -1512,7 +1519,9 @@ He also talks about a theorem, that these are all the Hopf-Maps that exist. No m
 
 \newLecture{07.05.2025}
 
-\chapter{Poincaré Duality}
+\part{Manifolds and Poincaré Duality}
+
+\chapter{Topological manifolds}
 
 The long-time goal is to proove Poincaré duality. For that we first need to study manifolds.
 
@@ -1563,78 +1572,78 @@ The long-time goal is to proove Poincaré duality. For that we first need to stu
 
 Now we do some examples that are a little more involved.
 
-\begin{example}[Stiefel manifold]
+\begin{construction}[Stiefel manifold]
     Let \(0 \leq k \leq n\). The Stiefel manifold \(V_{k,n} = \set{(v_1, \dots, v_k) \in \IR^n} \mid \text{orthonomal set.}\). We call this the \enquote{k-frame} this means
     \[\skal{v_i, v_j} = \begin{cases}
         1 & i = j \\
         0 & i \neq j
     \end{cases}\]
     note, that each \(v_i\) is a vector in \(\IR^n\). We give \(V_{k,n}\) the subspace topology of \((\IR^{n})^k\). This is even a closed subspace of \((S^{n-1})^k\), so \(V_{k,n}\) is compact.
+\end{construction}
 
-    For example,
+Examples are,
+\begin{itemize}
+    \item \(V_{0,n} = \set \emptyset\) is a point hence a \(0\)-manifold.
+    \item \(V_{1,n} = S^{n-1}\).
+    \item \(V_{n,n} = O(n)\) the \(n\)-th orthogonal group.
+    \item \(V_{n-1, n} \xleftarrow{\cong} SO(n)\) given by \((Ae_1, \dots, A\cdot e_{n-1}) \mapsfrom A\) where \(e_i = \prescript{t}{}{(0,\dots, 1, \dots, 0)}\). This is bijective because it sends orthogonal matrices to the orthogonal vectors that span it. That is not what was written on the board. That was erased before I could copy.
+\end{itemize}
+
+\begin{proposition}
+    \(V_{k,n}\) is a manifold of dimension \((n-1) + (n-2) + \dots + (n-k) = nk - \frac{k(k+1)}{2}\)
+\end{proposition}
+\begin{proof}
+    By induction on \(k\). We have already seen \(V_{0,n} = \set \emptyset \) as a \(0\)-manifold and \(V_{1,n} = S^{n-1}\) a \((n-1)\)-manifold.
+
+    Now let \(k \geq 2\). Let \(S^{n-1}_+ = \set{(x_1, \dots, x_n) \in S^{n-1} : x_1 \geq 0}\) be the \enquote{northern hemisphere}. We define a continuous map \(\psi \colon S^{n-1}_+ \to O(n)\) as the following composite
+    \[S^{n-1}_* \to GL_n(\IR) \xrightarrow{\text{Gram-Schmidt}} O(n) \quad w \mapsto (\trans w, e_2, \dots, e_n) \mapsto \dots\]
+    where Gram-Schmidt is a continuous way to orthonormalize a matrix.
+
+    We remember the properties:
     \begin{itemize}
-        \item \(V_{0,n} = \set \emptyset\) is a point hence a \(0\)-manifold.
-        \item \(V_{1,n} = S^{n-1}\).
-        \item \(V_{n,n} = O(n)\) the \(n\)-th orthogonal group.
-        \item \(V_{n-1, n} \xleftarrow{\cong} SO(n)\) given by \((Ae_1, \dots, A\cdot e_{n-1}) \mapsfrom A\) where \(e_i = \prescript{t}{}{(0,\dots, 1, \dots, 0)}\). This is bijective because it sends orthogonal matrices to the orthogonal vectors that span it. That is not what was written on the board. That was erased before I could copy.
+        \item \(\psi\) is contnuous
+        \item \(\psi(e_1) = \psi(1,0,0,\dots, 0) = E_n\)
+        \item \(\psi(w) \cdot e_1 = w\).
     \end{itemize}
 
-    \begin{proposition}
-        \(V_{k,n}\) is a manifold of dimension \((n-1) + (n-2) + \dots + (n-k) = nk - \frac{k(k+1)}{2}\)
-    \end{proposition}
-    \begin{proof}
-        By induction on \(k\). We have already seen \(V_{0,n} = \set \emptyset \) as a \(0\)-manifold and \(V_{1,n} = S^{n-1}\) a \((n-1)\)-manifold.
+    \textbf{Warning.} Ther is no continuous map \(\tilde \psi \colon S^{n-1} \to O(n)\) such that \(\tilde \psi (w) \cdot e_1 = w\).
 
-        Now let \(k \geq 2\). Let \(S^{n-1}_+ = \set{(x_1, \dots, x_n) \in S^{n-1} : x_1 \geq 0}\) be the \enquote{northern hemisphere}. We define a continuous map \(\psi \colon S^{n-1}_+ \to O(n)\) as the following composite
-        \[S^{n-1}_* \to GL_n(\IR) \xrightarrow{\text{Gram-Schmidt}} O(n) \quad w \mapsto (\trans w, e_2, \dots, e_n) \mapsto \dots\]
-        where Gram-Schmidt is a continuous way to orthonormalize a matrix.
+    We show the manifold condition around \((e_1, \dots, e_k) \in V_{k,n}\). We set \(U = \set{(v_1, \dots, v_k) \in V_{k,n} : v_1 \in S^{n-1}_+}\) is open in \(V_{k,n}\) around \((e_1, \dots, e_k)\). The map
+    \[U \to S^{n-1} \times V_{k-1, n-1}, \quad (v_1, \dots, v_k) \mapsto (v_1, (\psi(v_1))^{-1}(v_2), \dots, (\psi(v_1))^{-1}(v_k))\]
+    where \((\psi(v_1))^{-1}(v_i)\) are in \(0 \times \IR^{n-1}\). The well-definedness follows from \(\psi(v_1)^{-1}\) is an orthogonal matrix such that \(\psi(v_1)^{-1}(v_1) = e_1\). This means, that \(\psi(v_1)^{-1}(v_2, \dots, v_k)\) will be an orthonormal \(k-1\)-set that is also orthogonal to \(e_1\), i.e. they sit in \(0 \times \IR^{n-1}\). He also rambles, as to why this is continuous.
 
-        We remember the properties:
-        \begin{itemize}
-            \item \(\psi\) is contnuous
-            \item \(\psi(e_1) = \psi(1,0,0,\dots, 0) = E_n\)
-            \item \(\psi(w) \cdot e_1 = w\).
-        \end{itemize}
+    It is a homeomorphism. This shows that around \(e_1, e_2, \dots, e_k\) \(V_{k,n}\) is locally a manifold of dimension \((n-1) + \dim (V_{k-1,n-1}) = (n-1) + (n-2 + \dots + n-k)\).
 
-        \textbf{Warning.} Ther is no continuous map \(\tilde \psi \colon S^{n-1} \to O(n)\) such that \(\tilde \psi (w) \cdot e_1 = w\).
+    We have a continuous inverse:
+    \[S^{n-1}_+ \times V_{k-1, n-1} \to U \quad (v, w_1, \dots, w_{k-1}) \mapsto (v, \psi(v)(0,w_1), \dots, \psi(v)(0,w_{k-1}))\]
 
-        We show the manifold condition around \((e_1, \dots, e_k) \in V_{k,n}\). We set \(U = \set{(v_1, \dots, v_k) \in V_{k,n} : v_1 \in S^{n-1}_+}\) is open in \(V_{k,n}\) around \((e_1, \dots, e_k)\). The map
-        \[U \to S^{n-1} \times V_{k-1, n-1}, \quad (v_1, \dots, v_k) \mapsto (v_1, (\psi(v_1))^{-1}(v_2), \dots, (\psi(v_1))^{-1}(v_k))\]
-        where \((\psi(v_1))^{-1}(v_i)\) are in \(0 \times \IR^{n-1}\). The well-definedness follows from \(\psi(v_1)^{-1}\) is an orthogonal matrix such that \(\psi(v_1)^{-1}(v_1) = e_1\). This means, that \(\psi(v_1)^{-1}(v_2, \dots, v_k)\) will be an orthonormal \(k-1\)-set that is also orthogonal to \(e_1\), i.e. they sit in \(0 \times \IR^{n-1}\). He also rambles, as to why this is continuous.
+    Now let \((v_1, \dots, v_k) \in V_{k,n}\) be any point. We choose an extension to an orthonormal basis \((v_1, \dots, v_k, v_{k+1} , \dots, v_n)\). Set \(A = (v_1, \dots, v_n) \in O(n)\). then
+    \[A \cdot \_\colon V_{k,n} \to V_{k,n}\]
+    is a self homeomorphism that sends \((w_1, \dots, w_k) \mapsto (A \cdot w_1, \dots, A \cdot w_k)\) and specifically \(e_1, \dots, e_k\) to \(v_1, \dots, v_k\). So the homeomorphism takes the previous neighborhood \(U\) homeomorphically onto the neighborhood \(A \cdot U\) of \((v_1, \dots, v_k)\)
+\end{proof}
 
-        It is a homeomorphism. This shows that around \(e_1, e_2, \dots, e_k\) \(V_{k,n}\) is locally a manifold of dimension \((n-1) + \dim (V_{k-1,n-1}) = (n-1) + (n-2 + \dots + n-k)\).
+\begin{remark}
+    What we really showed is, that \(V_{k,n} \to S^{n-1}\), \((v_1, \dots, v_k) \mapsto v_1\) is a smooth locally trivial fiberbundle with fiber \(V_{k-1, n-1}\).
+\end{remark}
 
-        We have a continuous inverse:
-        \[S^{n-1}_+ \times V_{k-1, n-1} \to U \quad (v, w_1, \dots, w_{k-1}) \mapsto (v, \psi(v)(0,w_1), \dots, \psi(v)(0,w_{k-1}))\]
+\textbf{Note.} Complex Stiefel Manifold. We can also define
+\[V_{k,n}^\IC = \set{(v_1, \dots, v_k) \in \IC^n : \skal{v_i, v_j} = \delta_{i,j}}\]
+where \(\delta\) denotes the Kronecker-symbol and we use the hermitian complex bilinear product. 
 
-        Now let \((v_1, \dots, v_k) \in V_{k,n}\) be any point. We choose an extension to an orthonormal basis \((v_1, \dots, v_k, v_{k+1} , \dots, v_n)\). Set \(A = (v_1, \dots, v_n) \in O(n)\). then
-        \[A \cdot \_\colon V_{k,n} \to V_{k,n}\]
-        is a self homeomorphism that sends \((w_1, \dots, w_k) \mapsto (A \cdot w_1, \dots, A \cdot w_k)\) and specifically \(e_1, \dots, e_k\) to \(v_1, \dots, v_k\). So the homeomorphism takes the previous neighborhood \(U\) homeomorphically onto the neighborhood \(A \cdot U\) of \((v_1, \dots, v_k)\)
-    \end{proof}
+This is a manifold of dimension \((2n-1) + (2n-3) + (2n-5) + \dots + (2n-2k +1) = 2nk - k^2\). We will see.
+\[V_{0,n}^\IC = \set *, \quad V_{1,n}^\IC = S^{2n-1}, \quad V_{n-1,n} \cong SU(n), \quad V_{n,n} \cong U(n)\]
 
-    \begin{remark}
-        What we really showed is, that \(V_{k,n} \to S^{n-1}\), \((v_1, \dots, v_k) \mapsto v_1\) is a smooth locally trivial fiberbundle with fiber \(V_{k-1, n-1}\).
-    \end{remark}
+For the quaternions \(\IH = \IR\set{1, i,j,k}\) with \(i^2 = j^2 = k^2 = ijk = -1\), we have quaternionic conjugation \(\lambda = a + bi + cj + dk \to \bar \lambda a- bi - cj - dk\) that is an anti-isomorphism: \(\bar{\lambda \cdot \mu} = \bar \mu \cdot \bar \lambda\). This gives a \enquote{Quaternionic skalar product} on \(\IH^n\) is defined by \([x,y] \coloneq \bar{x_1} y_1 + \dots + \bar{x_n} \cdot y_n\) for \(x,y \in \IH^n\). This is an \(\IH\)-sesquilinear, non degenerate positive definete \(\IR\)-bilinear form.
 
-    \textbf{Note.} Complex Stiefel Manifold. We can also define
-    \[V_{k,n}^\IC = \set{(v_1, \dots, v_k) \in \IC^n : \skal{v_i, v_j} = \delta_{i,j}}\]
-    where \(\delta\) denotes the Kronecker-symbol and we use the hermitian complex bilinear product. 
+With the right definitions and being careful, all of this works.
 
-    This is a manifold of dimension \((2n-1) + (2n-3) + (2n-5) + \dots + (2n-2k +1) = 2nk - k^2\). We will see.
-    \[V_{0,n}^\IC = \set *, \quad V_{1,n}^\IC = S^{2n-1}, \quad V_{n-1,n} \cong SU(n), \quad V_{n,n} \cong U(n)\]
+This gives Quaternionic Stiefel manifolds:
+\[V_{k,n}^\IH = \set{(v_1, \dots, v_k) \in (\IH^n)^k : [v_i, v_j] = \delta_{i,j}}\]
+is a manifold of dimension \((4n-1) + (4n-5) + \dots + (4n - 4k +3) = 4nk - k(2k-1)\). And we see again
+\[V_{1,n}^\IH = S^{4n-1}, \quad V_{n,n}^\IH = Sp(n) = \set{A \in M(n\times n, \IH) : A\cdot \bar A ^t = \bar A ^t \cdot A = E_n}\]
+Where \(Sp\) is the simpletic group. There is no such thing as a special simpletic group, because you would need determinant for that, which then really needs commutativity.
 
-    For the quaternions \(\IH = \IR\set{1, i,j,k}\) with \(i^2 = j^2 = k^2 = ijk = -1\), we have quaternionic conjugation \(\lambda = a + bi + cj + dk \to \bar \lambda a- bi - cj - dk\) that is an anti-isomorphism: \(\bar{\lambda \cdot \mu} = \bar \mu \cdot \bar \lambda\). This gives a \enquote{Quaternionic skalar product} on \(\IH^n\) is defined by \([x,y] \coloneq \bar{x_1} y_1 + \dots + \bar{x_n} \cdot y_n\) for \(x,y \in \IH^n\). This is an \(\IH\)-sesquilinear, non degenerate positive definete \(\IR\)-bilinear form.
-
-    With the right definitions and being careful, all of this works.
-
-    This gives Quaternionic Stiefel manifolds:
-    \[V_{k,n}^\IH = \set{(v_1, \dots, v_k) \in (\IH^n)^k : [v_i, v_j] = \delta_{i,j}}\]
-    is a manifold of dimension \((4n-1) + (4n-5) + \dots + (4n - 4k +3) = 4nk - k(2k-1)\). And we see again
-    \[V_{1,n}^\IH = S^{4n-1}, \quad V_{n,n}^\IH = Sp(n) = \set{A \in M(n\times n, \IH) : A\cdot \bar A ^t = \bar A ^t \cdot A = E_n}\]
-    Where \(Sp\) is the simpletic group. There is no such thing as a special simpletic group, because you would need determinant for that, which then really needs commutativity.
-\end{example}
-
-\begin{example}[Graßmann manifolds]
+\begin{construction}[Graßmann manifolds]
     Let \(0 \leq k \leq n\) The Graßmann manifold of \(k\)-pairs in \(\IR^n\) is
     \[Gr(k,n) = Gr_k(n) = Gr_k(\IR^n) = \set{L \subseteq \IR^n : L \text{ is } k\text{-dimensional } \IR\text{-subspace.}}\]
     There is a surjective map
@@ -1642,13 +1651,13 @@ Now we do some examples that are a little more involved.
     we give \(Gr(k,n)\) the quotient topology. Next time we will see \(Gr(k,n)\) is a compact manifold of dimension \(k \cdot (n-k)\).
 
     The map \(Gr(k,n) \mapsto Gr(n-k,n)\) given by \(L \mapsto L^\perp\) is a homeomorphism.
-\end{example}
+\end{construction}
 
 \newLecture{12.05.2025}
 
-\begin{example}
+\begin{Example}
     We have \(Gr(1,n) = \IR P^{n-1}\).
-\end{example}
+\end{Example}
 
 \begin{thm}{Graßmann Manifolds}{}
     \(Gr(k,n)\) is a compact manifold of dimension \(k \cdot (n-k)\).
@@ -1747,12 +1756,14 @@ This works similarly for complex and quaternionic Stiefel/Graßmann manifolds. T
 
 \section{Orientations}
 
-\textbf{Notation.} We will write \(H_n(X)\) for \(H_n(X, \IZ)\).
+We will (again) try \(H_n(X)\) for \(H_n(X, \IZ)\) and see how long it takes for him to forget he wanted to drop the \(\IZ\) from the notation.
 
-For \(Y \subseteq X\), write \(H_n(X \mid Y)\coloneq H_n(X, X\setminus Y; \IZ)\), we call the \enquote{local homology of \(X\) at \(Y\)}.
+\begin{notation}
+For \(Y \subseteq X\), write \(H_n(X \mid Y)\coloneq H_n(X, X\setminus Y; \IZ)\), we call the \enquote{local homology of \(X\) at \(Y\)}\index{Local homology}.
 
 This is because for \(Y \subseteq U \subseteq X\), \(U\) a neighborhood of \(Y\), then excision gives
 \[H_n(U \mid Y) = H_n(U ; U\setminus Y; \IZ) \xrightarrow{\cong} H_n(X, X\setminus Y; \IZ) = H(X \mid Y)\]
+\end{notation}
 
 If \(M\) is an \(m\)-manifold, and \(x \in M\), then \(H_n(X \mid x) = H_n(X \mid \set x)\). This is \(\IZ\) iff \(m = n\) and else \(0\).
 
@@ -1767,7 +1778,7 @@ There are exactly two local orientations at every point.
 
     A subset \(B\) of \(M\) is a \emph{Local ball} if \(B\) is a local subset of \(M\), such that there exists a homeomorphism \(\phi \colon \IR^n \to M\) onto some open subset, sucht that \(\phi(\inner D^n) = B\).
 
-    \textbf{NOte.} IF \(B\) is a local ball in \(M\), then \(M\setminus B \to M \setminus \set x\) is a homotopy-equivalence (here we need the special definition of open ball). This induces a isomorphism \(r_x^B\colon H_m(M \mid B) \to H_m(X \mid x) \cong \IZ\) for all \(x \in B\).
+    \textbf{Note.} IF \(B\) is a local ball in \(M\), then \(M\setminus B \to M \setminus \set x\) is a homotopy-equivalence (here we need the special definition of open ball). This induces a isomorphism \(r_x^B\colon H_m(M \mid B) \to H_m(X \mid x) \cong \IZ\) for all \(x \in B\).
     If \(\mu\) is a local orientation at \(x\), i.e. a generator of \(H_m(X \mid B)\), we set \(U(B, \mu) = \set{(x, r_x^B(\mu)) : x \in B} \subseteq \tilde M\).
 \end{construction}
 
@@ -1786,9 +1797,9 @@ There are exactly two local orientations at every point.
 
         Choose a smaller local ball, s.t. \(x \in B'' \subseteq B \cap B'\). We consider the following diagram of local homology groups:
         \[\begin{tikzcd}
-            H_m(X \mid B) \ar[rrd, "r_x^B", "\cong"']\ar[d] \ar[dr, "\cong"] & & \\
+            H_m(X \mid B) \ar[rrd, "r_x^B", "\cong"', bend left=15]\ar[d] \ar[dr, "\cong"] & & \\
             H_m(X\mid B \cap B') \ar[r] & H_m(X \mid B'') \ar[r, "r_x^{B''}", "\cong"'] & H_m(X \mid x) \\
-            H_m(X \mid B') \ar[rru, "r_x^{B'}", "\cong"'] \ar[u] \ar[ur, "\cong"]\\
+            H_m(X \mid B') \ar[rru, "r_x^{B'}", "\cong"', bend right=15] \ar[u] \ar[ur, "\cong"]\\
         \end{tikzcd}\]
         so \(\mu\) and \(\mu'\) map to the same generator of \(H_m(X \mid B'')\). Set \(\mu'' = \incl_*(\mu) = \incl'_*(\mu')\). Then \((x, \nu) \in U(B'', \mu'') \subseteq U(B, \mu) \cap U(B', \mu)\)
 
@@ -1895,7 +1906,7 @@ We already know \(\IR P ^1\) and \(\IR P^3\) are orientable, as \(\IR P^1 \cong 
 
 \textbf{Recall.} The antipodal map \(A\colon S^n \to S^n\), given by \(x \mapsto -x\) has degree \((-1)^{n+1}\).
 
-Let \(\mu \in H_n(S^n, \IZ)\) be any generator, define an orientation on \(S^n\) by \(x \in S^n : \mu_x \coloneq \mu_x^{S^n}(\mu) \in H_n(S^n(x))\).
+Let \(\mu \in H_n(S^n, \IZ)\) be any generator, define an orientation on \(S^n\) by \(x \in S^n : \mu_x \coloneq r_x^{S^n}(\mu) \in H_n(S^n(x))\).
 
 We look at
 \[\begin{tikzcd}
@@ -1912,7 +1923,7 @@ this gives if \(n\) is even, then \(A \colon S^n \to S^n\) is orientation revers
  For \(n\) odd we have
 
  \begin{proposition}
-    Let \(f\colon N \to N\) be continuous free involution and a connected oriented \(m\)-manifold. Then
+    Let \(f\colon N \to N\) be continuous free involution of a connected oriented \(m\)-manifold. Then
     \begin{enumerate}
         \item \(M \coloneq N/x\sim f(x)\) is an \(m\)-manifold.
         \item If \(N\) is orientable and \(f\) is orientation preserving, then \(M\) is orientable.
@@ -1932,13 +1943,11 @@ this gives if \(n\) is even, then \(A \colon S^n \to S^n\) is orientation revers
 
  Then \(\IR P^n\) is orientable for \(n\) odd.
 
-\textbf{Next.} For a \(m\)-manifold and for all \(n > m\): \(H_n(M,A) = 0\).
-
-\enquote{Homology vanishes above the geometric dimension.}
+\textbf{Next.} We want to show, that for a \(m\)-manifold and all \(n > m\): \(H_n(M,A) = 0\).
+As a slogan \enquote{Homology vanishes above the geometric dimension.}
 
 In many examples, \(m\)-manifolds \(M\) have \(m\)-dimensional CW-structure, e.g.
 \[S^n, \IR P^n, \IH P^n, \IC P^n\]
-
 We could also produce CW-strucutre on the Grassmannians and Stiefel-Manifolds.
 
 \textbf{Warning.} an \(m\)-manifold need not admit a CW-structure! Smooth manifolds admit triangulations, hence CW-structures. But there are non-smoothable manifolds, that do not admit CW-structures.
@@ -1949,9 +1958,9 @@ We could also produce CW-strucutre on the Grassmannians and Stiefel-Manifolds.
         \item \(H_i(M, M\setminus K; A) = 0\) for all \(i > n\) and \(A\) any abelian group.
         
         In particular, if \(M\) is compact, then \(H_i(M; A) = 0\) for all \(i > n\) and all \(A\).
-        \item A class in \(H_n(M, M\setminus K, A)\) is zero if and only if for all \(x \in K\), its image under \(r_*^K\colon H_n(M, M\setminus K, A) \to H_n(M, M\setminus \set x; A)\) is zero.
+        \item A class in \(H_n(M, M\setminus K, A)\) is zero if and only if for all \(x \in K\), its image under \(r_x^K\colon H_n(M, M\setminus K, A) \to H_n(M, M\setminus \set x; A)\) is zero.
         
-        In particular, if \(M\) is compact, the map \(r_x\colon H_n(M,A) \to H_n(M, M \setminus \set x; A)\) are jointly injective.
+        In particular, if \(M\) is compact, the maps \(r_x\colon H_n(M,A) \to H_n(M, M \setminus \set x; A)\) are jointly injective.
     \end{enumerate}
 \end{thm}
 
@@ -1999,7 +2008,7 @@ We could also produce CW-strucutre on the Grassmannians and Stiefel-Manifolds.
         H_m(M, M \setminus \set x; \IZ) \otimes H_n(N, N \setminus \set x; \IZ) \ar[r, "\times"] & H_{m+n}(M\times N, M \times (N\setminus \set y) \cup (M\setminus \set x)\times N; \IZ) \\
     \end{tikzcd}\]
     \enquote{We can combine local orientations to get some in the product.}
-    \(\mu \times \nu\) is a local orientation of \(M \times N\) at \((x,y)\). Because we did'nt make any choices, this is probably continuous. Let \(\set{\mu_x}_{x \in X}\) and \(\set{\nu_y}_{y \in Y}\) be orientation of \(M\) and \(N\). Then \(\set{\mu_x \times \nu_y}_{(x,y) \in X \times Y}\) is an orientation of \(M \times N\).
+    \(\mu \times \nu\) is a local orientation of \(M \times N\) at \((x,y)\). Because we didn't make any choices, this is probably continuous. Let \(\set{\mu_x}_{x \in X}\) and \(\set{\nu_y}_{y \in Y}\) be orientation of \(M\) and \(N\). Then \(\set{\mu_x \times \nu_y}_{(x,y) \in X \times Y}\) is an orientation of \(M \times N\).
 \end{construction}
 
 \textbf{End of interlude.}
@@ -2061,7 +2070,7 @@ We could also produce CW-strucutre on the Grassmannians and Stiefel-Manifolds.
     \end{description}
 \end{proof}
 
-\subsection{The fundamental class}
+\section{The fundamental class}
 
 We know \(H_n(S^n; \IZ) \cong \IZ\), \(H_{k+l}(S^k \times S^l; \IZ) \cong \IZ, \; H_n(S^n \amalg S^n; \IZ) \cong \IZ \oplus \IZ\) annd \(H_{2n}(\IC P^n; \IZ) \cong \IZ\)
 , \(H_{4n}(\IH P^n; \IZ) \cong \IZ\)
@@ -2077,7 +2086,7 @@ We want to show:
 \begin{proposition}
     Let \(M\) be a compact connected \(n\)-manifold. Then
     \[H_n(M; \IZ) \cong \begin{cases}
-        \IZ & \text{ if} M \text{ is orientable} \\
+        \IZ & \text{ if } M \text{ is orientable} \\
         0 & M \text{ is not orientable.}
     \end{cases}\]
 \end{proposition}
@@ -2101,9 +2110,9 @@ If in addition \(M\) is connected, then \([M]\) generates \(H_n(M, \IZ) \cong \I
         \item[Step 1] Suppose \(K\) is contained in an open subset \(U\) homeomorphic to \(\IR^n\). Then \(K\) is contained in a local ball \(B\) in the sense of the definition of the orientation covering. We consider the commutative diagram:
         For \(x, y \in K\):
         \[\begin{tikzcd}
-            H_n(M \mid B) \ar[d, "r_K^B"]\ar[dd, bend right, "r_x^B \; \cong"] \ar[ddr, bend left, "r_y^B \; \cong"] & \\
-            H_n(M \mid K) \ar[d, "r_x^K"] \ar[dr, "r_y^K"] & \\
-            H_N(M \mid x) & H_n(M \mid y) \\
+            &H_n(M \mid B) \ar[d, "r_K^B"]\ar[ldd, bend right, "r_x^B \; \cong"] \ar[ddr, bend left, "r_y^B \; \cong"] & \\
+            &H_n(M \mid K) \ar[ld, "r_x^K"] \ar[dr, "r_y^K"] & \\
+            H_N(M \mid x)&  & H_n(M \mid y) \\
         \end{tikzcd}\]
         Then \(r_K^B(\mu_B)\) has the desired property.
 
@@ -2165,13 +2174,15 @@ We draw some corollaries:
 
 \newLecture{28.05.2025}
 
+\chapter{Cap Product}
+
 Due to missing the last lecture I intented to copy the repetition Schwede does at the beginning of his lecture. However, public transport prevented me from copying the start of the Repetition. The most important definition of last lecture was the Cap-Product:
 
 It will later be used for Poíncare-Duality.
 
 \begin{defi}{Cap-Product}{}
     Let \(X\) be a simplicial set, \(Y \subseteq X\) simplicial subset, \(R\) any commutative ring. For \(0 \leq i \leq n\) we define
-    \[\cap \colon C_n(X, Y ; R) \times C^{i}(X,Y, R) \to C_{n-1}(X;R)\]
+    \[\cap \colon C_n(X, Y ; R) \times C^{i}(X,Y, R) \to C_{n-i}(X;R)\]
     given by
     \[x \in C_n(X,Y;R) = \frac{R[X_n]}{R[Y_n]}, f \in C^{i}(X,Y;R), \text{i.e. } f \colon X_i \to R, f(Y_i) = \set{0}\]
     and
@@ -2180,7 +2191,7 @@ It will later be used for Poíncare-Duality.
 \end{defi}
 
 \begin{proposition}
-    \(Y \subseteq X\) simplicial sets, \(R\) some commutative ring. Then the following hold:
+    Let \(Y \subseteq X\) be simplicial sets, \(R\) some commutative ring. Then the following hold:
     \begin{enumerate}
         \item \(d(x \cap f) = (-1^{i}) \cdot (dx \cap f - x \cap df)\) for \(x \in C_n(X,Y;R), f \in C^{i}(X,Y;R)\)
         \item The cap product descends to a well defined and \(R\)-bilinear map
@@ -2224,6 +2235,8 @@ It will later be used for Poíncare-Duality.
     \end{enumerate}
 \end{proof}
 
+\chapter{Poincaré Duality}
+
 \section{Cohomology with compact support}
 
 We are working towards:
@@ -2244,7 +2257,7 @@ Our idea is to proof this by
 
 However, we have a problem: \(M = \IR\) is an oriented \(1\)-manifold. \(H^{1}(R; \IZ) \cong 0\), but \(H_0(\IR; \IZ) \cong \IZ\), which is not the same.
 
-To solve this, we introduce Compactly supported cohomology as a variation of singular cohomology that has Poincare duality for not necessarily compact manifolds: We will get
+To solve this, we introduce Compactly supported cohomology as a variation of singular cohomology that has Poincaré duality for not necessarily compact manifolds: We will get
 \[H_{comp}^{i}(M; \IZ) \xrightarrow{\cong} H_{n-i}(M; \IZ)\]
 for compact \(M\).
 
@@ -2415,7 +2428,7 @@ giving a commutative triangle of cohomology groups:
 \end{proof}
 
 \begin{excursion}[filtered colimits.]
-    \begin{definition}
+    \begin{Definition}
         A PoSet (partially ordered set) is a pair \((P, \leq)\) consisting of a set \(P\) and a relation \(\leq\), that is
         \begin{itemize}
             \item reflexve
@@ -2424,7 +2437,7 @@ giving a commutative triangle of cohomology groups:
         \end{itemize}
 
         A poset \((P, \leq)\) is \emph{filtered} if for all \(x,y \in P\), there is \(z \in P\) s.t. \(x \leq z, y \leq z\).
-    \end{definition}
+    \end{Definition}
 
     Some examples are
     \begin{itemize}
@@ -2472,9 +2485,9 @@ giving a commutative triangle of cohomology groups:
         \[H^i_{comp}(X,A) = H^i(\colim_{\cC(X)} C^*(X, X\setminus K; A)) \xleftarrow{\cong} \colim_{\cC(X)} H^i(C^*(X,X\setminus K; A)) = \colim_{\cC(X)} H^i(X, X\setminus K;A)\]
     \end{corollary}
 
-    \begin{definition}
+    \begin{Definition}
         Let \((P \leq)\) be a poset. Let \(Q \subseteq P\) a subset. \(Q\) is \emph{cofinal} in \(P\), if for all \(x \in P\), there is \(y \in Q\) such that \(x \leq y\).
-    \end{definition}
+    \end{Definition}
 
     If \(P\) is filtered, \(Q\) cofinal in \(P\), then \(Q\) is also filtered.
 
@@ -2539,7 +2552,7 @@ The maps \(\iota_Y^X\) form a covariant fun ctor from the poset op open subsets 
 
 \section{The duality map}
 
-For compact oriented manifolds \(M\), Poincáre duality says that
+For compact oriented manifolds \(M\), Poincaré duality says that
 \[[M] \cap \_ \colon H^i(M; \IZ) \to H_{n-i}(M;\IZ)\]
 is an isomorphism.
 
@@ -2616,11 +2629,9 @@ This will be an isomorphism.
     So \(D_M\) is a surjection between free abelian groups of rank 1, hence an isomorphism!
 \end{proof}
 
-We now prooved Poincáre duality for \(\IR^n\). This is in itself of course not very exciting, but the first step for the bootstrapping we will do later. For that we will develop a Mayer-Vietoris sequence for compactly supported cohomology.
+We now prooved Poincaré duality for \(\IR^n\). This is in itself of course not very exciting, but the first step for the bootstrapping we will do later. For that we will develop a Mayer-Vietoris sequence for compactly supported cohomology.
 
-We now first need
-
-\subsection{Naturality of the duality map}
+We now first need to show naturality of the duality map.
 
 We let \(M\) be a \(n\)-manifold, \(\mu = \set{\mu_x}_{x \in X}\) an orientation and \(U\) an open subset of \(M\). Then \(\set{r_U^M(\mu_x)}_{x\in U}\) is an orientation of \(U\).
 
