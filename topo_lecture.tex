@@ -2176,16 +2176,16 @@ We draw some corollaries:
 
 \chapter{Cap Product}
 
-Due to missing the last lecture I intented to copy the repetition Schwede does at the beginning of his lecture. However, public transport prevented me from copying the start of the Repetition. The most important definition of last lecture was the Cap-Product:
+Due to missing the last lecture I intended to copy the repetition Schwede does at the beginning of his lecture. However, public transport prevented me from copying the start of the Repetition. The most important definition of last lecture was the Cap-Product:
 
 It will later be used for Poíncare-Duality.
 
 \begin{defi}{Cap-Product}{}
     Let \(X\) be a simplicial set, \(Y \subseteq X\) simplicial subset, \(R\) any commutative ring. For \(0 \leq i \leq n\) we define
     \[\cap \colon C_n(X, Y ; R) \times C^{i}(X,Y, R) \to C_{n-i}(X;R)\]
-    given by
+    for
     \[x \in C_n(X,Y;R) = \frac{R[X_n]}{R[Y_n]}, f \in C^{i}(X,Y;R), \text{i.e. } f \colon X_i \to R, f(Y_i) = \set{0}\]
-    and
+    given by
     \[x \cap f = \underbrace{f(x[0,i])}_{\in R} \cdot x[i, n]\]
     and then i missed something due to broken board
 \end{defi}
@@ -2588,7 +2588,7 @@ This will be an isomorphism.
         H_{comp}^i(M; \IZ) \ar[r] & H_{n-i}(M; \IZ) \\
         H^i(M, M\setminus K; \IZ) \ar[u, "\lambda_K"] \ar[ru, "\mu_K \cap \_"] & \\
     \end{tikzcd}\]
-    This can be thought of to some extend as \enquote{capping with a non-existent fundamental class.}
+    This can be thought of to some extent as \enquote{capping with a non-existent fundamental class.}
 \end{construction}
 
 \begin{proposition}
@@ -2707,6 +2707,148 @@ We let \(M\) be a \(n\)-manifold, \(\mu = \set{\mu_x}_{x \in X}\) an orientation
         \end{tikzcd}\]
     \end{enumerate}
 \end{construction}
+
+
+\newLecture{16.06.2025, today held by Tobias Lenz}
+
+\textbf{Reminder.} Our goal is to proof Poincaré duality:
+
+\begin{thm}{Poincaré Duality}{}
+    \begin{itemize}
+        \item Let \(M\) be a compact oriented manifold of dimension \(n\), \(\mu \in H_n(M)\). Then
+        \[D = \mu \cap \_ \colon H^k(M) \xrightarrow{\cong} H_{n-k}(M)\]
+        \item Let \(M\) be an oriented manifold of dimension \(n\); then
+        \[D \colon H_{comp}^k(M) \xrightarrow{\cong} H_{n-k}(M)\]
+    \end{itemize}
+\end{thm}
+
+We have seen \(\lambda_K \colon H^*(X, X\setminus K) \to H_{comp}^*(X)\). Together with a filtered colimit due to the following commutative diagram.
+\begin{Proposition}
+    Let \(X\) be Hausdorff. Then
+    \[\begin{tikzcd}
+        H^*(X,X\setminus K) & & \\
+        & H^*_{comp}(X) & B \\
+        H^*(X,X \setminus L) \\
+    \end{tikzcd}\]%%Arrows
+\end{Proposition}
+We have then seen the following application:
+\begin{Proposition}
+    Let \(X\) be Hausdorff, \(U \subseteq X\).
+    \[\begin{tikzcd}
+        H^*(U, U\setminus K) \ar[r, "\lambda"] \ar[d] & H_{comp}^*(U) \ar[d, dotted, "\exists !"] \\
+        H^*(X, X\setminus K) \ar[r, "\lambda"] & H^*_{comp}(X) \\
+    \end{tikzcd}\]
+    We write \(\iota_U^X \eqcolon i_*\).
+\end{Proposition}
+
+Now for \(X\) locally compact and Hausdorff, \(U,V \subseteq X\) open with \(X = U \cup V\). We then get a \enquote{Mayer-Vietoris sequence}:
+\[H_{comp}^k(U \cap V) \xrightarrow{i_*, j_*} H_{comp}^k(U) \oplus H_{comp}^k(V) \xrightarrow{(k_* - l_*)} H_{comp}^*(U \cup V) \xrightarrow{\partial ????}\]
+We search for this boundary map.
+
+\begin{construction}
+    to construct \(\partial\colon H_{comp}^*(U \cup V) \to H_{comp}^k(U \cap V)\) give 
+    \[\partial_C \colon H_{comp}^*(U \cup V , U \cup V \setminus C) \to H_{comp}^{k+1}(U \cap V)\]
+    for all \(C \subseteq U \cup V\) compact. Any such \(C\) decomposes as \(C = K \cup L\) with \(K \subseteq U, L \subseteq V\) compact. We have the Mayer-Vietoris sequence in relative cohomology. This yields
+    \[H^k(X, X\setminus C) = H^k(X, (X\setminus K) \cap (X \setminus L)) \xrightarrow{\partial} H^{k+1}(X, X\setminus(K \cap L)) \xrightarrow{\lambda} H_{comp}^{k+1}(X).\]
+    We need to show well definedness. For that take \(C = K \cup  L = \bar K \cup \bar L, K \subseteq \bar K, L \subseteq \bar L\). Then
+    \[\begin{tikzcd}
+        {H^k(X, X\setminus (K \cup L))} \ar[ddd, bend right, "\partial_{K,L}"'] \ar[r, "\incl_*"] \ar[d, "\partial"] & {H^k(X, X\setminus(\bar K \cup \bar L))} \ar[d, "\partial"] \\
+        {H^{k+1}(X, X\setminus (K \cap L))} \ar[r, "\incl_*"] \ar[d, "\text{excision}", "\cong"'] & {H^{k+1}(X, X\setminus (\bar K\cap \bar L))} \ar[d, "\text{excision}", "\cong"'] \\
+        {H^{k+1}(U \cap V, (U \cap V) \setminus (K \cap L))} \ar[r, "\incl_*"] \ar[d, "\lambda_{K \cap L}"] & {H^{k+1}(U \cap V, U \cap V\setminus(\bar K \cap \bar L))} \ar[dl, "\lambda_{\bar K \cap \bar L}"] \\
+        H_{comp}^{k+1}(U \cap V) & \\
+    \end{tikzcd}\]
+    Now for independence of choices take \(C = K \cup L = K' \cup L'\) and set \(\bar K = K \cup K'\) and \(\bar L = L \cup L'\). Then \(\partial_{K,L} = \partial_{\bar K, \bar L} = \partial_{K', L'}\).
+
+    Now for compatibility with inclusions, \(C \subseteq \bar C\) compact. Then \(\bar C = \bar K \cup \bar L\) and \(K \coloneq \bar K \cap C\), \(L \coloneq \bar L \cap C\) and the diagram we just drew gives
+    \[\begin{tikzcd}
+        H^k(X, X\setminus C) \ar[rr, "\incl_*"] \ar[rd, "\partial_C"] && H^k(X, X\setminus \bar C) \ar[dl, "\partial_{\bar C}"] \\
+        & H_{comp}^{k+1}(U \cap V) &\\
+    \end{tikzcd}\]
+
+    \begin{proposition}
+        The Mayer-Vietoris sequence given by \(\partial\) is exact.
+    \end{proposition}
+
+    \begin{proof}
+        We want to use facts about filtered colimits from the exercises.
+
+        \begin{lemma}
+            Let \(f\colon P \to Q\) be surjective order preserving map of filtered posets Let \(X \colon Q \to \mathbf{Ab}\). Then there exists a unique map \(\Psi\colon \colim_{P}(X_{f(p)}) \to \colim_Q(X)\), such that \(\Psi \lambda_P = \lambda_{f(p)}\). and this is an isomorphism.
+        \end{lemma}
+
+        \begin{lemma}
+            Let \(I\) be a small category, \(X,Y \colon I \to \mathbf{Ab}\) with colimits \((X_i \xrightarrow{\lambda_i} \colim_I(X))_{i \in I}\) and analogous for \(Y\) with \(\mu_i\).
+
+            Then \((X_i \oplus Y_i \xrightarrow{\lambda_i \oplus \mu_i} (\colim_I(X)) \oplus (\colim_I(Y)))_{i \in I}\) is again a colimit.
+        \end{lemma}
+        \begin{proof}
+            We check the universal property. Let \(X_i \oplus Y_i \xrightarrow{(\phi_i , \psi_i)} B)_{i \in I}\) compatible.
+            \begin{description}
+                \item[Uniqueness] Assume \((\colim_I X \oplus \colim_I Y) \xrightarrow{(\alpha_1, \alpha_2)} B\) such that \((\alpha_1, \alpha_2) \circ (\lambda_i \oplus \mu_i) = (\phi_i, \psi_i)\) for all \(i \in I\). Then \(\alpha_1 \lambda_i = \phi_i\) and by the universal propertie of colimits \(\alpha_1\) is unique. Similarly for \(\alpha_2\) and by the universal property of \(\bigoplus\) \(\alpha\) is unique.
+                \item[Existence] The same argument backwardds, using existence part of the universal properties of \(\colim_I\) and \(\bigoplus\). 
+            \end{description}
+        \end{proof}
+
+        Let \(P \coloneq \set{(K,L) \mid K \subseteq U \text{ compact }, L \subseteq V \text{ compact}}\) given as a Poset by \((K,L) \leq (K', L
+        ')\), if and only if \(K \subseteq K'\) and \(L \subseteq L'\). This is again filtered.
+
+        For every \((K,L) \in P\) we have a Mayer-Vietoris sequence
+        \[\dots \to H^k(X, X\setminus (K \cap L)) \to H^k(X, X\setminus K) \oplus H^k(X, X\setminus L) \to H^k(X, X\setminus(K \cup L)) \to \dots\]
+        By an exercise\footnote{That we didn't have to do yet} We have the filtered colimit over \(P\) is again exact.
+
+        Now
+        \begin{itemize}
+            \item \[\colim_{(K,L) \in P} H^k(X, X\setminus (K \cap L)) \cong \colim_{c \in U \cap V \text{ compact}} H^k(X, X\setminus C) \cong \colim_{C \subseteq U \cap V} H^k(U \cap V, (U \cap V) \setminus C) \cong H_{comp}^K(U \cap V).\]
+            \(P \to \set{\text{compact subsets of } U \cap V}\), \((K.L) \mapsto K \cap L\), \((C,C) \mapsto C\).
+            \item \[\begin{split}
+                \colim_{(K,L) \in P}(H^k(X, X\setminus K) \oplus H^k(X, X\setminus L)) &\cong \colim_{(K,L)} H^k(X,X\setminus K) \oplus \colim_{K,L} H^k(X, X\setminus L) \\
+                &\cong \colim_{K \subseteq U\text{ compact}} H^k(X, X\setminus K) \oplus \colim_{L \subseteq V \text{ compact}} H^k(X, X\setminus L) \\
+                &\underset{\text{exc.}}{\cong} \colim_{K \subseteq U} H^k(U, U \setminus K) \oplus \colim_{L \subseteq V} H^k(V, V\setminus L) \\
+                &\cong H_{comp}^k(U) \oplus H_{comp}^k(V)
+            \end{split}\]
+            \item \[\colim_{(K,L)} H^k(X, X\setminus (K \cup L))\]
+            Last time we did \(P \to \set{\text{compact subsets of } X = U \cap V}\) is surjective. Something is missing here.
+        \end{itemize}
+
+        We have more stuff to proof, unfortunately I have no idea what and we are skipping it. Check at home: the maps are what I claimed they are.
+    \end{proof}
+\end{construction}
+
+\begin{proposition}
+    We have a map of exact sequences between the Mayer Vietoris sequence for compactly supported cohomology and the Mayer Vietoris sequence for normal homology given by the Duality map. We want to check that commutes. That is clear for all but one of the squares. We now calculate that. It only commutes up to sign, but that will be enough to apply 5-lemma later.
+\end{proposition}
+
+\begin{proposition}
+    Let \(M = U \cup V\) be an oriented \(n\)-manifold.
+    \[\begin{tikzcd}
+        H_{comp}^k(M) \ar[r, "\partial"] \ar[d, "D_M"] & H_{comp}^{k+1}(U \cap V) \ar[d, "D_{U \cap V}"] \\
+        H_{n-k}(M) \ar[r, "\partial"] & H_{n-k-1}(U \cap V) \\
+    \end{tikzcd}\]
+    ommutes up to \((-1)^{k+1}\).
+\end{proposition}
+\begin{proof}
+    It suffices that the following commutes for all \(C = K \cup L \subseteq M\) compact:
+    \[\begin{tikzcd}
+        H^k(M,M \setminus (K \cup L))  \ar[d, "\lambda"] & \\
+        H_{comp}^k(M) \ar[d, "D_M"] \ar[r, "\partial"] & H_{comp}^{k+1}(U \cap V) \\
+        H_{n-k}(M) \ar[r, "\partial"] & H_{n-k-1}(U \cap V) 
+    \end{tikzcd}\]
+    And the board hid the rest of the diagram before I could copy. We get another diagram:
+
+    I lacked the energy to copy the rest of the proof. Very exhausting long computation.
+\end{proof}
+
+\begin{corollary}
+    Let \(M\) be an oriented \(n\)-manifold, \(U, V \subseteq M\) open. Assume \(U, V, U \cap V\) satisfy Poincaré duality. Then \(M\) satisfies Poincaré duality.
+\end{corollary}
+
+\begin{proof}
+    We have the (almost)-morphism of Long exact sequences. We want to aplly 5-lemma. For that we change the signs in the correct vertical maps. Then \(D_{U \cup V}\) is by \(5\)-lemma an isomorphism.
+\end{proof}
+
+\begin{corollary}
+    Let \(M\) be an oriented \(n\)-manifold, \(U_1, \dots, U_k \subseteq M\) open such that \(\bigcap_{i \in I} U_i\) satisfies Poincaré duality for all \(\emptyset \neq I \subseteq \set{1, \dots, n}\). Then \(M\) satisfies Poincaré duality.
+\end{corollary}
 
 
 \end{document}
