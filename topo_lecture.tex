@@ -2851,4 +2851,219 @@ We search for this boundary map.
 \end{corollary}
 
 
+\newLecture{18.06.2025}
+
+\breakline{Unable to attend the lecture, unfortunately}
+
+\newLecture{23.06.2025}
+
+\begin{thm}{}{}
+    Let \(M\) be a compact oriented \(n\)-manifold, \(K \subseteq M\) closed semilocally contractible. Then
+    \[H_i(M, M\setminus K; \IZ) \cong H^{n-i}(K, \IZ)\]
+\end{thm}
+
+We still need to proove:
+
+\begin{thm}{}{}
+    \(M\) compact manifold. Then \(M\) embeds as a retract of a finite \(CW\)-complex.
+\end{thm}
+
+\begin{defi}{}{}
+    A topological space \(X\) is called a Euclidean neighborhood retract (ENR), if it admits an embedding \(X \hookrightarrow \IR^m\) and for any embeding \(j\colon X \hookrightarrow \IR^m\) there exists \(U \supseteq j(X)\) a neighborhood retraction onto \(X\), i.e. there is a map \(r\colon U \to X\) such that \(r \circ j = \Id_X\).
+\end{defi}
+
+\begin{thm}{}{}
+    Let \(K \subseteq \IR^n\) compact semilocally contractible, then \(K\) is an ENR. In particular, every compact manifold is an ENR.
+\end{thm}
+
+\begin{proof}[Proof Of 2nd theorem]
+    Fix a closed embedding \(M \hookrightarrow \IR^n\). There exists \(U \supseteq \phi(M) \eqcolon K\), together with \(r\colon U \to M\) a retraction. WLog we have \(U \subseteq [-R, R]^n\) for some \(R\in \IN\).
+    
+    By Lebesque-Lemma, there exists some \(\epsilon > 0\), such that every open cube of length \(\leq \epsilon\) is contained in \(U\) or in \([-R , R]\setminus K\). Take \(N >> 0\), such that \(N^{-1} < \epsilon\). and subdivide \([-R, R]^n\) into \((2RN)^n\) cubes of side length \(1/N\). Then if \(A\) is the union of all cubes intersecting \(K\), then \(K \subseteq A \subseteq U\). In particular \(A\) retracts to \(K\). But \(A\) is naturally a finite CW-complex.
+\end{proof}
+
+\begin{proof}[Proof of 1st theorem]
+    Fix \(U \supseteq K\) open neighborhood, and consider \(\mu \in H_n(M)\) roientation. As \(M \setminus K, U\) is an open cover, we find a represantative of \(\mu\) of the form \(\alpha + \beta\), with \(\alpha \in C_n(M \setminus K)\), and \(\beta \in C_n(U)\). Then \(d\alpha + d\beta = 0\), so \(d\alpha, d\beta \in C_{n-1}(M \setminus K)\). In particular \(\alpha, \beta\) define elements in \(H_n(M\setminus K, U \setminus K)\) and \(H_n( U, U \setminus K)\), respectively. We have
+    \[\begin{tikzcd}
+        \dots \ar[r] & H^{n-i}(M, U) \ar[d, "\cong"] \ar[r] & H^{n-i}(M) \ar[dd, "\mu \cap \_"] \ar[r] & H^{n-i}(U) \ar[d, "\beta\cap \_"] \ar[r, "\partial"] & H^{n-i+1}(M,U) \ar[d, "\cong"] \\
+        & H^{n-i}(M\setminus K, U \setminus K) \ar[d, "\alpha\cap \_"] & & H_i(U, U\setminus K) \ar[d, "\cong"] & H^{n-i+1}(M\setminus K, U \setminus K) \ar[d, "\alpha\cap \_"] \\
+        \dots \ar[r] & H_i(M\setminus K) \ar[r] & H_i(M) \ar[r] & H_i(M, M\setminus K) \ar[r, "\partial"] & H_{i-1}(M \setminus K)\\
+    \end{tikzcd}\]
+    This diagram commutes up to sign for reasons I didn't copy.
+
+    I did not copy the rest of the proof.
+\end{proof}
+
+\begin{proposition}
+    Let \(K \subseteq M \subseteq \IR^n\) be ENRs, \(U_0 \subseteq M\) open neighborhood of \(K\) in \(M\). Then there exists some \(U \subseteq U_0\)open neighborhood together with a retraction \(\tau\colon U \to K\), such that \(\tau\colon U \to U_0\) is homotopic to the inclusion.
+\end{proposition}
+
+\begin{lem}{}{}
+    Tke \(f_0, f_1 \colon X \to Y\) be two maps agreeing on some subspace \(A\), \(H\) a homotopy \(f_0 \Ra f_1\) relative \(A\). Moreover, let \(V\) be a neighborhood of \(f_0(A) = f_1(A)\). Then there exists an open neighborhood \(U\) of \(A\), such that \(H\) restricts to a homotopy of maps \(U \to V\).
+\end{lem}
+
+\begin{proof}
+    Did not copy.
+\end{proof}
+
+\begin{proof}[Proof of proposition]
+    Did not copy.
+\end{proof}
+
+After this I stopped following the lecture entirely.
+
+\newLecture{30.06.2025}
+
+We finished what Schwede did in Topology last time.
+
+We will start with a bit of Homotopy theory. This will continue in AlgTop I.
+
+Schwede will not have lecture videos. He might have a script but probably not.
+
+\part{Homotopy Theory}
+
+\section{Fiber Bundles}
+
+We might know
+\begin{itemize}
+    \item Covering Spaces
+    \item Vector bundles: continuous maps \(p \colon E \to. B\) that locally in \(B\) look like \(B \times \IR^n\).
+    \item In the proof of the manifold property of \(V_{k,n} = \set{(v_1, \dots, v_k) \in (\IR^n)^k; \skal{v_i, v_j} = \partial_{i,j}}\). We showed that \(V_{k,n} \to S^{n-1}\) locally in \(S^{n-1}\) looks like a product with \(V_{k-1, n-1}\).
+\end{itemize}
+
+We will see \enquote{Fiberbundles \(=\) twisted products}.
+
+\begin{defi}{Fiber Bundle}{}\index{Fiber bundle}
+    A (locally trivial) fiber bundle is a continuous map \(p \colon E \to B\) such that for all \(b \in B\), there is a neighborhood \(U\) of \(b\) in \(B\) and a homeomorphism \(u\colon p^{-1}(U) \xrightarrow{\cong} E_b \times U\). where \(E_b = p^{-1}(\set{b})\) is the \emph{fiber over \(b\)}, and the following commutes:
+    \[\begin{tikzcd}
+        p^{-1}(U) \ar[rd, "p\rvert_{p^{-1}(U)}"] \ar[rr, "u", "\cong"'] & & E_b \times U \ar[dl, "proj."] \\
+        & U & 
+    \end{tikzcd}\]
+\end{defi}
+
+\begin{notation}
+    \(B\) is called the base space, \(E\) is called the total space.
+\end{notation}
+
+\begin{example}
+    There is the trivial fiber bundle \(proj.\colon F\times B \to B, \; (f,b) \mapsto b\). for \(F,B\) topological spaces.
+
+    There are trivialisable fiber bundles, i.e. \(p\colon E \to B\), such that there is a space \(F\) and a homeomorphism \(u \colon E \to F\times B\) over \(B\)\footnote{A map over \(B\) requires the triangle to commute}.
+\end{example}
+
+\begin{defi}{Isomorphism of Fiber bundles}{}
+    A isomorphism of fiber bundles from \(E \xrightarrow{p} B\) to \(E' \xrightarrow{p'} B\) is a homeomorphism \(\psi \colon E \to E'\) such that \(p' \circ \psi = p\).
+\end{defi}
+
+Now Trivialisable is equivalent to isomorphic to a trivial bundle.
+
+Given a fibre bundle \enquote{in nature}, it might not be obvious at all whether or not it is trivialisable.
+
+\begin{Example}
+    For which \(n \geq 1\) is the tangent bundle
+    \[\begin{tikzcd}
+        T(S^n) \ar[d, "=", phantom, sloped] \ar[r, "p"] & S^n \\
+        \set{(v,x) \in S^n \times \IR^{n+1} \mid \skal{v,x} = 0} & \\
+    \end{tikzcd}\]
+    trivialisable?
+
+    It is trivialisable for \(n =1\) (which you can apparently see) and \(n = 3\) using the Lie group structure \(S^3 \cong SU(n)\) and \(n = 7\) via the octonian multiplication on \(S^7 \subseteq \IR^8\).
+
+    There is a non-trivial theorem: \(T(S^n)\) is not trivialisable for \(n \neq 1,3,7\).
+\end{Example}
+
+\begin{remark}
+    \enquote{The fiber  of a fiber bundle is locallly constant.}. If \(p\colon E \to B\) is a fiber bundle, \(b \in U \subseteq B\) a neighborhood as in the definition of \enquote{locally trivial}, then \(p^{-1}(U) \xrightarrow[\cong]{u} F \times U\). Then for all \(b' \in U\) the fibre \(p^{-1}(\set{b'})\) is homeomorphic to \(F\) and hence to \(p^{-1}(\set b)\). So
+    \[\set{b' \in B \mid p^{-1}(\set{b'}) \cong p^{-1}(\set b)}\]
+    is open in \(B\). So if \(B\) is connected, then all fibers are homeomorphic.
+
+    But if \(B = B_1 \amalg B_2\), then the biber over poitns in \(B_1\) must not be related to fibers over points in \(B_2\).
+
+    So often it is no loss of generality to assume that the base is connected.
+\end{remark}
+
+Note that \(n\)-dimensional vector bundles over \(B\) are not the same as locally trivial fibrations with bfiber \(\IR^n\). The difference can be explained by \enquote{structure groups}.
+
+\begin{construction}
+    Let \(p \colon E \to B\) be a fiber bundle such that all fibers are homeomorphic to \(F\), (e.g. \(B\) is connected). Then there is a open cover \(\set{U_i}_{i \in I}\) of \(B\) and local trivialisations \(\psi_i\colon p^{-1}(U_i) \cong F \times U_i\) over \(U_i\) for all \(i \in I\).
+
+    Then for all \(i,j \in I\), we obtain a homeomorphism over \(U_i \cap U_j\):
+    \[\begin{tikzcd}
+        F \times (U_i \cap U_j) \ar[r, "(\psi_i\rvert_{U_i \cap U_j})^{-1}", "\cong"'] & p^{-1}(U_i \cap U_j) \ar[r, "(\psi_j)\rvert_{U_i \cap U_j}", "\cong"'] & F\times (U_i \cap U_j) \\
+    \end{tikzcd}\]
+    which is of the form \((f,b) \mapsto (\phi_{i,j}(b)(f), b)\), where \(\phi_{i,j} \colon U_i \cap U_j \to \mathrm{Homeo}(F,F)\).
+
+    We will later see: there is a natural \enquote{mapping space topology} on \(\mathrm{map}(F,F) \supseteq \mathrm{Homeo}(F,F)\) such that (in good cases) \(\phi_{i,j}\) is continuous.
+
+    \(\phi_{i,j}\) is called the transition function. They satisfy:
+    \begin{itemize}
+        \item \(\phi_{i,i} = \const_{\Id}\).
+        \item Cocycle condition for \(i,j,k \in I\). He draws a diagram I didn't copy. We get \(\phi_{i,k}(b) = \phi_{j,k}(b) \circ \phi_{i,j}(b)\).
+    \end{itemize}
+
+    Conversely given
+    \begin{itemize}
+        \item an open covering \(\set{U_i}_{i \in I}\) of \(B\)
+        \item continuous maps \(\phi_{i,j}\colon U_i \cap U_j \to \mathrm{Homeo}(F,F)\)
+    \end{itemize}
+    that satisfy \(\phi_{i,i} = \const_{\id}\) and the cocycle condition, we can define
+    \[E \coloneq (\coprod_{i \in I} F \times U_i) / (f,b) \sim (\phi_{i,j}(b)(f), b)\]
+    to be a fiber bundle, and in good cases, all locally trivial fibrations with fiber \(F\) are this way.
+\end{construction}
+
+\textbf{Structure groups}.
+Suppose that the generic fiber \(F\) \enquote{has additional structure} that allows us to single out a subgroup
+\[G \subseteq \mathrm{Homeo}(F,F)\]
+\enquote{those \(\phi\colon F \to F\) that preserve the extra structure}.Then we can require that all transition functions
+\[\phi_{i,j}\colon U_i \cap U_j \to \mathrm{Homeo}(F,F)\]
+{take values in \(G\)}. Then we can say \(p \colon E \to B\) is a locally trivial fibration with structure group \(G\).
+
+If we take \(F = \IR^n\), \(G = Gl_n(\IR) \subseteq \mathrm{Homeo}(\IR^n, \IR^n)\) locally trivial fibration with structure group \(Gl_n(\IR)\) are equivalent to rank \(n\) real vectorbundles over \(B\).
+
+If we take \(G = O(n)\), we get equivalence to euclidean rank \(n\) vector bundles.
+
+Setting \(F = \IC^n\), \(G = Gl_n(\IC)\) gives rank \(n\) complex vector bundles.
+
+Setting \(F = \IR^n, G = Gl_n^+(\IR)\) gives oriented rank \(n\) vector bundles.
+
+
+\begin{example}
+    Let \(G\) be a topological group. Then \(G \subseteq \mathrm{Homeo}(G,G)\), \(g \mapsto lg\colon G \to G \gamma\mapsto g\gamma\).
+
+    locally trivial fiber bundles with fiber \(G\) and structure groups \(G\) are called \enquote{\(G\)-principal bundles} or \enquote{Principal \(G\)-bundles}.
+\end{example}
+
+\begin{example}
+    \begin{itemize}
+        \item Let \(F\) be discrete. Then \(\mathrm{Homeo}(F,F) = \mathrm{Bij}(F,F)\) so we get covering spaaces.
+        \item \(V_{k,n} \to S^{n-1}\) is a locally trivialfiber bundle with fiber \(V_{k-1,n-1}\). The orthogonal group \(O(n-1)\) acts on \(V_{k-1, n-1}\) by \(A \cdot (w_1, \dots, w_{k-1}) = (A w_1, \dots, Aw_{k-1})\). So \(O(n-1) \hookrightarrow \mathrm{Homeo}(V_{k-1,n-1}, V_{k-1, n-1})\). So \(V_{k,n} \to S^{n-1}\) can take \(O(n-1)\) as structure group.\footnote{We are encouraged to check this for ourselves}.
+        \item For \(1 \leq k \leq n\):
+        \[V_{k,n} \to V_{i,n}, \; (v_1, \dots, v_k) \mapsto (v_1, \dots , v_i)\]
+        is a locally trivial fiber bundle with fibre \(V_{k-i, n-i}\) and also with structure group \(O(n-i)\).
+        \item Same with complex Stiefel manifolds: for \(1 \leq i \leq k\), we have \(V_{k,n}^\IC \to V_{i,n}^\IC\) is a locally trivial fibre bundle with fibre \(V_{k-i, n-i}^\IC\) and structure group \(U(n-i)\).
+        \item Same with quaternionic Stiefel manifolds.
+        \item The map \(\mathrm{span}\colon V_{k,n} \to Gr(k,n) = \set{L\subseteq \IR^n \mid L \text{ is a linear subspace of dimesion }k}\). is a locally trivial fibre bundle with fibre \(O(k)\). This is even an \(O(k)\)-principal bundle.
+        \item Same over \(\IC, \IH\).
+    \end{itemize}
+\end{example}
+
+We will make this explicit in a special case: We look at \(S(\IC^2) = V_{1,2}^\IC \to Gr^\IC(1,2) = \IC P^1\) the Hopf map given by \((x,y) \mapsto \IC\cdot(x,y)\)
+This is a \(U(1) = \set{z \in \IC \mid \abs z = 1} = S^1\).
+
+We compute explicit local trivialisations and transition functions.
+
+We write \(\IC P^1 = U \cup V\) with \(U = \IC P^1 \setminus \set{\IC \oplus 0}\) and \(V = \IC P^1 \setminus\set{0 \oplus \IC}\). We have
+\[\IC \xrightarrow{\cong} U, \; z \mapsto \IC \cdot (z, 1)\quad \text{and}\quad \IC \xrightarrow{\cong} V, \; z \mapsto \IC(1,v)\]
+and we get \(U \cap V \cong \IC \setminus \set 0\).
+
+A trivialisattion of \(\eta\) over \(U\): \(S^1 \times U \overset{\psi_1}\leftrightarrow \eta^{-1}(U), \; (\lambda, \IC\cdot(z,1)) \mapsto \frac{\lambda}{\sqrt{\abs z ^2 +1}}(z,1)\) with inverse \((x,y) \mapsto (\frac{y}{\abs y}, \IC \cdot (x,y))\). For \(V\) we do the analogue to get \(\psi_2\).
+
+
+
+
+
+
+
+
+
 \end{document}
