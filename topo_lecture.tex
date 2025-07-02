@@ -3054,16 +3054,193 @@ We compute explicit local trivialisations and transition functions.
 
 We write \(\IC P^1 = U \cup V\) with \(U = \IC P^1 \setminus \set{\IC \oplus 0}\) and \(V = \IC P^1 \setminus\set{0 \oplus \IC}\). We have
 \[\IC \xrightarrow{\cong} U, \; z \mapsto \IC \cdot (z, 1)\quad \text{and}\quad \IC \xrightarrow{\cong} V, \; z \mapsto \IC(1,v)\]
-and we get \(U \cap V \cong \IC \setminus \set 0\).
+and we get \(U \cap V \cong \IC \setminus \set 0\) by \(z \mapsto \IC \cdot (z,1)\) (note this is a choice).
 
 A trivialisattion of \(\eta\) over \(U\): \(S^1 \times U \overset{\psi_1}\leftrightarrow \eta^{-1}(U), \; (\lambda, \IC\cdot(z,1)) \mapsto \frac{\lambda}{\sqrt{\abs z ^2 +1}}(z,1)\) with inverse \((x,y) \mapsto (\frac{y}{\abs y}, \IC \cdot (x,y))\). For \(V\) we do the analogue to get \(\psi_2\).
 
+We set \(U = U_1, V = U_2\). We look at the transition map
+\[\phi_{1,2}\]
+I lacked energy to copy that.
+
+\begin{example}
+    Might also be understood as an exercise. Locally trivial bundles over \(S^1\). Let \(F\) be any space, \(\psi\colon F \to F\) a homomorphism. The mapping torus \(T_f \colon F\times[0,1]/(f,0) \sim (\psi(f),1)\). We get \(T_f \to S^1, \; [x,t] \mapsto e^{2\pi it}\).
+
+    Show that this is a locally trivial fibre bundle. All\footnote{sufficiently nice} fibre bundles over \(S^1\) are in this way.
+
+    If \(\psi \in G \subseteq \mathrm{Homeo}(F,F)\), the \(T_f \to S^1\) has structure group \(G\).
+    
+    And now also locally trivial bundles over \(S^n\) via clutching functions. Let \(c\colon S^{n-1} \times F \to F\) be continuous such that for all \(x \in S^{n-1}, c(x, \_) \colon F \to F\) is a homeomorphism. Is called a \enquote{Clutching function}.
+
+    Set \(S^n_+ = \set{(X_1, \dots, x_{n+1}) \in S^n : x_{n+1} \geq 0}\) and \(S^n_-\) analogous. Then \(S^{n-1} = S_+^n \cap S_-^n\). Set \(E \coloneq (F\times S_+^n) \amalg (F\times S_-^n)/(f,x) \cap (c(x,f),x)\). Now we have \(E \to S^n\) given by \((f,x) \mapsto x\).
+
+    As an exercise show this is a fibre bundle with fibre \(F\). and all\footnote{nice enough} fibre bundles over \(S^n\) are in this way.
+\end{example}
 
 
+\newLecture{02.07.2025}
 
+\section{Fibrations}
 
+A rough plan: We have already talked about fiber bundles. We will see they are (Seere) fibrations, which gives a long exact sequence of homotopy groups for \(F, E\) and \(B\).
 
+\begin{defi}{Homotopy lifting property}
+    Let \(X\) be a space. A continuous map \(p\colon E \to B\) has the homotopy lifting property (HLP)\index{homotopy lifting property} for \(X\) if for every commutative square
+    \[\begin{tikzcd}
+        X \times \set 0 \ar[r, "f"] \ar[d, "\incl"] & E \ar[d, "p"]\\
+        X \times [0,1] \ar[ru, dotted, "\lambda"] \ar[r, "\Psi"] & B
+    \end{tikzcd}\]
+    has a solution, i.e. there is a continuous map \(\lambda\colon X \times [0,1] \to E\) such that \(\lambda\rvert_{X \times {0}} = f\), \(p \circ \lambda = \Psi\).
+\end{defi}
 
+\begin{defi}{Fibrations}{}
+    A continuous map \(p\colon E \to B\) is a
+    \begin{description}
+        \item[Hurewiz-fibration] if it has the HLP for all spaces \(X\)
+        \item[Serre fibration] if it has the HLP for all CW-complexes.
+    \end{description}
+\end{defi}
+
+\begin{thm}{Weaker conditions for HLP}{}
+    For a continuous map \(p\colon E \to B\), the following are equivalent:
+    \begin{enumerate}
+        \item \(p\) has the HLP for \(D^n\) for \(n \geq 0\).
+        \item \(p\) has the relative HLP for the pair \((D^n, \partial D^n)\) for all \(n \geq 0\), i.e. every commutative square of the form
+        \[\begin{tikzcd}
+            D^n \times \set 0 \cup \partial D^n \times [0,1] \ar[r] \ar[d, "\incl"] & E \ar[d, "p"] \\
+            D^n \times [0,1] \ar[r] \ar[ru, dotted, "\lambda"] & B \\
+        \end{tikzcd}\]
+        has a lift.
+        \item \(p\) is a Serre fibration, i.e. it has the HLP for all CW-complexes
+        \item \(p\) has the relative HLP for all CW-pairs \((X,A)\) i.e. eveery commutative square of the form
+        \[\begin{tikzcd}
+            X \times \set 0 \cup A \times [0,1] \ar[r] \ar[d, "\incl"] & E \ar[d, "p"] \\
+            X \times [0,1] \ar[r] \ar[ru, "\lambda", dotted] & B \\
+        \end{tikzcd}\]
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}
+    \begin{description}
+        \item[\(i) \Lra ii)\)] There is a homeomorphism \(h \colon D^n \times [0,1] \to D^n \times[0,1]\) that takes \(D^n \times \set 0 \cup (\partial D^n)\times [0,1]\) homeomorphically into \(D^n \times \set{0}\).
+        
+        He draws a picture, but no idea how to copy that.
+
+        Any such pair homeomoprhis can be used to translate absolute lifting problems and solutions into relative lifting problems and solution:
+        \[\begin{tikzcd}
+            D^n \times 0 \cup (\partial D^n) \times [0,1] \ar[r, "\cong", "h"'] \ar[d, "\incl"] & D^n \times \set 0 \ar[d, "\incl"] \ar[r, "f"] & E \ar[d, "p"] \\
+            D^n \times [0,1] \ar[r, "\cong", "h"'] & D^n \times [0,1] \ar[r] & B \\
+        \end{tikzcd}\]
+
+        \item[\(iii) \Ra i)\)] \(D^n\) admits the structure of a CW-complex.
+        \item[\(ii) \Ra iv)\)] Special case: \(X\) can be obtained from \(A\) by attaching \(n\)-cells for a single fixed \(n\). We choose an index set \(I\), and characteristic maps \(\chi_i \colon (D^n, \partial D^n) \to (X,A)\) such that
+        \[\bigcup_{i \in I} \chi_i \colon A \cup_{I \times \partial D^n} I \times D^n \to X\]
+        is a homeomorphism. We consider a relative lifting problem
+        \[\begin{tikzcd}
+            X \times 0 \cup A \times [0,1] \ar[d, "\incl"] \ar[r] & E \ar[d, "p"]\\
+            X \times [0,1] \ar[r] & B \\
+        \end{tikzcd}\]
+        We know that product with the compact space \([0,1]\) preserves pushouts (glueings), i.e. the canonical map \(A \times [0,1] \cup_{I \times \partial D^n \times [0,1]} I \times D^n \times [0,1] \to X \times [0,1]\) is a homeomorphism.
+
+        This homeomorphism takes \(A \times [0,1] \cup_{I \times \partial D^n \times \set 0} I \times D^n \times \set 0\) onto \(X \times 0 \cup A \times [0,1]\), so we can translate the lifting problem into an equivalent one:
+        \[\begin{tikzcd}
+            I \times D^n \times \set 0 \cup \partial D^n \times [0,1] \ar[dr, phantom, "pushout"] \ar[d, "\incl"] \ar[r] & A \times [0,1] \cup_{I \times \partial D^n \times \set 0} I \times D^n \times \set 0 \ar[d, "\incl"] \ar[r, "f"] & E \ar[d, "p"] \\
+            I \times D^n \times [0,1] \ar[rru, "\mu", dotted] \ar[r] & A \times [0,1] \cup_{I \times \partial D^n \times [0,1]} I \times D^n \times [0,1] \ar[r, "\Psi"] & B \\
+        \end{tikzcd}\]
+        As we get liftings for both parts of the pushout, we get a lift for the original space too.
+
+        For the general case: We denote by \(X_n\) the skeleta in a relative CW-structure on \((X,A)\), \(X_{-1} = A\). given a lifting problem for \((X,A)\):
+        \[\begin{tikzcd}
+            X \times 0 \cup_{A \times 0} A \times [0,1] \ar[r, "f"] \ar[d] & E \ar[dd, "p"] \\
+            "X\times 0 \cup_{X_n\times 0} X_n \times [0,1] \ar[d] \ar[ru, "\lambda_n"] & \\
+            X \times [0,1] \ar[r] & B \\
+        \end{tikzcd}\]
+        We will inductively construct "partial lifts", i.e. continuous maps \(\lambda_n\colon X \times 0 \cup_{X_n \times 0} X_n \times [0,1] \to E\), such that those are lifts.
+
+        We start with \(\lambda_{-1} = f\). For the induction:
+        \[\begin{tikzcd}
+            X_n \times 0 \cup _{X_{n-1} \times 0} X_{n-1} \times [0,1] \ar[dr, phantom, "pushout"] \ar[d, "\incl"] \ar[r, "\incl"] & X \times 0 \cup_{X_{n-1} \times 0} X_{n-1} \times [0,1] \ar[r, "\lambda_{n-1}"] \ar[d, "\incl"] & E \ar[d, "p"] \\
+            X_n\times [0,1] \ar[r, "\incl"] \ar[rru, "\mu"] & X\times 0 \cup_{X_n \times 0} X_n \times[0,1] \ar[r] \ar[ru, "\lambda_n"] & B
+        \end{tikzcd}\]
+        The special case gives a solution on the left in the composite. The universal property of the product gives a unique continuous \(\lambda_n\) making the right part commute. Since \(X \times [0,1]\) has the weak topology with respect to \(X \times 0 \cup_{X_n \times 0} X_n \times [0,1]\) so the union of the maps \(\set{\lambda_n}_{n \geq -1}\) is a continuous map \(\lambda \colon X \times [0,1] \to E\). This shows the lfiting property.
+        \item[\(iv) \implies i)\)] take \(X = D^n\), \(A = \emptyset\).
+    \end{description}
+\end{proof}
+
+\begin{thm}{Fiber bundles and fibrations}{}
+    Every locally trivial fibre bundle is a Serre fibration.
+\end{thm}
+
+\begin{proof}
+    Let \(p \colon E \to B\) be a fibre bundle. It suffice sto show that \(p\) has the HLP for \(D^n\) for all \(n \geq 0\). Or equivalently for \(I^n = [0,1]^n\) for all \(n \geq 0\). We consider a lifting problem
+    \[\begin{tikzcd}
+        {[0,1]^n \times \set 0} \ar[r, "f"] \ar[d, "\incl"] & E \ar[d, "p"] \\
+        [0,1]^n \times [0,1] \ar[r, "\Psi"] & B \\
+    \end{tikzcd}\]
+    We choose an ope ncover \(\set {U_i}_{i \in I}\) of \(B\) such that \(p\rvert_{p^{-1}(U_i)} p^{-1}(U_i) \to U_i\) is trivialisable. Then \(\set{\Psi^{-1}(U_i)}_{i \in I}\) is an open cover of the compact metric space \([0,1]^{n+1}\), so by Lebesgues Lemma, there is a number \(k \geq 1\), such that eveery subcube of side length \(1/k\) is contained in \(\Psi^{-1}(U_i)\) for some \(i \in I\). Equivalently: \(\Psi\) takes every such subcube into an open subset of \(B\) over which \(p\) is trivialisable.
+
+    We successively add more subcubes of side length \(1/k\) to \(I^n \times \set 0\) to obtain a function
+    \[I^n \times \set 0 = X_0 \subseteq X_1 \subseteq X_2 \subseteq \dots \subseteq X_N = I^{n+1} = I^n \times[0,1]\]
+    such that \(X_n = X_{n-1} \cup Q\), where \(Q\) is a subcupe of side length \(1/k\) and \((Q, Q\cap X_{n-1}) \cong (I^{n+1}, I^n \times 0)\) pair homeomorphism. He draws a picture for \(n = 1, k = 3\). We need to pick the cubes in a right order, for example \enquote{lexicographically}.
+
+    We inductively construct \enquote{partial} lifts \(\lambda_i\colon X_i \to E\) that extend each other, i.e. \(\lambda_i\rvert_{X_{i-1}} = \lambda_{i-1}\) and \(p\circ \lambda_i = \Psi\rvert_{X_i}\). We start with \(\lambda_0 = f\colon X_0 = I^n \times 0 \to E\).
+
+    For the inductive step,
+    \[\begin{tikzcd}
+        I^n \times 0 \ar[r, "\cong"] & X_{i-1} \cap Q \ar[r] \ar[d] \ar[dr, phantom, "pushout"] & X_{n-1} \ar[r, "\lambda_{i-1}"] \ar[d, "\incl"] & E \ar[d, "p"] \\
+        I^{n+1} \ar[r, "\cong"] & Q_i \ar[r] & X_n \ar[r] & B \\
+    \end{tikzcd}\]
+    and then he drew arrows I couldn't follow. It suffices to show the lifting problem
+    \[\begin{tikzcd}
+        I^n \times \set 0 \ar[r] \ar[d, "\incl"] & p^{-1}(U) \ar[d, "p"] \ar[r, "\cong"] & F \times U \\
+        I^n \times [0,1] \ar[r] & U \ar[r, "="] & U \\
+    \end{tikzcd}\]
+    We choose a trivialization \(u\colon p^{-1}(U) \xrightarrow{\cong} F \times U\) over \(U\), so it suffices to show the outher lifting problem.
+    \[\begin{tikzcd}
+        I^n \times 0 \ar[r, "{f = (f_1, \Psi\rvert_{I^n \times 0})}"] \ar[d, "\incl"] & F \times U \\
+        I^{n+1} \ar[r, "\Psi"] & U
+    \end{tikzcd}\]
+    This has the lifting \(I^{n+1} = I^n \times [0,1] \xrightarrow{\lambda} F \times U\), given by \((x,t) \mapsto (f_1(x), \Psi(x,t))\).
+\end{proof}
+
+\begin{thm}{Serre Fibrations and Homotopy groups}{}
+    Let \(p \colon E \to B\) be a Serre fibration, \(Y \subseteq B\) any subspace, \(x \in p^{-1}(Y)\). Then \(p\) induces a bijection
+    \[p_*\colon \pi_n(E; p^{-1}(Y), x) \to \pi_n(B, Y, p(x))\]
+    for \(n \geq 1\).
+\end{thm}
+
+\textbf{Recall.} \(\pi_n(B,Y,y) =\) triple homotopy classes of triple maps
+\[(I^n, I^{n-1} \times 0, J) \to (B,Y, \set y)\]
+where \(J = (\partial I^n) \times[0,1] \cup (I^n \times )\) and \(I^{n-1} \times 0 \cup J = \partial(I^n)\) and \((I^{n-1} \times 0) \cap J = \partial(I^{n-1})\times 0\).
+
+\begin{proof}
+    \begin{description}
+        \item[Surjectivity] We represent a given element of \(\pi_n(B,Y, p(x))\) by a triple map \(\beta\colon (I^n, I^{n-1}\times 0, J) \to B,Y, p(x)\). The pair \((I^n, J)\) is pair homeomorphic to \((I^n, I^{n-1}\times 0)\), so the following lifting problem can be solved because \(p\) is a Serre fibration.
+        \[\begin{tikzcd}
+            J \ar[r, "\const_x"] \ar[d] & E \ar[d, "p"] \\
+            I^n \ar[r, "\beta"] & B \\
+        \end{tikzcd}\]
+        Then any lift \(\lambda\) is a triple map \(\lambda\colon (I^n, I^{n-1}\times 0, J) \to (E, p^{-1}(Y), x)\), so \(\lambda\) represents an element in \(\pi_n(E, p^{-1}(Y), x)\) such that \(p_*[\lambda] = [p \circ \lambda] = [\beta]\).
+        \item[Injectivity] Let \(\alpha_1, \alpha_2\colon (I^n, I^{n-1}\times 0, J) \to (E, p^{-1}(Y), x)\) be two triple maps, such that \(p_*[\alpha_1] = p_*[\alpha_2]\) in \(\pi_n(B, Y, P(x))\). So there exists a triple homotopy \(H \colon I^n \times [0,1] \to B\) from \(p \circ \alpha_1\) to \(p \circ \alpha_2\), i.e. \(H(I^{n-1}\times 0 \times [0,1]) \subseteq Y\), \(H(J \times [0,1]) = \set{p(x)}\).
+        
+        The pair \((I^n \times [0,1], I^n \times \set{0,1} \cup_{J \times \set{0,1}} J \times [0,1])\) is pair homeomorphic to \(I^n \times [0,1], I^n \times 0\). He draws why that is for \(n = 1\). So the following lifting problem has a solution
+        \[\begin{tikzcd}
+            I^n \times \set{0,1} \cup_{J \times \set{0,1}} J \times [0,1] \ar[r, "\alpha_1 \cup \alpha_2 \cup \const_x"] \ar[d, "\incl"] & E \ar[d, "p"] \\
+            I^n \times [0,1] \ar[r, "H"] \ar[ru, dotted, "K"] & B \\
+        \end{tikzcd}\]
+        The lift \(K\) is a triple homotopy from \(\alpha_1\) to \(\alpha_2\), so \([\alpha_1] = [\alpha_2]\) in \(\pi_n(E, p^{-1}(Y), x)\).
+    \end{description}
+\end{proof}
+
+Let \(p \colon E \to B\) be any Serre fibration, \(b \in B\). Set \(F \coloneq E_b = p^{-1}(\set b)\), choose \(x \in F\).
+
+Recall by the long exact sequence of homotopy groups for the pair \((E,F)\):
+\[\dots \pi_{n+1}(E,F,x) \xrightarrow{\partial} \pi_n(F,x) \to \pi_n(E,x) \to \pi_n(E,F,x) \to \dots\]
+but we have \(p_*\) an isomorphism to \(\pi_{n+1}(B, \set{b}, b) = \pi_{n+1}(B, b)\) and we get another LES
+\[\dots \pi_{n+1}(B,b) \xrightarrow{\partial} \pi_n(F,x) \to \pi_n(E,x) \to \pi_n(B,b)\]
+
+\begin{corollary}
+    For every Serre fibration \(p \colon E \to B\) and \(b \in B\), \(x \in F = p^{-1}(\set b)\), the sequence above is exact.
+\end{corollary}
 
 
 \end{document}
