@@ -3243,4 +3243,94 @@ but we have \(p_*\) an isomorphism to \(\pi_{n+1}(B, \set{b}, b) = \pi_{n+1}(B, 
 \end{corollary}
 
 
+\newLecture{07.07.2025}
+
+Everything from now on is not relevant for the first exam anymore, but will be for the secoond exam\footnote{Somehow he assumes we will all pass the first exam}.
+
+The Hopf map \(\eta\colon S^3 \to S^2\) is a locally trivial fibre bundle . So we get a long exact sequence of homotopy groups
+\[\pi_n(S^1,x) \to \pi_n(S^3, x) \to \pi_n(S^2, y), \pi_{n-1}(S^1,x)\]
+This implies, that for all \(n \geq 3\) the map \(\eta_*\colon \pi_n(S^3, x) \to \pi_n(S^2, b)\) is an isomorphism.
+
+This yields\(\IZ[\Id] \cong \pi_3(S^3, x) \cong \pi_3(S^2, b) \cong \IZ[\eta]\).
+
+\textbf{Observation.} Let \(p\colon E \to B\) be a retract of \(p'\colon E' \to B\), i.e. there are continuous maps \(i \colon E \to E'\), \(r, E'\to E\), such that \(r\circ i = \Id_E\) and the following commutes:
+\[\begin{tikzcd}
+    E \ar[rd, "p"] \ar[r, "i"] & E' \ar[d, "p'"] \ar[r, "r"] & E \ar[dl, "p"] \\
+    & B & \\
+\end{tikzcd}\]
+Then if \(p'\) has the HLP with respect to \(X\) then so does \(p\).
+
+\begin{proof}
+    I lacked speed to copy.
+\end{proof}
+
+\begin{corollary}
+    Every retract of a Hurewiz-fibration is a Hurewiz-fibration.
+
+    Every retract of a Serre-fibration is a Serre-fibration.
+\end{corollary}
+
+\begin{example}
+    We want to construct a Serre-fibration, that is not a fibre-bundle. The example is even a Hurewiz-fibration.
+
+    We set \(E = \set{(x,y) \in [0,1]^2 \mid x \leq y} \to [0,1] = B\) given by \((x,y) \mapsto x\). This is a fibration but not a fibre bundle. It is a retract of \([0,1]^2 \to [0,1]\) given by the projection.
+\end{example}
+
+
+\begin{thm}{Fibers of fibrations}{}
+    Let \(p \colon E \to B\) be a continuous map with path-connected base \(B\).
+    \begin{enumerate}
+        \item If \(p\) is a Hurewicz-fibration, then all its fibers are homotopy equivalent.
+        \item If \(p\) is a Serre-fibration, then all fibers that admti the structure of a CW-complex are homotopy equivalent.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}
+    We only proof 1. The proof for 2 is analogous. Let \(b, b' \in B\) be any points. \(E_b = p^{-1}(\set b), E_{b'} = p^{-1}(\set {b'})\).
+
+    Solve the following lifting problem: Let \(w\colon [0,1] \to B\) be any path from \(b\) to \(b'\).
+    \[\begin{tikzcd}
+        E_b\times 0 \ar[r, "\incl"] \ar[d] & E \ar[d, "p"] \\
+        E_b \times [0,1] \ar[ru, "\lambda", dotted] \ar[r, "w \circ \mathrm{proj}"] & B \\
+    \end{tikzcd}\]
+
+    Now \(\lambda(E_b \times 1) \subseteq E_{b'}\). So we can define a continuous map \(f\colon E_b \to E_b'\) by \(\lambda(x,1) = f(x)\).
+
+    Let \(\bar w\colon [0,1] \to B\) be the reverse path to \(w\). Now define \(f'\colon E_{b'} \to E_b\) be analogous to \(f\) using \(\bar w\).
+
+    We will show that \(f'\circ f \simeq \Id_{E_{b'}}\). The other case is analogous.
+
+    I did not manage to copy.
+\end{proof}
+
+\subsection{Induced fibration}
+
+Let \(p \colon E \to B\) and \(f\colon B' \to B\) be continuous maps. The bullpack is the space \(\set{(b',e) \in B' \times E \mid f(b') = p(e)}\) with subspace topology of the product topology.
+This comes with continuous maps making the following square commute
+\[\begin{tikzcd}
+    B'\times_B E \ar[r, "f'", "{(y,e)\mapsto e}"'] \ar[d, "p'", "{(y,e) \mapsto y}"'] & E \ar[d, "p"] \\
+    B' \ar[r, "f"] & B \\
+\end{tikzcd}\]
+The maps \(p'\) and \(f'\) establish \(B' \times_B E\) as a pullback in the sense of category theory, of \(p\) and \(f\).
+
+
+\begin{thm}
+    Let \(p \colon E \to B\)and \(f\colon B' \to B\) be continuous maps.
+    \begin{enumerate}
+        \item If \(p\) is a fibre bundle, then so is \(p'\colon B' \times_B E \to B'\)
+        \item if \(p\) has the HLP with regard to. a space \(X\), then so does \(p'\).
+        \item If \(p\) is a Hurewicz fibration, then so is \(p'\).
+        \item If \(p\) is a Serre-fibraiton, then so is \(p'\).
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}
+    We only show 1 and 2. I lacked energy to copy.
+\end{proof}
+
+
+
+
+
+
 \end{document}
