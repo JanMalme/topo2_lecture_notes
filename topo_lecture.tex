@@ -3328,6 +3328,177 @@ The maps \(p'\) and \(f'\) establish \(B' \times_B E\) as a pullback in the sens
     We only show 1 and 2. I lacked energy to copy.
 \end{proof}
 
+\newLecture{09.07.2025}
+
+\section{Mapping spaces}
+
+\textbf{Motivation.} Remember the \enquote{exponential rule} for sets \(X,Y,Z\) we have a natural isomorphism
+\[Z^{X\times Y} \cong (Z^Y)^X\]
+where we set \(Z^Y \coloneq \mathrm{maps}(Y,Z)\) the set of maps \(Y\to Z\).
+
+In categorial language we have
+\begin{itemize}
+    \item the functor \((\_)^Y\) \(\mathbf{sets} \to \mathbf{sets}\), \(Z \mapsto Z^Y\) is right adjoint to \(\_\times Y\colon \mathbf{sets} \to \mathbf{sets}\).
+    \item The category of sets is \emph{cartesian closed}.
+\end{itemize}
+
+We would like \(\mathbf{Top}\) the category of topological spaces and continuous maps to be cartsian closed, but it is not quite, but close.
+
+For a different approach: \enquote{Compactly generated weak Hausdorff spaces} is a full subcategory of spaces which is cartesian closed. 
+
+For now we are talking about the mapping space topology
+
+\textbf{Motivation.} Suppose, \(Y\) is compact, \((Z, d)\) is metric. We can define the supremum-metric on \(Z^Y \coloneq \mathrm{maps}^{cts}(Y,Z)\) by
+\[d(f,g) = \sup_{y \in Y} d(f(y), g(y))\]
+If \(X\) is another compact space, then also \(X \times Y\) is compact and we have to metrics on
+\[Z^{X \times Y} \cong (Z^Y)^X\]
+In this case, the \enquote{exponential bijection} is an isometry.
+\[\sup_{(x,y) \in X\times Y} d(f(x,y), g(x,y)) = \sup_{x \in X}(\sup_{y\in Y} d(\tilde f(x)(y),\tilde g(x)(y)))\]
+so in particular the exponential bijection is a homeomorphism.
+
+The compact open topology generalizes this definition
+
+\begin{defi}{Compact open topology}{}
+    Let \(Y,Z\) be topological spaces, and set
+    \[Z^Y = \mathrm{maps}^{\mathrm{continuous}}(Y,Z) = \text{ set of continuous maps \(Y \to Z\)}\]
+    Let \(K\) be a compact\footnote{remember this also implies Hausdorff} subset of \(Y\), let \(O\) be an open subset of \(Z\). Define
+    \[W(K,O) = \set{f \in Z^Y \mid f(K) \subseteq O}\]
+    The compact-open topology is the topology on \(Z^Y\) with subbasis
+    \[\set{W(K,O) \mid K \text{ compact in } Y, O \text{ open in } Z}\]
+\end{defi}
+
+\begin{thm}{Compact open recovers supremum metric}{}
+    Let \(Y\) be a compact space, \((Z,d)\) a metric space. Then the compact-open topology on \(Z^Y\) agrees with the metric topology of the supremum metric.
+\end{thm}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Compactly open \(\implies\) metrically open. It suffices to show that the subbasis sets \(W(K,O)\) are metrically open.
+        So we let \(K\) be compact in \(Y\), \(O\) open in \(Z\), \(f \in W(K,O)\), i.e. \(f(K) \subseteq O\).
+
+        Then \(f(K)\) is a compact subset of \(Z\), and disjoint from the closed subset \(Z\setminus O\). So \(f(K)\) and \(Z\setminus O\) have a finite and positive real distance
+        \[\epsilon\coloneq \inf_{k \in K} \inf_{z \in Z\setminus O} d(f(k), z) > 0\]
+        
+        \textbf{Claim.} \(f \in B(\epsilon, f) \subseteq W(K,O)\), i.e. the open \(\epsilon\)-ball around \(f\) is contained in \(W(K,O)\), hence \(W(K,O)\) is metrically open.
+        \begin{proof}[Proof of claim]
+            Let \(g \in B(\epsilon, f)\), i.e. \(d(f,g) < \epsilon\). Then in particular \(d(f(k), g(k)) < \epsilon\) for all \(k \in K\) and thus \(g(k) \in Z\setminus O\) for all \(k \in K\). Thus \(g(k) \in O\), i.e. \(g \in W(K,O)\).
+        \end{proof}
+        \item Metrically open \(\implies\) compactly open. It suffices to show that open \(\epsilon\)-balls in the supremum metric are compactly open. Let \(\epsilon> 0\), \(f\colon Y \to Z\) continuous. We show that \(B(\epsilon, f)\) is compactly open. For every \(y \in Y\) consider the open neighborhood:
+        \[y \in f^{-1}(B(\epsilon/5, f(y)))\]
+        Because \(Y\) is compact and hence locally compact, there is a compact neighborhood \(K_y\) of \(y\) inside \(f^{-1}(B(\epsilon/5, f(y)))\). The compact space \(Y\) is covered by the neighborhoods \(\set{K_y}_{y\in Y}\) so there is a finite subset \(I\subseteq Y\) such that \(Y = \bigcup_{y \in I} K_y\).
+        For \(i \in I\) set
+        \[O_i\coloneq \text { open } \epsilon/5 \text{ neighborhood of the compact subset } f(K_i) \text { of } Z\]
+        Then the diameter of \(O_i\) ( = supremum of distance of any two poitns) is at most \(4/5 \cdot \epsilon\). He explains this by a picture.
+
+        \textbf{Claim.} \(f \in \bigcap_{i \in I} W(K_i, O) \subseteq B(\epsilon, f)\) so \(B(\epsilon, f)\) is compactly open.
+        \begin{proof}[Proof of claim]
+            Let \(g \in W(K_i, O)\) for all \(i \in I\), i.e. \(g(K_i) \subseteq O\) for all \(i \in I\). For every \(y \in Y\), there is an \(i \in I\), such that \(y \in K_i\), so \(f(y) \in f(K_i) \subseteq O_i\) we have \(d(f(y), g(y)) \leq 4/5 \cdot \epsilon\). So
+            \[\sup_{y\in Y} d(f(y), g(y)) \leq 4/5 \cdot \epsilon < \epsilon\]
+            and \(g \in B(\epsilon, f)\)
+        \end{proof}
+    \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+    Let \(X,Y\) be compact spaces, \(Z\) metrisable space. Then the exponential map is a homeomorphism
+    \[Z^{X \times Y} \cong (Z^Y)^X\]
+    for the compact open topology.
+\end{corollary}
+
+We will later only need \(X\) Hausdorff and \(Y\) locally compact Hausdorff for this result. We are working on this
+
+\begin{proposition}
+    Let \(Y\) and \(Z\) be spaces.
+    \begin{enumerate}
+        \item Let \(\cB\) be a basis of the topology on \(Z\). Then
+        \[\set{W(K,O)}_{K \text{ compact in } Y, O \in B}\]
+        is a subbasis of the compact open topology on \(Z^Y\).
+        \item Let \(\cS\) be a subbasis of the topology on \(Z\). Then
+        \[\set{W(K,O)}_{K \text { compact in } Y, O \in \cS}\]
+        of the compact open-topology on \(Z^Y\).
+    \end{enumerate}
+\end{proposition}
+We only state part 1 here, because it is a big stepping stone for the proof.
+
+\begin{proof}
+    \begin{enumerate}
+        \item We show that \(W(K,O)\), \(O\) any open subset of \(Z\), is open in the potentially smaller topology mentioned in 1. Take \(f \in W(K,O)\), i.e. \(f(K) \subseteq O\). For every \(y \in K\), we have \(f(y) \in O\). Since \(\cB\) is a basis of the topology on \(Z\), there is an \(O_y \in \cB\) s.t. \(f(y) \in O_y \subseteq O\). So \(f^{-1}(O_y)\) is an open neighborhood of \(y\). So \(f^{-1}(O_y) \cap K\) is an open neighborhood of \(y\) inside \(K\). Since \(K\) is compact, there is a compact nieghborhood \(K_y\) of \(y\) in \(K\) inside \(f^{-1}(O_y)\). By compactness of \(K\), there is a finite subseet \(I\) of \(K\), such that \(K = \bigcup_{y \in I} K_y\).
+        
+        \textbf{Claim.} \(f \in \bigcap_{i \in I} W(K_i, O_i) \subseteq W(K,O)\).
+        \begin{proof}[Proof of claim]
+            Let \(g \in \bigcap_{i \in I} W(K_i, O_i)\). Then for every \(y \in K\), there is an \(i \in I\), such that \(y \in K_i\). Then \(g(y) \in g(K_i) \subseteq O_i \subseteq O\). So \(g(K) \subseteq O\). and \(g \in W(K,O)\).
+        \end{proof}
+        \item Let \(\cB_\cS\) be the basis generated by the subbasis \(\cS\) of the topology on \(Z\), i.e.
+        \[\cB_\cS = \text{ set of finite intersections of sets in } \cS\]
+        By \(i)\), the sets \(W(K,O)\) with \(O \in \cB_\cS\) generate the compact-open topology of \(Z^Y\). So it suffices to show that each such \(W(K,O)\) \(O \in \cB_\cS\) are open in the potentially smaller topology.
+
+        Since \(O \in \cB_\cS\), \(O = O_1 \cap \dots \cap O_n\) for some \(O_1, \dots, O_n \in \cS\). Then
+        \[W(K,O) = W(K, O_1\cap \dots \cap O_n) = W(K, O_1) \cap \dots \cap W(K, O_n)\]
+        is open in the potentially smaller topology.
+    \end{enumerate}
+\end{proof}
+
+\begin{thm}{Continuous evaluation}{}
+    Let \(Y\) and \(Z\) be spaces, such that \(Y\) is locally compact Hausdorff. Then the evaluation map
+    \[\mathrm{ev}\colon Z^Y \times Y \to Z, \quad \mathrm{ev}(f,y) = f(y)\]
+    is continuous.
+\end{thm}
+
+\begin{proof}
+    We just need to check continuouity. Let \(O\) be an open subset of \(Z\). Let \((f,y) \in \ev^{-1}(O)\), i.e. \(f(y) \in O\), \(f\colon Y \to Z\) continuous. So \(f^{-1}(O)\) is an open neighborhood of \(y\). Since \(Y\) is locally compact, there is a compact neighborhood \(K\) of \(y\) in \(Y\). So \(y \in K\subseteq f^{-1}(O)\). So \((f,y) \in W(K,O) \times K\). So \(W(K,O) \times K\) is a neighborhood of \((f,y)\) in the product topology of \(Z^Y \times Y\). Moreover, \(\ev(W(K,O) \times K) \subseteq O\), or \(W(K,O) \times K \subseteq \ev^{-1}(O)\). So \(\ev^{-1}(O)\) is open in \(Z^Y \times Y\).
+\end{proof}
+
+\begin{proposition}
+    Let \(X,Y,Z\) be topological spaces. Let \(f \colon X \times Y \to Z\) be continuous. Then \(\tilde f\colon X \to Z^Y\) \(\tilde f(x)(y) = f(x,y)\) is continuous in the compact open topology of \((Z^Y)^X\).
+\end{proposition}
+
+\begin{proof}
+    To show that \(\tilde f\colon X \to Z^Y\) is continuous, it suffices to show that \(\tilde f^{-1}(W(K,O))\) is open in \(X\) for all \(K\) compact in \(Y\), \(O\) open in \(Z\). Let \(K\) be compact in \(Y\), \(O\) open in \(Z\).
+    \[\tilde f^{-1}(W(K,O)) = \set{x \in X\mid f(\set{x} \times K)\subseteq O} = \set{x \in X \mid \set{x} \times K \subseteq f^{-1}(O)}\]
+    The slice lemma provides an open neighborhood \(U\) of \(x\) in \(X\), such that \(U\times K \subseteq f^{-1}(O)\). Hence \(x \in U \subseteq \tilde f^{-1}(W(K,O))\), so \(\tilde f^{-1}(W(K,O))\) is open in \(X\).
+\end{proof}
+
+Now we know that the exponential map
+\[\Phi\colon Z^{X\times Y} \to (Z^Y)^X, \quad f\mapsto \Phi(f) = \tilde f\]
+indeed takes values in \((Z^Y)^X\).
+
+\begin{thm}{Exponential map}{}
+    Let \(X,Y,Z\) be topological spaces.
+    \begin{enumerate}
+        \item The map \(\Phi\colon Z^{X\times Y} \to (Z^Y)^X\) is continuous.
+        \item Suppose that \(Y\) is locally compact Hausdorff. Then \(\Phi\) is bijective.
+        \item Suppose that \(X, Y\) are Hausdorff and \(Y\) is locally compact. Then \(\Phi\) is a homeomorphism
+    \end{enumerate}
+\end{thm}
+
+Important is the third part.
+
+\textbf{Note.} 2. implies, that \(\mathrm{map}^{cts}(X\times Y, Z) \underset{\cong}{\Phi} \mathrm{map}^{cts}(X, Z^Y)\) is a natural bijection. So for \(Y\) locally compact we have \(\_\times Y\) is left adjoint to \((\_)^Y\), So \(\_\times Y\) preserves all colimits.
+
+\begin{proof}
+    \begin{enumerate}
+        \item By definition \(Z^Y\) has a subbasis of the compact-open topology \(\set{W(K,O)}_{K \text{ compact in } Y, O \text{ open in } Z}\). By an earlier proposition, the following set generate the iterated copmact-open topology on \((Z^Y)^X\):
+        \[\set{W(K', W(K,O))}_{K' \text{ compact in }X, K \text{ compact in } Y, O \text{open in } Z}\]
+        But luckily
+        \[\Phi^{-1}(W(K', W(K,O))) = W(K' \times K, O)\]
+        is an open subset in the compactly-open topology on \(Z^{X\times Y}\). So \(\Phi\) is continuous.
+        \item Since \(Y\) is locally compact Hausdorff, the evaluation map \(\ev\colon Z^Y \times Y \to Z\) is continuous. So for every continuous ap \(g\colon X \to Z^Y\), the following composite is continuous:
+        \[X\times Y \xrightarrow{g \times Y} Z^Y \times Y \xrightarrow{\ev} Y\]
+        so \(\ev \circ (g \times Y) \in Z^{X\times Y}\). So \((Z^Y)^X \to Z^{X\times Y}\), \(g \mapsto \ev \circ (g \times Y)\) is a well defined set-theoretic map, and inverse to \(\Phi\). So \(\Phi\) is bijective.
+        \item We need a proposition
+        \begin{proposition}
+            Let \(X,Y\) be Hausdorff spaces, \(Z\) any space. Then the sets \(W(K'\times K, O)\) for \(K'\) compact in \(X\), \(K\) compact in \(Y\), \(O\) open in \(Z\) generate the compact-open topology on \(Z^{X \times Y}\).
+        \end{proposition}
+        This will be prooved next week.
+        For the proof of 3., by 1. and 2. \(\Phi\colon Z^{X\times Y} \to (Z^Y)^X\) is a continuous bijection, so it remains to show that it is an open map. By the Proposition it suffices to show that \(\Phi\) takes the open subsets \(W(K' \times K, O)\) to open subsets in \((Z^Y)^X\). But
+        \[\Phi(W(K'\times K, O)) = W(K', W(K,O))\]
+        which is open in the iterated compact-open topology of \((Z^Y)^X\).
+    \end{enumerate}
+\end{proof}
+
+
+
+
 
 
 
