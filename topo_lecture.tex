@@ -3486,7 +3486,7 @@ Important is the third part.
         \[X\times Y \xrightarrow{g \times Y} Z^Y \times Y \xrightarrow{\ev} Y\]
         so \(\ev \circ (g \times Y) \in Z^{X\times Y}\). So \((Z^Y)^X \to Z^{X\times Y}\), \(g \mapsto \ev \circ (g \times Y)\) is a well defined set-theoretic map, and inverse to \(\Phi\). So \(\Phi\) is bijective.
         \item We need a proposition
-        \begin{proposition}
+        \begin{proposition}\label{prop:kp}
             Let \(X,Y\) be Hausdorff spaces, \(Z\) any space. Then the sets \(W(K'\times K, O)\) for \(K'\) compact in \(X\), \(K\) compact in \(Y\), \(O\) open in \(Z\) generate the compact-open topology on \(Z^{X \times Y}\).
         \end{proposition}
         This will be prooved next week.
@@ -3496,7 +3496,93 @@ Important is the third part.
     \end{enumerate}
 \end{proof}
 
+\newLecture{14.07.2025}
 
+\begin{proof}[Proof of proposition \ref{prop:kp}]
+    Let \(L\) be a compact subset of \(X \times Y\), \(O \subseteq Z\) open. We must show that \(W(L,O)\) is open in the potentially smaller topology. We let \(f \in W(L,O)\). For every \((x,y) \in L\) we choose a product open neighborhood \((x,y) \in U_{x,y} \times V_{x,y} \subseteq f^{-1}(O)\), with \(U_{x,y}\) open in \(X\), \(V_{x,y}\) open in \(Y\). Set \(L_{X} \coloneq \) image of \(L\) under \(X\times Y \xrightarrow{\proj} X\) and \(L_Y\) analogue. These are compact subsets of \(X\) resp. \(Y\) because of the Hausdorff assumption. Since \(x \in U_{x,y} \cap L_X\) is a neighborhood of \(x\) in \(L_X\), so there is a compact neighborhood \(K_{x,y}\) of \(x\) in \(L_X\cap U_{x,y}\).Similarly we get \(K'_{x,y}\) of \(y\) in \(L_Y\). Then
+    \[\set{K_{x,y} \times K'_{x,y}}_{(x,y) \in L}\]
+    is a cover of \(L\), so there is a finite subset \(I\) of \(L\) such that
+    \[L = \bigcup_{(x,y) \in I}K_{x,y} \times K'_{x,y}\]
+    then \(f \in \bigcap_{(x,y) \in I} W(K_{x,y} \times K'_{x,y}, O) = W(L,O)\). So \(W(L,O)\) is open in the potentially smaller topology.
+\end{proof}
+
+\textbf{Remark.} \emph{(functoriality)} Let \(\alpha\colon Y' \to Y\), \(\beta\colon Z \to Z'\) be continuous maps. We define
+\[\alpha^*\colon Z^Y \to Z^{Y'}\]
+by \(\alpha^*(f) = f \circ \alpha\). And
+\[\beta_* \colon Z^Y \to (Z')^Y, \quad \beta_*(f) = \beta\circ f\]
+
+\begin{proposition}
+    \begin{enumerate}
+        \item If \(Y\) is Hausdorff, then \(\alpha^*\) is continuous.
+        \item \(\beta_*\) is always continuous.
+        \item The following commutes
+        \[\begin{tikzcd}
+            Z^Y \ar[r, "\alpha^*"] \ar[d, "\beta_*"] & Z^{Y'} \ar[d, "\beta_*"] \\
+            (Z')^Y \ar[r, "\alpha^*"] & (Z')^{Y'} \\
+        \end{tikzcd}\]
+        In other words, the assignment \((Y,Z) \mapsto Z^Y\) is extended to a functor
+        \[\mathbf{Top}_{Hd}^{Op} \times \mathbf{Top} \to \mathbf{Top}\]
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Was too lazy to copy.
+\end{proof}
+
+Last class of topology II. Exam starts at 8:30 so the people always late will also be there. Be there 10 minutes early please. Good luck.
+
+\section{Loop-spaces}
+
+\begin{thm}{Mapping spaces and fibrations}{}
+    Let \(Y\) be a locally compact CW-complex, \(B\subseteq Y\) subcomplex. Then for every space \(Z\), the map
+    \[\incl^*\colon Z^Y \to Z^B, \quad f \mapsto f\rvert_B\]
+    is a Serre-fibration.
+\end{thm}
+
+\begin{proof}
+    We show the HLP for \(D^n, n \geq 0\). We consider a lifting problem:
+    \[\begin{tikzcd}
+        D^n \times 0 \ar[d, "\incl"] \ar[r, "g"] & Z^Y \ar[d, "\incl^*"] \\
+        D^n \times [0,1] \ar[r, "\Phi"] & Z^B \\
+    \end{tikzcd}\]
+    We consider a liting problem. By the product-mapping-space adjuncction, the map \(g\) is adjoint to a continuous map
+    \[\hat g\colon D^n \times 0 \times Y \to Z, \quad \hat g(x,0,y) = g(x,0)(y)\]
+    and similarly \(\hat \Phi\). The commutativity of the squre is equivalent to the fact that
+    \[\hat g\rvert_{D^n \times 0 \times B} = \hat\Phi\rvert_{D^n \times [0,1] \times Y}\] so the define a continuous function \(\hat g\cup \hat \Phi\). Since \((D^n \times Y, D^n \times B)\) is a relative CW-complex, it has the HEP, this is a continuous extension \(K\colon D^n \times [0,1] \times Y \to Z\) of \(\hat g\cup \hat \Phi\). Adjoint to \(K\) is the continuous map \(K^b \colon D^n \times [0,1] \to Z^Y\), \(K^b(x,t)(y) = K(x,t,y)\). This solves the lifting problem.
+\end{proof}
+
+\begin{defi}{Loop Space}{}
+    Let \((Z, z_0)\) be a based space. The loop space is the space
+    \[\Omega Z= \set{w\colon [0,1] \to Z \mid w(0) = w(1) = z_0}\]
+    with the subspace topology of \(Z^{[0,1]}\).
+\end{defi}
+
+\textbf{Aim.} natural isomorphism \(\pi_n(\Omega Z, \const_{z_0}) \cong \pi_{n+1}(Z, z_0)\). \enquote{Looping shifts homotopy groups}.
+
+We write \(EZ = \set{z_0} \times_Z Z^{[0,1]} = \set{w\colon [0,1] \to Z \mid w(0) = z_0}\).
+
+\begin{proposition}
+    The space \(EZ\) is contractible to the constant path at \(z_0\). The map \(\ev_1\colon EZ \to Z, \ev_1(w) = w(1)\) is a Serre fibration.
+\end{proposition}
+
+\begin{proof}
+    For contractibility: We consider the homotopy \(H\colon [0,1] \times [0,1] \to [0,1]\) given by \(H(x,t) = x \cdot t\). Then \(H(\_, 0) = \const_0\) and \(H(\_, 1) = \Id\). \(H\) is relative to \(0\). We look at the composite
+    \[EZ = \set{z_0}\times_Z Z^{[0,1]} \hookrightarrow Z^{[0,1]} \to H^* Z^{[0,1] \times [0,1]} \cong (Z^{[0,1]})^{[0,1]}\]
+    Let \(H^b \colon EZ \times [0,1] \mapsto Z^[0,1]\) be the adjoint. Then
+    \[H^b(w, *) = \set{t \mapsto w(x\cdot t)}, 0 \mapsto w(0) = z_0\]
+    So the image of \(H^b\) lies in EZ.
+    So we can view \(H^b\) as a homotopy \(H^b \colon EZ \times [0,1] \to EZ\). And \(H^b(\_, 0) = \const_{z_0}, H^b(w,1) = w\), so \(H^b(\_,1) = \Id\). \(H^b(\const_{z_0}, t) = \const_{z_0}\). So \(EZ\) is contractible.
+
+    For Serre-fibration: \(Z^{[0,1]} \xrightarrow{\incl^*} Z^{\set{0,1}} \cong Z \times Z\) is a Serre fibration given by \(w \mapsto(w(0), w(1))\). We look at \(Z \mapsto Z\times Z\), \(z \mapsto (z_0, z)\). We use that Serre-fibration is stable under Pullback. The pullback is \(EZ\) and the map is \(\ev_1\).
+\end{proof}
+
+The loop space \(\Omega Z\) is the fiber of \(\ev_1\colon EZ \to Z\) over \(z_0\). So we get a long exact homotopy group sequence:
+\[\begin{tikzcd}
+    \pi_{n+1}(EZ, \const_{z_0}) \ar[r, "(\ev_1)_*"] & \pi_{n+1}(Z, z_0) \ar[r, "\partial"] & \pi_n(\Omega Z, \const_{z_0}) \ar[r, "\incl_*"] & \pi_n(EZ, \const) \\
+\end{tikzcd}\]
+So \(\partial\colon \pi_{n+1}(Z, z_0) \cong \pi_n(\Omega Z, \const_{z_0})\) is a isomorphism.
+
+End of the lecture
 
 
 
